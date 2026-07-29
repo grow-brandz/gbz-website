@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow non-SEO pages
+Disallow: /thankyou
+Disallow: /404
+
+# Sitemap location
+Sitemap: https://growbrandz.com/sitemap.xml
