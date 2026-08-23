@@ -1,5 +1,5 @@
 const BASE_URL =
-  "https://lightpink-duck-532990.hostingersite.com/wp-json/growbrandz/v1/";
+  "https://lightpink-duck-532990.hostingersite.com/wp-json/growbrandz/v1";
 
 /**
  * Generic API Call
