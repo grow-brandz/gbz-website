@@ -1,33 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getBookACallData } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import LottieLoop from "../components/lottiecomp";
 import Hero from "../assets/lotties/contactHero.json";
 import Divider from "../components/divider";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useSsrPageData } from "../hooks/useSsrPageData";
+import { PageSeo } from "../components/PageSeo";
 
 function Contact() {
-  const [contactData, setContactData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getBookACallData();
-
-        console.log("FULL RESPONSE =>", response);
-        console.log("RESPONSE.DATA =>", response.data);
-
-        setContactData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-  
+  const contactData = useSsrPageData("/contact", getBookACallData);
 
   const navigate = useNavigate();
 
@@ -92,36 +74,21 @@ function Contact() {
     }
   };
 
-  const instagramLink =
-    contactData?.form_content?.social_links?.links?.find(
-      (item) =>
-        item?.links?.title?.toLowerCase() === "instagram"
-    )?.links?.url;
-
-  const facebookLink =
-    contactData?.form_content?.social_links?.links?.find(
-      (item) =>
-        item?.links?.title?.toLowerCase() === "facebook"
-    )?.links?.url;
+  const bannerTitle =
+    contactData?.banner?.title || "Great Work Starts with a Hello";
 
   return (
     <>
-      <Helmet>
-        <title>Talk to an Ecommerce Growth Partner | Growbrandz</title>
-        <meta name="description"
-          content="Talk to an ecommerce growth partner to explore D2C marketing strategies, performance growth plans, and ecommerce growth consultation." />
-        <meta property="og:title" content="Talk to an Ecommerce Growth Partner | Growbrandz" />
-        <meta property="og:description"
-          content="Talk to an ecommerce growth partner to explore D2C marketing strategies, performance growth plans, and ecommerce growth consultation." />
-      </Helmet>
+      <PageSeo
+        title="Talk to an Ecommerce Growth Partner | Growbrandz"
+        description="Talk to an ecommerce growth partner to explore D2C marketing strategies, performance growth plans, and ecommerce growth consultation."
+        path="/contact"
+      />
 
       <main className="contactPage">
         <section className="container contactHero commonHero">
           <h1>
-            {contactData?.banner?.title
-              ?.replace(" a Hello", "")
-              ?.replace(" a hello", "")}
-
+            {bannerTitle.replace(" a Hello", "").replace(" a hello", "")}
             <div className="word">
               <svg
                 className="highlight-shape"
@@ -138,9 +105,9 @@ function Contact() {
               </svg>
 
               <span>
-                {contactData?.banner?.title?.includes(" a ")
-                  ? `a ${contactData.banner.title.split(" a ")[1]}`
-                  : ""}
+                {bannerTitle.includes(" a ")
+                  ? `a ${bannerTitle.split(" a ")[1]}`
+                  : "a Hello"}
               </span>
             </div>
           </h1>
@@ -173,7 +140,7 @@ function Contact() {
               <div className="buttons">
                 <a
                   className="button1"
-                  href={`mailto:${contactData?.form_content?.mail_id || ""}`}
+                  href={`mailto:${contactData?.form_content?.mail_id || "hello@growbrandz.com"}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -182,7 +149,7 @@ function Contact() {
 
                 <a
                   className="button1"
-                  href={`tel:${contactData?.form_content?.phone_number || ""}`}
+                  href={`tel:${contactData?.form_content?.phone_number || "918012005000"}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -199,8 +166,6 @@ function Contact() {
               </h6>
 
               <div className="buttons socialIcons">
-
-                {/* Instagram */}
                 {contactData?.form_content?.social_links?.links?.[0] && (
                   <a
                     className="button1"
@@ -217,7 +182,6 @@ function Contact() {
                   </a>
                 )}
 
-                {/* Facebook */}
                 {contactData?.form_content?.social_links?.links?.[1] && (
                   <a
                     className="button1"
@@ -416,7 +380,6 @@ function Contact() {
           gridStroke="#000000"
         />
       </main>
-
     </>
   );
 }

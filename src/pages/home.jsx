@@ -29,24 +29,15 @@ import Arrow from "../assets/lotties/right-arrow.json";
 import LottieLoop from "../components/lottiecomp";
 import Loader from "../components/loader";
 import { getHomeData } from "../services/api";
+import { useSsrPageData } from "../hooks/useSsrPageData";
+import { PageSeo } from "../components/PageSeo";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 function Home() {
-  const [homeData, setHomeData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getHomeData();
-        setHomeData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const homeData = useSsrPageData("/", getHomeData);
 
   useCardStack();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -467,6 +458,11 @@ function Home() {
   ];
 
 
+  const faqItems =
+    homeData?.have_questions?.question_and_answer?.length > 0
+      ? homeData.have_questions.question_and_answer
+      : faqData;
+
   const inactiveIcon = `
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="44" height="44" rx="22" fill="#EFECFD"/>
@@ -483,92 +479,65 @@ function Home() {
 
   return (
     <>
+      <PageSeo
+        title="D2C Marketing Agency for Ecommerce Sales Growth | Growbrandz"
+        description="Growbrandz is a D2C ecommerce marketing agency helping product brands scale digital sales through performance marketing, SEO, Shopify, and conversion-focused branding."
+        path="/"
+      />
       <Helmet>
-        <title>D2C Marketing Agency for Ecommerce Sales Growth | Growbrandz</title>
-        <meta name="description"
-          content="Growbrandz is a D2C ecommerce marketing agency helping product brands scale digital sales through performance marketing, SEO, Shopify, and conversion-focused branding." />
-        <meta property="og:title" content="D2C Marketing Agency for Ecommerce Sales Growth | Growbrandz" />
-        <meta property="og:description"
-          content="Growbrandz is a D2C ecommerce marketing agency helping product brands scale digital sales through performance marketing, SEO, Shopify, and conversion-focused branding." />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              "mainEntity": [
-                {
-                  "@type": "Question",
-                  "name": "Do you guarantee growth or results?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We do not promise overnight growth or unrealistic numbers. What we do guarantee is a clear strategy, transparent execution, and a performance driven approach focused on sustainable digital sales growth. Real ecommerce growth depends on multiple factors, and we work with you to improve the ones we can control."
-                  }
+              mainEntity: faqItems.map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
                 },
-                {
-                  "@type": "Question",
-                  "name": "What kind of brands do you usually work with?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We primarily work with D2C brands, ecommerce businesses, and founders who are serious about building long term online store growth. Whether you are launching, scaling, or fixing performance issues, we adapt our approach to your stage of growth."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How is Growbrandz different from other marketing agencies?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Most agencies focus on either creativity or performance. We focus on both. Our team blends branding, ecommerce marketing, and D2C performance marketing so that every decision supports conversions, retention, and revenue, not just aesthetics."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How long does it take to see results?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Timelines depend on your current setup, market, and goals. Some improvements can be seen within weeks, while meaningful ecommerce revenue growth typically takes a few months of consistent execution, testing, and optimization."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "Do you work as a one time project or long term partner?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We believe real growth happens through long term collaboration. While we do offer project based engagements, most brands work with us on an ongoing basis to continuously improve performance, scale campaigns, and adapt as the market evolves."
-                  }
-                }
-              ]
-            })
+              })),
+            }),
           }}
         />
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Grow Brandz",
-              "url": "https://growbrandz.com/",
-              "logo": "https://ik.imagekit.io/growbrandz/GROW%E2%80%A8BRANDZ.svg",
-              "contactPoint": {
+              name: "Growbrandz",
+              url: "https://growbrandz.com/",
+              logo: "https://ik.imagekit.io/growbrandz/GROW%E2%80%A8BRANDZ.svg",
+              contactPoint: {
                 "@type": "ContactPoint",
-                "telephone": "8012005000",
-                "contactType": "customer service",
-                "areaServed": "IN",
-                "availableLanguage": "en"
+                telephone: "+918012005000",
+                contactType: "customer service",
+                areaServed: "IN",
+                availableLanguage: "en",
               },
-              "sameAs": [
+              sameAs: [
                 "https://www.instagram.com/grow_brandz/",
                 "https://www.linkedin.com/company/growbrandz/",
-                "https://growbrandz.com/"
-              ]
-            })
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Growbrandz",
+              url: "https://growbrandz.com/",
+            }),
           }}
         />
       </Helmet>
-      {showLoader && <Loader />
-      }
+      {showLoader && <Loader />}
       <main className="homePage">
         {/* Hero */}
         <section className="container homeHero" ref={heroRef}>
@@ -1041,8 +1010,7 @@ function Home() {
           </p>
 
           <div className="FAQ">
-            {homeData?.have_questions?.question_and_answer?.map(
-              (item, index) => (
+            {faqItems.map((item, index) => (
                 <div
                   key={index}
                   className={`faqItem ${activeIndex === index ? "open" : ""
@@ -1068,8 +1036,7 @@ function Home() {
                     <p className="faqAnswer">{item.answer}</p>
                   )}
                 </div>
-              )
-            )}
+            ))}
           </div>
 
           <div className="bookCall">

@@ -3,35 +3,12 @@ import Divider from "../components/divider";
 import Hero from "../assets/lotties/approachHero.json";
 import Content1 from "../assets/lotties/traditional.json";
 import Content2 from "../assets/lotties/us.json";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import { useEffect, useState } from "react";
 import { getOurApproachData } from "../services/api";
+import { useSsrPageData } from "../hooks/useSsrPageData";
+import { PageSeo } from "../components/PageSeo";
 
 function OurApproach() {
-  const [pageData, setPageData] = useState(null);
-
-  useEffect(() => {
-    getOurApproachData()
-      .then((res) => {
-        console.log(res);
-        setPageData(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  const title = pageData?.banner?.title || "";
-
-  let normalText = "";
-  let highlightText = "";
-
-  if (title) {
-    const words = title.split(" ");
-    highlightText = words.slice(-2).join(" ");
-    normalText = words.slice(0, -2).join(" ");
-  }
+  const pageData = useSsrPageData("/our-approach", getOurApproachData);
 
   const approachHeading = pageData?.our_approach?.heading || "";
   const headingWords = approachHeading.split(" ");
@@ -42,57 +19,54 @@ function OurApproach() {
 
   const whyData = pageData?.why_choose_us?.why_choose_us_details || [];
   const heading = pageData?.why_choose_us?.heading || "";
-  
-   const vsData = pageData?.marketing_agency || {};
 
-    const traditional = vsData?.traditional_approach?.points || [];
-    const us = vsData?.growbrandz_approach?.points || [];
+  const vsData = pageData?.marketing_agency || {};
 
-    const headingText = vsData?.heading || "";
-    const keyword = "Marketing agency";
+  const headingText = vsData?.heading || "";
+  const keyword = "Marketing agency";
 
-    let beforeKeyword = headingText;
-    let afterKeyword = "";
+  let beforeKeyword = headingText;
+  let afterKeyword = "";
 
-    if (headingText.includes(keyword)) {
-      const index = headingText.indexOf(keyword);
-
-      beforeKeyword = headingText.substring(0, index);
-      afterKeyword = headingText.substring(index + keyword.length);
-    }
+  if (headingText.includes(keyword)) {
+    const index = headingText.indexOf(keyword);
+    beforeKeyword = headingText.substring(0, index);
+    afterKeyword = headingText.substring(index + keyword.length);
+  }
 
   return (
     <>
-      <Helmet>
-        <title>Strategic Ecommerce Growth Marketing Approach | Growbrandz</title>
-        <meta name="description"
-          content="A strategic ecommerce growth marketing approach focused on brand growth, scalable acquisition, and sustainable D2C revenue growth." />
-        <meta property="og:title" content="Strategic Ecommerce Growth Marketing Approach | Growbrandz" />
-        <meta property="og:description"
-          content="A strategic ecommerce growth marketing approach focused on brand growth, scalable acquisition, and sustainable D2C revenue growth." />
-      </Helmet>
+      <PageSeo
+        title="Strategic Ecommerce Growth Marketing Approach | Growbrandz"
+        description="A strategic ecommerce growth marketing approach focused on brand growth, scalable acquisition, and sustainable D2C revenue growth."
+        path="/our-approach"
+      />
       <main className="approachPage">
         <section className="container approachHero commonHero">
-          <h1>Why Brands <div className="word">
-            <svg
-              className="highlight-shape"
-              width="680"
-              height="125"
-              viewBox="0 0 680 125"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M0 30.8266L680 0V115.176L340 120.542L0 125V30.8266Z"
-                fill="#6842EF"
-              />
-            </svg>
+          <h1>
+            Why Brands{" "}
+            <div className="word">
+              <svg
+                className="highlight-shape"
+                width="680"
+                height="125"
+                viewBox="0 0 680 125"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0 30.8266L680 0V115.176L340 120.542L0 125V30.8266Z"
+                  fill="#6842EF"
+                />
+              </svg>
 
-            <span>choose us</span>
-          </div></h1>
-          <p>We follow a strategic marketing approach that helps founders scale with
-            confidence, combining a growth marketing approach with a long term brand
-            growth approach that actually works in the real world.</p>
+              <span>choose us</span>
+            </div>
+          </h1>
+          <p>
+            {pageData?.banner?.paragraph ||
+              "We follow a strategic marketing approach that helps founders scale with confidence, combining a growth marketing approach with a long term brand growth approach that actually works in the real world."}
+          </p>
           <LottieLoop animationData={Hero} className="commonHeroFloat approachHeroFloat" />
         </section>
         <Divider
@@ -198,7 +172,6 @@ function OurApproach() {
             {heading.split(" ").slice(2).join(" ")}
           </h2>
 
-          {/* ROW 1 */}
           <div className="columnCover">
             {whyData.slice(0, 3).map((item, index) => (
               <div className="column" key={index}>
@@ -215,7 +188,6 @@ function OurApproach() {
             ))}
           </div>
 
-          {/* ROW 2 */}
           <div className="columnCover">
             {whyData.slice(3, 6).map((item, index) => (
               <div className="column" key={index}>
@@ -232,9 +204,7 @@ function OurApproach() {
             ))}
           </div>
 
-          <p className="approachPara">
-            {pageData?.why_choose_us?.paragraph}
-          </p>
+          <p className="approachPara">{pageData?.why_choose_us?.paragraph}</p>
         </section>
         <Divider
           bgColor="#6842EF"
@@ -243,113 +213,109 @@ function OurApproach() {
           gridStroke="#000000"
         />
 
-       <section className="container theyVSus">
-        <h3>
-          {beforeKeyword}
+        <section className="container theyVSus">
+          <h3>
+            {beforeKeyword}
+            <div className="word">
+              <span className="word-text">{keyword}</span>
 
-          <div className="word">
-            <span className="word-text">{keyword}</span>
-
-            <svg
-              className="highlight-shape"
-              viewBox="0 0 680 125"
-              aria-hidden="true"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 30.8266L680 0V115.176L340 120.542L0 125V30.8266Z"
-                fill="#F46C5A"
-              />
-            </svg>
-          </div>
-
-          {afterKeyword}
-        </h3>
-
-        <div className="rowCover">
-          {/* Traditional */}
-          <div className="Column traditional">
-            <h4>{vsData?.traditional_approach?.title}</h4>
-
-            <div className="imageHalf">
               <svg
-                className="bgCover"
-                viewBox="0 0 477 131"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                className="highlight-shape"
+                viewBox="0 0 680 125"
+                aria-hidden="true"
+                preserveAspectRatio="none"
               >
                 <path
-                  d="M15.5004 115.492L68.767 74.2016C171.681 -5.57365 316.006 -3.87526 417.013 78.2997L461.5 114.492"
-                  stroke="#F46C5A"
-                  strokeWidth="31"
-                  strokeLinecap="round"
+                  d="M0 30.8266L680 0V115.176L340 120.542L0 125V30.8266Z"
+                  fill="#F46C5A"
                 />
               </svg>
-
-              <LottieLoop
-                animationData={Content1}
-                className="theyVSusLottie LottieThey"
-              />
             </div>
+            {afterKeyword}
+          </h3>
 
-            <div className="contentHalf">
-              {vsData?.traditional_approach?.points?.map((item, index) => (
-                <div className="contentLine" key={index}>
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
-                      fill="#F46C5A"
-                    />
-                  </svg>
-                  <p className="l">{item.points}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="rowCover">
+            <div className="Column traditional">
+              <h4>{vsData?.traditional_approach?.title}</h4>
 
-          <p className="l floater">VS</p>
+              <div className="imageHalf">
+                <svg
+                  className="bgCover"
+                  viewBox="0 0 477 131"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.5004 115.492L68.767 74.2016C171.681 -5.57365 316.006 -3.87526 417.013 78.2997L461.5 114.492"
+                    stroke="#F46C5A"
+                    strokeWidth="31"
+                    strokeLinecap="round"
+                  />
+                </svg>
 
-          {/* Us */}
-          <div className="Column us">
-            <h4>{vsData?.growbrandz_approach?.title}</h4>
-
-            <div className="imageHalf">
-              <svg
-                className="bgCover"
-                viewBox="0 0 477 131"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M461.502 15.5007L408.143 56.6716C305.051 136.216 160.73 134.194 59.9065 51.7926L15.5008 15.5006"
-                  stroke="#FFD703"
-                  strokeWidth="31"
-                  strokeLinecap="round"
+                <LottieLoop
+                  animationData={Content1}
+                  className="theyVSusLottie LottieThey"
                 />
-              </svg>
+              </div>
 
-              <LottieLoop
-                animationData={Content2}
-                className="theyVSusLottie LottieUs"
-              />
+              <div className="contentHalf">
+                {vsData?.traditional_approach?.points?.map((item, index) => (
+                  <div className="contentLine" key={index}>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+                        fill="#F46C5A"
+                      />
+                    </svg>
+                    <p className="l">{item.points}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="contentHalf">
-              {vsData?.growbrandz_approach?.points?.map((item, index) => (
-                <div className="contentLine" key={index}>
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M9.54961 18.0001L3.84961 12.3001L5.27461 10.8751L9.54961 15.1501L18.7246 5.9751L20.1496 7.4001L9.54961 18.0001Z"
-                      fill="#309A74"
-                    />
-                  </svg>
-                  <p className="l">{item.points}</p>
-                </div>
-              ))}
+            <p className="l floater">VS</p>
+
+            <div className="Column us">
+              <h4>{vsData?.growbrandz_approach?.title}</h4>
+
+              <div className="imageHalf">
+                <svg
+                  className="bgCover"
+                  viewBox="0 0 477 131"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M461.502 15.5007L408.143 56.6716C305.051 136.216 160.73 134.194 59.9065 51.7926L15.5008 15.5006"
+                    stroke="#FFD703"
+                    strokeWidth="31"
+                    strokeLinecap="round"
+                  />
+                </svg>
+
+                <LottieLoop
+                  animationData={Content2}
+                  className="theyVSusLottie LottieUs"
+                />
+              </div>
+
+              <div className="contentHalf">
+                {vsData?.growbrandz_approach?.points?.map((item, index) => (
+                  <div className="contentLine" key={index}>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9.54961 18.0001L3.84961 12.3001L5.27461 10.8751L9.54961 15.1501L18.7246 5.9751L20.1496 7.4001L9.54961 18.0001Z"
+                        fill="#309A74"
+                      />
+                    </svg>
+                    <p className="l">{item.points}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
         <Divider
           bgColor="#FFF2EC"

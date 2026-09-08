@@ -1,5 +1,3 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import LottieLoop from "../components/lottiecomp";
 import Divider from "../components/divider";
@@ -8,25 +6,12 @@ import PContent1 from "../assets/lotties/processcontentfloat1.json";
 import PContent2 from "../assets/lotties/processcontentfloat2.json";
 import Content1 from "../assets/lotties/sadprocess.json";
 import Content2 from "../assets/lotties/happyprocess.json";
-import { Helmet } from "react-helmet-async";
-import { useEffect, useState } from "react";
 import { getOurProcessData } from "../services/api";
+import { useSsrPageData } from "../hooks/useSsrPageData";
+import { PageSeo } from "../components/PageSeo";
 
 function OurProcess() {
-  const [pageData, setPageData] = useState(null);
-
-  useEffect(() => {
-    getOurProcessData()
-      .then((res) => {
-        console.log(res);
-
-        // Adjust according to your API response
-        setPageData(res.data?.data || res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  const pageData = useSsrPageData("/our-process", getOurProcessData);
 
   const bannerData = pageData?.banner || {};
   const ourProcessSection = pageData?.our_process || {};
@@ -66,18 +51,18 @@ const remainingText =
     : "";
   return (
     <>
-      <Helmet>
-        <title>Ecommerce Growth Strategy Process for D2C Brands | Growbrandz</title>
-        <meta name="description"
-          content="Our ecommerce growth strategy process combines market intelligence, growth marketing frameworks, and a proven D2C scaling process." />
-        <meta property="og:title" content="Ecommerce Growth Strategy Process for D2C Brands | Growbrandz" />
-        <meta property="og:description"
-          content="Our ecommerce growth strategy process combines market intelligence, growth marketing frameworks, and a proven D2C scaling process." />
-      </Helmet>
+      <PageSeo
+        title="Ecommerce Growth Strategy Process for D2C Brands | Growbrandz"
+        description="Our ecommerce growth strategy process combines market intelligence, growth marketing frameworks, and a proven D2C scaling process."
+        path="/our-process"
+      />
       <main className="processPage">
         <section className="container processHero commonHero">
           <h1>
-            {pageData?.banner?.title?.split(" ").slice(0, -1).join(" ")}{" "}
+            {(pageData?.banner?.title || "How We Build Brands")
+              .split(" ")
+              .slice(0, -1)
+              .join(" ")}{" "}
             <div className="word">
               <svg
                 className="highlight-shape"
@@ -94,13 +79,16 @@ const remainingText =
               </svg>
 
               <span>
-                {pageData?.banner?.title?.split(" ").slice(-1)}
+                {(pageData?.banner?.title || "How We Build Brands")
+                  .split(" ")
+                  .slice(-1)}
               </span>
             </div>
           </h1>
-          <p>We combine a proven ecommerce strategy framework,
-            a practical growth marketing framework, and a structured D2C scaling
-            process designed for long term results.</p>
+          <p>
+            {pageData?.banner?.paragraph ||
+              "We combine a proven ecommerce strategy framework, a practical growth marketing framework, and a structured D2C scaling process designed for long term results."}
+          </p>
           <LottieLoop animationData={Hero} className="commonHeroFloat processHeroFloat" />
         </section>
         <Divider
