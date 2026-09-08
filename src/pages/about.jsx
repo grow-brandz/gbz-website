@@ -96,10 +96,10 @@ function About() {
           </h2>
 
           <div className="container writeupCover">
-            {/* Paragraph 1 */}
+            {/* Paragraph 1 — span.word (not div) so markup stays valid inside <p> */}
             <p>
               It started with a{" "}
-              <div className="word">
+              <span className="word">
                 <span className="word-text">simple gap:</span>
                 <svg
                   className="highlight-shape"
@@ -112,20 +112,20 @@ function About() {
                     fill="#FFD703"
                   />
                 </svg>
-              </div>{" "}
+              </span>{" "}
               {pageData?.about?.paragraph?.[0]?.paragraph}
             </p>
 
-            {/* Paragraph 2 */}
-            <p className="line">
+            {/* Paragraph 2 — div.line: LottieLoop renders a <div> */}
+            <div className="line">
               <b>Our role is direct: </b>
               make it effortless for people to understand who you are and{" "}
               <LottieLoop animationData={Content1} className="aboutContent1" />{" "}
               <b>trust what you offer.</b>
-            </p>
+            </div>
 
             {/* Paragraph 3 */}
-            <p className="line">
+            <div className="line">
               From <b>D2C marketing</b> to conversion ready{" "}
               <LottieLoop animationData={Content2} className="aboutContent2" /> builds to
               sharp, modern communication, we help brands grow with confidence and{" "}
@@ -134,7 +134,7 @@ function About() {
                   ? "speak in a voice that truly resonates."
                   : "grow with clarity and impact."}
               </b>
-            </p>
+            </div>
           </div>
         </section>
 

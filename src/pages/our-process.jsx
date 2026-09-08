@@ -121,21 +121,21 @@ const remainingText =
               {pageData?.our_process?.paragraph?.[0]?.paragraph}
             </p>
 
-            <p className="line">
+            <div className="line">
               {pageData?.our_process?.paragraph?.[1]?.paragraph}
               <LottieLoop
                 animationData={PContent1}
                 className="processContent1"
               />
-            </p>
+            </div>
 
-            <p className="line">
+            <div className="line">
               {pageData?.our_process?.paragraph?.[2]?.paragraph}
               <LottieLoop
                 animationData={PContent2}
                 className="processContent2"
               />
-            </p>
+            </div>
           </div>
         </section>
 

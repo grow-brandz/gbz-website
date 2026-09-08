@@ -62,25 +62,27 @@ function Home() {
 
 
   useEffect(() => {
+    if (!homeData) return;
 
-      const initAnimations = setTimeout(() => {
+    const contexts = [];
 
+    const initAnimations = setTimeout(() => {
       const heroCtx = gsap.context(() => {
         gsap.delayedCall(1.5, () => {
           const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-          tl.to(".homeHero h1", {
+          tl.to("h1", {
             y: 0,
             opacity: 1,
             duration: 1.2,
           })
-            .to(".homeHero .word", {
+            .to(".word", {
               scale: 1,
               opacity: 1,
               duration: 1,
               ease: "back.out(1.7)",
             }, "-=0.8")
-            .to(".homeHero > p", {
+            .to(":scope > p", {
               y: 0,
               opacity: 1,
               duration: 1,
@@ -92,20 +94,19 @@ function Home() {
             .to(".heroFloat5", { opacity: 1, duration: 1 }, "-=0.9");
         });
       }, heroRef);
+      contexts.push(heroCtx);
 
-
-      // About Section Animations
       const aboutCtx = gsap.context(() => {
-        gsap.from(".homeAbout .word", {
+        gsap.from(".word", {
           scale: 0.7,
           opacity: 0,
           duration: 1,
           scrollTrigger: {
-            trigger: ".homeAbout h2",
+            trigger: "h2",
             start: "top 70%",
             end: "top 35%",
             scrub: 1,
-          }
+          },
         });
 
         gsap.from(".homeAboutFloat1", {
@@ -113,11 +114,11 @@ function Home() {
           opacity: 0,
           rotation: -20,
           scrollTrigger: {
-            trigger: ".homeAbout",
+            trigger: aboutRef.current,
             start: "top 70%",
             end: "top 30%",
             scrub: 1.5,
-          }
+          },
         });
 
         gsap.from(".homeAboutMain", {
@@ -128,47 +129,45 @@ function Home() {
             start: "top 80%",
             end: "top 40%",
             scrub: 1,
-          }
+          },
         });
 
-        gsap.from(".homeAbout h3", {
+        gsap.from("h3", {
           y: 60,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".homeAbout h3",
+            trigger: "h3",
             start: "top 80%",
             end: "top 45%",
             scrub: 1,
-          }
+          },
         });
 
-        gsap.from(".homeAbout > p", {
+        gsap.from(":scope > p", {
           y: 50,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".homeAbout > p",
+            trigger: ":scope > p",
             start: "top 85%",
             end: "top 50%",
             scrub: 1,
-          }
+          },
         });
       }, aboutRef);
+      contexts.push(aboutCtx);
 
-      // Services Section Animations
       const servicesCtx = gsap.context(() => {
-
-        gsap.from(".homeServices > p", {
+        gsap.from(":scope > p", {
           y: 50,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".homeServices > p",
+            trigger: ":scope > p",
             start: "top 80%",
             end: "top 45%",
             scrub: 1,
-          }
+          },
         });
 
-        // Animate each service list item
         gsap.from(".list", {
           y: 60,
           stagger: 0.15,
@@ -177,32 +176,32 @@ function Home() {
             start: "top 75%",
             end: "top 25%",
             scrub: 1.5,
-          }
+          },
         });
       }, servicesRef);
+      contexts.push(servicesCtx);
 
-      // Framework Section Animations
       const frameworkCtx = gsap.context(() => {
-        gsap.from(".homeFrameWork h2", {
+        gsap.from("h2", {
           y: 80,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".homeFrameWork",
+            trigger: frameworkRef.current,
             start: "top 75%",
             end: "top 35%",
             scrub: 1,
-          }
+          },
         });
 
         gsap.from(".headingDec", {
           scale: 0,
           rotation: 180,
           scrollTrigger: {
-            trigger: ".homeFrameWork h2",
+            trigger: "h2",
             start: "top 70%",
             end: "top 40%",
             scrub: 1,
-          }
+          },
         });
 
         gsap.from(".folderCard", {
@@ -214,25 +213,23 @@ function Home() {
             start: "top 75%",
             end: "top 30%",
             scrub: 1.5,
-          }
+          },
         });
       }, frameworkRef);
+      contexts.push(frameworkCtx);
 
-      // Why Section Animations - FIXED AND IMPROVED
       const whyCtx = gsap.context(() => {
-        // Animate heading
-        gsap.from(".homeWhy h2", {
+        gsap.from("h2", {
           y: 80,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".homeWhy h2",
+            trigger: "h2",
             start: "top 80%",
             end: "top 40%",
             scrub: 1,
-          }
+          },
         });
 
-        // Animate all boxes together first
         gsap.from(".box", {
           y: 100,
           opacity: 0,
@@ -243,10 +240,9 @@ function Home() {
             start: "top 80%",
             end: "top 30%",
             scrub: 1.5,
-          }
+          },
         });
 
-        // Individual floater animations with delays
         gsap.from(".boxOne .floater", {
           scale: 0,
           rotation: -180,
@@ -256,7 +252,7 @@ function Home() {
             start: "top 70%",
             end: "top 35%",
             scrub: 1.5,
-          }
+          },
         });
 
         gsap.from(".boxTwo .floater", {
@@ -267,7 +263,7 @@ function Home() {
             start: "top 70%",
             end: "top 35%",
             scrub: 1.5,
-          }
+          },
         });
 
         gsap.from(".boxThree .floater", {
@@ -278,7 +274,7 @@ function Home() {
             start: "top 70%",
             end: "top 35%",
             scrub: 1.5,
-          }
+          },
         });
 
         gsap.from(".boxFour .floater", {
@@ -290,81 +286,90 @@ function Home() {
             start: "top 70%",
             end: "top 35%",
             scrub: 1.5,
-          }
+          },
         });
       }, whyRef);
+      contexts.push(whyCtx);
 
-      // Marquee Section Animations - Remove context scope since no container class
       const marqueeCtx = gsap.context(() => {
-        gsap.to(".marqueeCover .rowOne", {
+        gsap.to(".rowOne", {
           x: -500,
           scrollTrigger: {
-            trigger: ".marqueeCover",
+            trigger: marqueeRef.current,
             start: "top bottom",
             end: "bottom top",
             scrub: 2,
-          }
+          },
         });
 
-        gsap.to(".marqueeCover .rowTwo", {
+        gsap.to(".rowTwo", {
           x: 500,
           scrollTrigger: {
-            trigger: ".marqueeCover",
+            trigger: marqueeRef.current,
             start: "top bottom",
             end: "bottom top",
             scrub: 2,
-          }
+          },
         });
-      }); // Remove marqueeRef parameter
+      }, marqueeRef);
+      contexts.push(marqueeCtx);
 
-      // CEO Section Animations - Use document scope
       const ceoCtx = gsap.context(() => {
-        gsap.from(".ceoSection .imageSide", {
+        gsap.from(".imageSide", {
           x: -100,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".ceoSection",
+            trigger: ceoRef.current,
             start: "top 75%",
             end: "top 30%",
             scrub: 1.5,
-          }
+          },
         });
 
-        gsap.from(".ceoSection .contentSide", {
+        gsap.from(".contentSide", {
           x: 100,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".ceoSection",
+            trigger: ceoRef.current,
             start: "top 75%",
             end: "top 30%",
             scrub: 1.5,
-          }
+          },
         });
 
-        gsap.from([".homeceoExtra1", ".homeceoExtra2", ".homeceoExtra3", ".homeceoExtra4", ".homeceoExtra5"], {
-          scale: 0,
-          opacity: 0,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: ".ceoSection",
-            start: "top 60%",
-            end: "top 20%",
-            scrub: 2,
+        gsap.from(
+          [
+            ".homeceoExtra1",
+            ".homeceoExtra2",
+            ".homeceoExtra3",
+            ".homeceoExtra4",
+            ".homeceoExtra5",
+          ],
+          {
+            scale: 0,
+            opacity: 0,
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: ceoRef.current,
+              start: "top 60%",
+              end: "top 20%",
+              scrub: 2,
+            },
           }
-        });
-      });
+        );
+      }, ceoRef);
+      contexts.push(ceoCtx);
 
-      // FAQ Section Animations
       const faqCtx = gsap.context(() => {
-        gsap.from(".homeFAQ h2", {
+        gsap.from("h2", {
           y: 80,
           opacity: 0,
           scrollTrigger: {
-            trigger: ".homeFAQ",
+            trigger: faqRef.current,
             start: "top 75%",
             end: "top 35%",
             scrub: 1,
-          }
+          },
         });
 
         gsap.from(".headingPara", {
@@ -375,7 +380,7 @@ function Home() {
             start: "top 80%",
             end: "top 45%",
             scrub: 1,
-          }
+          },
         });
 
         gsap.from(".faqItem", {
@@ -387,7 +392,7 @@ function Home() {
             start: "top 75%",
             end: "top 30%",
             scrub: 1.5,
-          }
+          },
         });
 
         gsap.from(".bookCall", {
@@ -398,32 +403,19 @@ function Home() {
             start: "top 80%",
             end: "top 45%",
             scrub: 1,
-          }
+          },
         });
       }, faqRef);
+      contexts.push(faqCtx);
 
-      // Refresh ScrollTrigger after all animations are set up
       ScrollTrigger.refresh();
-
-      // Store contexts for cleanup
-      return () => {
-        heroCtx.revert();
-        aboutCtx.revert();
-        servicesCtx.revert();
-        frameworkCtx.revert();
-        whyCtx.revert();
-        marqueeCtx.revert();
-        ceoCtx.revert();
-        faqCtx.revert();
-      };
     }, 100);
 
-    // Cleanup function
     return () => {
       clearTimeout(initAnimations);
+      contexts.forEach((ctx) => ctx.revert());
     };
-  }, []);
-
+  }, [homeData]);
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
