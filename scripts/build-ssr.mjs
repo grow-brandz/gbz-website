@@ -42,6 +42,13 @@ fs.copyFileSync(clientIndex, serverTemplate);
 // Remove client index so Netlify does not serve empty CSR shell for /
 fs.unlinkSync(clientIndex);
 
+const serverPackageJson = path.join(root, "dist/server/package.json");
+
+fs.writeFileSync(
+  serverPackageJson,
+  JSON.stringify({ type: "module" }, null, 2)
+);
+
 console.log("SSR build complete:");
 console.log("  dist/client  (static assets)");
 console.log("  dist/server  (entry-server.js + template.html)");
