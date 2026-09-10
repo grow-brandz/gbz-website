@@ -61,51 +61,56 @@ function Home() {
 
     let gsap;
     let ScrollTrigger;
-  
+    let contexts = [];
+    let initAnimations;
+    let cancelled = false;
+
     const loadGsap = async () => {
       const gsapModule = await import("gsap");
       const scrollTriggerModule = await import("gsap/ScrollTrigger");
-  
+
+      if (cancelled) return;
+
       gsap = gsapModule.gsap || gsapModule.default;
       ScrollTrigger =
         scrollTriggerModule.ScrollTrigger ||
         scrollTriggerModule.default?.ScrollTrigger;
-  
+
       if (!gsap || !ScrollTrigger) return;
-  
+
       gsap.registerPlugin(ScrollTrigger);
-  
-      const contexts = [];
 
-    const initAnimations = setTimeout(() => {
-      const heroCtx = gsap.context(() => {
-        gsap.delayedCall(1.5, () => {
-          const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      initAnimations = setTimeout(() => {
+        if (cancelled) return;
 
-          tl.to("h1", {
-            y: 0,
-            opacity: 1,
-            duration: 1.2,
-          })
-            .to(".word", {
-              scale: 1,
-              opacity: 1,
-              duration: 1,
-              ease: "back.out(1.7)",
-            }, "-=0.8")
-            .to(":scope > p", {
+        const heroCtx = gsap.context(() => {
+          gsap.delayedCall(1.5, () => {
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            tl.to("h1", {
               y: 0,
               opacity: 1,
-              duration: 1,
-            }, "-=0.6")
-            .to(".heroFloat1", { opacity: 1, duration: 1 }, "-=0.8")
-            .to(".heroFloat2", { opacity: 1, duration: 1 }, "-=0.9")
-            .to(".heroFloat3", { opacity: 1, duration: 1 }, "-=0.9")
-            .to(".heroFloat4", { opacity: 1, duration: 1 }, "-=0.9")
-            .to(".heroFloat5", { opacity: 1, duration: 1 }, "-=0.9");
-        });
-      }, heroRef);
-      contexts.push(heroCtx);
+              duration: 1.2,
+            })
+              .to(".word", {
+                scale: 1,
+                opacity: 1,
+                duration: 1,
+                ease: "back.out(1.7)",
+              }, "-=0.8")
+              .to(":scope > p", {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+              }, "-=0.6")
+              .to(".heroFloat1", { opacity: 1, duration: 1 }, "-=0.8")
+              .to(".heroFloat2", { opacity: 1, duration: 1 }, "-=0.9")
+              .to(".heroFloat3", { opacity: 1, duration: 1 }, "-=0.9")
+              .to(".heroFloat4", { opacity: 1, duration: 1 }, "-=0.9")
+              .to(".heroFloat5", { opacity: 1, duration: 1 }, "-=0.9");
+          });
+        }, heroRef);
+        contexts.push(heroCtx);
 
       const aboutCtx = gsap.context(() => {
         gsap.from(".word", {
@@ -420,13 +425,17 @@ function Home() {
       contexts.push(faqCtx);
 
       ScrollTrigger.refresh();
-    }, 100);
+      }, 100);
+    };
+
+    loadGsap();
 
     return () => {
+      cancelled = true;
       clearTimeout(initAnimations);
       contexts.forEach((ctx) => ctx.revert());
     };
-}}, [homeData]);
+  }, [homeData]);
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
