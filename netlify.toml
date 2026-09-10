@@ -6,8 +6,16 @@
 [functions]
   node_bundler = "esbuild"
   included_files = ["dist/server/**"]
-  external_node_modules = ["react", "react-dom", "react-router-dom", "react-helmet-async"]
-
+  external_node_modules = [
+    "react",
+    "react-dom",
+    "react-router-dom",
+    "react-helmet-async",
+    "lottie-web",
+    "lottie-react",
+    "gsap",
+    "lenis"
+  ]
 # Existing files in publish (assets, robots.txt, sitemap.xml) are served first.
 # index.html is removed from dist/client during build so "/" hits SSR.
 [[redirects]]
