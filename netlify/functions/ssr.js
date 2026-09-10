@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const functionDir = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Netlify serverless SSR handler.
@@ -15,9 +15,8 @@ export async function handler(event) {
       ? new URL(event.rawUrl).pathname + (new URL(event.rawUrl).search || "")
       : event.path || "/";
 
-    const templatePath = path.resolve(__dirname, "../../dist/server/template.html");
-    const serverEntry = path.resolve(__dirname, "../../dist/server/entry-server.js");
-
+      const templatePath = path.resolve(functionDir, "../../dist/server/template.html");
+      const serverEntry = path.resolve(functionDir, "../../dist/server/entry-server.js");
     const template = fs.readFileSync(templatePath, "utf-8");
     const { render, getServerData, serializeState } = await import(
       pathToFileURL(serverEntry).href
