@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { getBookACallData } from "../services/api";
 import { useNavigate } from "react-router-dom";
-import emailjs from "@emailjs/browser";
 import LottieLoop from "../components/lottiecomp";
 import Hero from "../assets/lotties/contactHero.json";
 import Divider from "../components/divider";
@@ -46,12 +45,13 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsSubmitting(true);
     setSubmitStatus(null);
-
+  
     try {
-      await emailjs.send(
+      const emailjs = await import("@emailjs/browser");
+  
+      await emailjs.default.send(
         "service_teqp124",
         "template_k64xppp",
         {
