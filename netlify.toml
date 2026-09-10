@@ -4,7 +4,7 @@
   functions = "netlify/functions"
 
 [functions]
-  node_bundler = "nft"
+  node_bundler = "esbuild"
   included_files = ["dist/server/**"]
 
 # Existing files in publish (assets, robots.txt, sitemap.xml) are served first.

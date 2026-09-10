@@ -9,7 +9,6 @@ export async function handler(event) {
         (new URL(event.rawUrl).search || "")
       : event.path || "/";
 
-    // Netlify functions are deployed under /var/task.
     const templatePath = path.resolve(
       process.cwd(),
       "dist/server/template.html"
@@ -27,7 +26,6 @@ export async function handler(event) {
     );
 
     const initialData = await getServerData(url);
-
     const { html, helmet } = await render(url, initialData);
 
     const head = `
