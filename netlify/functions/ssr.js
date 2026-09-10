@@ -1,28 +1,33 @@
-import { pathToFileURL } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { pathToFileURL } from "node:url";
 
-const functionDir = path.dirname(fileURLToPath(import.meta.url));
-
-/**
- * Netlify serverless SSR handler.
- * Serves the same render pipeline as Express production.
- */
 export async function handler(event) {
   try {
     const url = event.rawUrl
-      ? new URL(event.rawUrl).pathname + (new URL(event.rawUrl).search || "")
+      ? new URL(event.rawUrl).pathname +
+        (new URL(event.rawUrl).search || "")
       : event.path || "/";
 
-      const templatePath = path.resolve(functionDir, "../../dist/server/template.html");
-      const serverEntry = path.resolve(functionDir, "../../dist/server/entry-server.js");
+    // Netlify functions are deployed under /var/task.
+    const templatePath = path.resolve(
+      process.cwd(),
+      "dist/server/template.html"
+    );
+
+    const serverEntry = path.resolve(
+      process.cwd(),
+      "dist/server/entry-server.js"
+    );
+
     const template = fs.readFileSync(templatePath, "utf-8");
+
     const { render, getServerData, serializeState } = await import(
       pathToFileURL(serverEntry).href
     );
 
     const initialData = await getServerData(url);
+
     const { html, helmet } = await render(url, initialData);
 
     const head = `
@@ -51,9 +56,12 @@ export async function handler(event) {
     };
   } catch (error) {
     console.error("[Netlify SSR]", error);
+
     return {
       statusCode: 500,
-      headers: { "Content-Type": "text/plain" },
+      headers: {
+        "Content-Type": "text/plain",
+      },
       body: "Internal Server Error",
     };
   }
