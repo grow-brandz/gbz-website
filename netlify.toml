@@ -12,7 +12,8 @@
     "react-router-dom",
     "react-helmet-async",
     "lottie-web",
-    "lottie-react"
+    "lottie-react",
+    "gsap"
   ]
 # Existing files in publish (assets, robots.txt, sitemap.xml) are served first.
 # index.html is removed from dist/client during build so "/" hits SSR.

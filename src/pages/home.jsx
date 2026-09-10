@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Helmet } from "react-helmet-async";
 import useCardStack from "../components/cardstack";
 import Divider from "../components/divider";
@@ -32,9 +30,6 @@ import { getHomeData } from "../services/api";
 import { useSsrPageData } from "../hooks/useSsrPageData";
 import { PageSeo } from "../components/PageSeo";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 function Home() {
   const homeData = useSsrPageData("/", getHomeData);
@@ -62,9 +57,25 @@ function Home() {
 
 
   useEffect(() => {
-    if (!homeData) return;
+    if (!homeData || typeof window === "undefined") return;
 
-    const contexts = [];
+    let gsap;
+    let ScrollTrigger;
+  
+    const loadGsap = async () => {
+      const gsapModule = await import("gsap");
+      const scrollTriggerModule = await import("gsap/ScrollTrigger");
+  
+      gsap = gsapModule.gsap || gsapModule.default;
+      ScrollTrigger =
+        scrollTriggerModule.ScrollTrigger ||
+        scrollTriggerModule.default?.ScrollTrigger;
+  
+      if (!gsap || !ScrollTrigger) return;
+  
+      gsap.registerPlugin(ScrollTrigger);
+  
+      const contexts = [];
 
     const initAnimations = setTimeout(() => {
       const heroCtx = gsap.context(() => {
@@ -415,7 +426,7 @@ function Home() {
       clearTimeout(initAnimations);
       contexts.forEach((ctx) => ctx.revert());
     };
-  }, [homeData]);
+}}, [homeData]);
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
