@@ -15,8 +15,52 @@
     "lottie-react",
     "gsap"
   ]
-# Existing files in publish (assets, robots.txt, sitemap.xml) are served first.
-# index.html is removed from dist/client during build so "/" hits SSR.
+
+# Force HTML routes through SSR so a leftover index.html cannot shadow "/"
+# (Netlify serves publish files before non-forced redirects).
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/about"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/our-process"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/our-approach"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+# Remaining routes (blog posts, 404, etc.) — static assets still win when present.
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/ssr"

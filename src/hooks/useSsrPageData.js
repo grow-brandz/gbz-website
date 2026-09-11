@@ -4,19 +4,20 @@ import { unwrapApi } from "../ssr/unwrapApi.js";
 
 /**
  * Use SSR-injected page data for the matching route; otherwise fetch once on the client.
- * Skips immediate refetch after hydration when SSR data is present.
+ * Skips refetch after hydration when SSR returned real CMS data.
+ * If SSR used a timeout fallback, paint immediately then upgrade from the client fetch.
  */
 export function useSsrPageData(routePath, fetcher) {
   const initial = useInitialData();
-  const hasSsrData =
-    initial?.path === routePath && initial?.pageData != null;
+  const ssrMatches = initial?.path === routePath && initial?.pageData != null;
+  const hasCompleteSsr = ssrMatches && !initial?.usedFallback && !initial?.error;
 
   const [pageData, setPageData] = useState(
-    hasSsrData ? initial.pageData : null
+    ssrMatches ? initial.pageData : null
   );
 
   useEffect(() => {
-    if (hasSsrData) return;
+    if (hasCompleteSsr) return;
 
     let cancelled = false;
 
@@ -31,7 +32,7 @@ export function useSsrPageData(routePath, fetcher) {
     return () => {
       cancelled = true;
     };
-  }, [hasSsrData, fetcher, routePath]);
+  }, [hasCompleteSsr, fetcher, routePath]);
 
   return pageData;
 }

@@ -44,11 +44,16 @@ export async function handler(event) {
       .replace("<!--app-html-->", html)
       .replace("</body>", `${stateScript}</body>`);
 
+    // CDN can reuse HTML briefly so repeat visits skip the slow Hostinger wait.
+    const cacheControl = initialData?.error
+      ? "public, max-age=0, must-revalidate"
+      : "public, s-maxage=120, stale-while-revalidate=600";
+
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Cache-Control": cacheControl,
       },
       body: documentHtml,
     };

@@ -42,6 +42,11 @@ fs.copyFileSync(clientIndex, serverTemplate);
 // Remove client index so Netlify does not serve empty CSR shell for /
 fs.unlinkSync(clientIndex);
 
+if (fs.existsSync(clientIndex)) {
+  console.error("Failed to remove dist/client/index.html — Netlify would skip SSR");
+  process.exit(1);
+}
+
 const serverPackageJson = path.join(root, "dist/server/package.json");
 
 fs.writeFileSync(
