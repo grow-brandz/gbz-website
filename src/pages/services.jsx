@@ -9,74 +9,35 @@ import S4 from "../assets/lotties/s4.json";
 import S5 from "../assets/lotties/s5.json";
 import S6 from "../assets/lotties/s6.json";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import { useEffect, useState } from "react";
 import { getServicesData } from "../services/api";
+import { useSsrPageData } from "../hooks/useSsrPageData";
+import { PageSeo } from "../components/PageSeo";
 
 function Services() {
-  const [pageData, setPageData] = useState(null);
-
-  useEffect(() => {
-    getServicesData()
-      .then((res) => {
-        console.log(res);
-        setPageData(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  const pageData = useSsrPageData("/services", getServicesData);
 
   useCardStack();
 
-  if (!pageData) {
-    return <div>Loading...</div>;
-  }
-
   const banner = pageData?.banner;
   const specialize = pageData?.growbrandz_specializes;
-
   const serviceAnimations = [S1, S2, S3, S4, S5, S6];
 
-  const bannerTitle = banner?.title || "";
-
-  let normalText = "";
-  let highlightText = "";
-
-  if (bannerTitle) {
-    const words = bannerTitle.split(" ");
-    highlightText = words.slice(-1).join(" ");
-    normalText = words.slice(0, -1).join(" ");
-  }
+  const bannerTitle = banner?.title || "Result driven agency";
+  const words = bannerTitle.split(" ");
+  const highlightText = words.slice(-1).join(" ");
+  const normalText = words.slice(0, -1).join(" ");
 
   return (
     <>
-      <Helmet>
-        <title>
-          D2C Ecommerce Marketing Services for Scalable Growth | Growbrandz
-        </title>
-
-        <meta
-          name="description"
-          content="End-to-end D2C ecommerce marketing services including performance marketing, WhatsApp marketing, D2C website optimisation, and revenue growth strategies."
-        />
-
-        <meta
-          property="og:title"
-          content="D2C Ecommerce Marketing Services for Scalable Growth | Growbrandz"
-        />
-
-        <meta
-          property="og:description"
-          content="End-to-end D2C ecommerce marketing services including performance marketing, WhatsApp marketing, D2C website optimisation, and revenue growth strategies."
-        />
-      </Helmet>
+      <PageSeo
+        title="D2C Ecommerce Marketing Services for Scalable Growth | Growbrandz"
+        description="End-to-end D2C ecommerce marketing services including performance marketing, WhatsApp marketing, D2C website optimisation, and revenue growth strategies."
+        path="/services"
+      />
 
       <main className="servicesPage">
         <section className="container servicesHero commonHero">
-          <span className="sr-only">
-            D2C Ecommerce Marketing Services
-          </span>
+          <span className="sr-only">D2C Ecommerce Marketing Services</span>
 
           <h1>
             {normalText}{" "}

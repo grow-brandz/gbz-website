@@ -1,9 +1,77 @@
+[build]
+  command = "npm run build"
+  publish = "dist/client"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["dist/server/**"]
+  external_node_modules = [
+    "react",
+    "react-dom",
+    "react-router-dom",
+    "react-helmet-async",
+    "lottie-web",
+    "lottie-react",
+    "gsap"
+  ]
+
+# Force HTML routes through SSR so a leftover index.html cannot shadow "/"
+# (Netlify serves publish files before non-forced redirects).
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/about"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/our-process"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/our-approach"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = true
+
+# Remaining routes (blog posts, 404, etc.) — static assets still win when present.
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/ssr"
   status = 200
 
-  [[headers]]
+[[headers]]
   for = "/assets/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"

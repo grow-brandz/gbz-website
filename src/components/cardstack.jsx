@@ -1,68 +1,116 @@
 import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+
+
 
 export default function useCardStack() {
   useEffect(() => {
-    const isMobile = window.innerWidth < 766;
-    const isServicesPage = document.querySelector(".servicesPage");
-
-    if (isMobile && isServicesPage) return;
-    const initAnimation = () => {
-      const container = document.querySelector(".folderCover");
-      const cards = gsap.utils.toArray(".folderCard");
-
-      if (!container || cards.length === 0) {
-        console.warn("Container or cards not found");
-        return;
-      }
-
-      // Set initial state - ALL cards start below viewport
-      cards.forEach((card, i) => {
-        gsap.set(card, {
-          yPercent: i === 0 ? 0 : 100,
-          zIndex: cards.length + i  // First card gets highest z-index
-        });
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: "center center",
-          end: () => `+=${(cards.length - 1) * window.innerHeight}`, // Reduced scroll length
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          markers: false,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // Animate each card sliding up
-      cards.forEach((card, i) => {
-        if (i > 0) {
-          tl.to(card, {
-            yPercent: 0,
-            duration: 1,
-            ease: "power2.inOut"
-          }, (i - 1) * 1); // Start each animation earlier for smoother overlap
+    if (typeof window === "undefined") return;
+  
+    let tl = null;
+    let intervalId = null;
+    let gsap = null;
+  
+    const init = async () => {
+      const gsapModule = await import("gsap");
+      const scrollTriggerModule = await import("gsap/ScrollTrigger");
+  
+      gsap = gsapModule.gsap || gsapModule.default;
+  
+      const ScrollTrigger =
+        scrollTriggerModule.ScrollTrigger ||
+        scrollTriggerModule.default?.ScrollTrigger;
+  
+      if (!gsap || !ScrollTrigger) return;
+  
+      gsap.registerPlugin(ScrollTrigger);
+  
+      const isMobile = window.innerWidth < 766;
+      const isServicesPage = document.querySelector(".servicesPage");
+  
+      if (isMobile && isServicesPage) return;
+  
+      let attempts = 0;
+      const maxAttempts = 30;
+  
+      const initAnimation = () => {
+        const container = document.querySelector(".folderCover");
+        const cards = gsap.utils.toArray(".folderCard");
+  
+        if (!container || cards.length === 0) {
+          return false;
         }
-      });
-
-      // Add a small pause at the end so last card doesn't stick
-      tl.to({}, { duration: 0.5 });
+  
+        cards.forEach((card, i) => {
+          gsap.set(card, {
+            yPercent: i === 0 ? 0 : 100,
+            zIndex: cards.length + i,
+          });
+        });
+  
+        tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "center center",
+            end: () => `+=${(cards.length - 1) * window.innerHeight}`,
+            scrub: 1,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            markers: false,
+            invalidateOnRefresh: true,
+          },
+        });
+  
+        cards.forEach((card, i) => {
+          if (i > 0) {
+            tl.to(
+              card,
+              {
+                yPercent: 0,
+                duration: 1,
+                ease: "power2.inOut",
+              },
+              (i - 1) * 1
+            );
+          }
+        });
+  
+        tl.to({}, { duration: 0.5 });
+  
+        return true;
+      };
+  
+      intervalId = setInterval(() => {
+        attempts += 1;
+  
+        if (initAnimation() || attempts >= maxAttempts) {
+          clearInterval(intervalId);
+  
+          if (attempts >= maxAttempts && !tl) {
+            console.warn("Container or cards not found");
+          }
+        }
+      }, 100);
     };
-
-    const timeoutId = setTimeout(initAnimation, 100);
-
+  
+    init();
+  
     return () => {
-      clearTimeout(timeoutId);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+  
       try {
-        ScrollTrigger.getAll().forEach((st) => st.kill());
-        gsap.killTweensOf(".folderCard");
+        if (tl) {
+          tl.scrollTrigger?.kill();
+          tl.kill();
+          tl = null;
+        }
+  
+        if (gsap) {
+          gsap.killTweensOf(".folderCard");
+        }
       } catch (e) {
         console.error("Cleanup error:", e);
       }
