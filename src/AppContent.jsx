@@ -7,9 +7,14 @@ import ScrollReset from "./components/ScrollReset.jsx";
 import CommonHeroAnimation from "./components/CommonHeroAnimation.jsx";
 
 import AppRoutes from "./AppRoutes.jsx";
+import { loadBlogPosts } from "./services/blogApi.js";
 
 function AppContent() {
   const [lenis, setLenis] = useState(null);
+
+  useEffect(() => {
+    loadBlogPosts().catch(() => {});
+  }, []);
 
   useEffect(() => {
     const l = new Lenis({

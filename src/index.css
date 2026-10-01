@@ -389,6 +389,11 @@ body:has(.approachPage) header .menu a.lapproach {
   color: var(--secondary);
 }
 
+body:has(.blogPage, .blogInnerPage) header .menu a.lblog {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
 body:has(.contactPage) header .menu a.lcontact {
   background: var(--primary);
   color: var(--secondary);
@@ -2765,6 +2770,10 @@ body:has(.extraPage) header.header.visible {
 
   header .mobileMenu.open a:nth-child(8) {
     transition-delay: 0.45s;
+  }
+
+  header .mobileMenu.open a:nth-child(9) {
+    transition-delay: 0.5s;
   }
 
   header .mobileMenu .menuCover .close {
