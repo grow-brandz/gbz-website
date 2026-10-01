@@ -6,6 +6,7 @@ import {
   getOurApproachData,
   getBookACallData,
 } from "../services/api.js";
+import { getBlogPageData } from "../services/blogApi.js";
 import { unwrapApi } from "./unwrapApi.js";
 import { SEO_FALLBACKS } from "./seoFallbacks.js";
 
@@ -16,6 +17,7 @@ const ROUTE_LOADERS = {
   "/services": getServicesData,
   "/our-approach": getOurApproachData,
   "/contact": getBookACallData,
+  "/blog": getBlogPageData,
 };
 
 export function normalizePath(url = "/") {

@@ -1,54 +1,46 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import BlogCard from "../components/blogCard";
-
-const WORDPRESS_API =
-  "https://lightpink-duck-532990.hostingersite.com/wp-json/wp/v2/posts?_embed&per_page=12";
+import { useInitialData } from "../ssr/InitialDataContext.jsx";
+import { getCachedBlogPosts, loadBlogPosts } from "../services/blogApi.js";
 
 function Blog() {
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const initial = useInitialData();
+  const ssrPosts =
+    initial?.path === "/blog" && Array.isArray(initial.pageData)
+      ? initial.pageData
+      : null;
+
+  const [blogPosts, setBlogPosts] = useState(
+    () => ssrPosts || getCachedBlogPosts() || [],
+  );
   const [error, setError] = useState(false);
+  const [settled, setSettled] = useState(
+    () => Boolean((ssrPosts || getCachedBlogPosts())?.length),
+  );
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        setLoading(true);
-        setError(false);
+    if (settled) return;
 
-        const response = await fetch(WORDPRESS_API);
+    let cancelled = false;
 
-        if (!response.ok) {
-          throw new Error(`Blog API Error: ${response.status}`);
-        }
-
-        const posts = await response.json();
-
-        const formattedPosts = posts.map((post) => ({
-          id: post.id,
-          slug: post.slug,
-          title: post.title?.rendered || "",
-          excerpt: post.excerpt?.rendered || "",
-          content: post.content?.rendered || "",
-          date: post.date,
-          link: `/blog/${post.slug}`,
-          image:
-            post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "",
-          category:
-            post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog",
-        }));
-
-        setBlogPosts(formattedPosts);
-      } catch (err) {
+    loadBlogPosts()
+      .then((posts) => {
+        if (cancelled) return;
+        setBlogPosts(posts);
+        setSettled(true);
+      })
+      .catch((err) => {
         console.error("Error fetching blogs:", err);
+        if (cancelled) return;
         setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
+        setSettled(true);
+      });
 
-    fetchBlogs();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [settled]);
 
   return (
     <>
@@ -107,16 +99,11 @@ function Blog() {
         <section className="container blogGrid">
           <div className="blogGridCover">
 
-            {loading && (
-              <p>Loading blogs...</p>
-            )}
-
             {error && (
               <p>Unable to load blogs. Please try again.</p>
             )}
 
-            {!loading &&
-              !error &&
+            {!error &&
               blogPosts.map((post) => (
                 <BlogCard
                   key={post.id}
@@ -124,7 +111,7 @@ function Blog() {
                 />
               ))}
 
-            {!loading &&
+            {settled &&
               !error &&
               blogPosts.length === 0 && (
                 <p>No blogs published yet.</p>
