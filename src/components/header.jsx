@@ -52,7 +52,6 @@ function Header() {
         <Link className="lprocess" to="/our-process">Our Process</Link>
         <Link className="lservices" to="/services">Services</Link>
         <Link className="lapproach" to="/our-approach">Our Approach</Link>
-        <Link className="lblog" to="/blog">Blog</Link>
       </nav>
 
       <div className="headerNav">
@@ -73,7 +72,6 @@ function Header() {
             <Link onClick={() => setMenuOpen(false)} className="lprocess" to="/our-process">Our Process</Link>
             <Link onClick={() => setMenuOpen(false)} className="lservices" to="/services">Services</Link>
             <Link onClick={() => setMenuOpen(false)} className="lapproach" to="/our-approach">Our Approach</Link>
-            <Link onClick={() => setMenuOpen(false)} className="lblog" to="/blog">Blog</Link>
             <Link onClick={() => setMenuOpen(false)} className="lcontact" to="/contact">Contact Us</Link>
 
             <LottieLoop animationData={MobileOne} className="headerDec" />
