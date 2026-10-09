@@ -389,6 +389,11 @@ body:has(.approachPage) header .menu a.lapproach {
   color: var(--secondary);
 }
 
+body:has(.blogPage, .blogInnerPage) header .menu a.lblog {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
 body:has(.contactPage) header .menu a.lcontact {
   background: var(--primary);
   color: var(--secondary);
@@ -2157,6 +2162,26 @@ h4.d2c {
   font-size: 2.222vw;
 }
 
+.blogPostContent ul {
+  margin: 0;
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.blogPostContent li {
+  font-size: 1.111vw;
+  line-height: 140%;
+}
+
+.blogPostContent a {
+  display: inline;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .blogPostContent img {
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -2181,6 +2206,206 @@ h4.d2c {
 
 .blogPostRelated h2 {
   font-size: 3.056vw;
+}
+
+.articleMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.833vw;
+}
+
+.articleCategory {
+  background: var(--secondary);
+  color: var(--white);
+  border-radius: 1000px;
+  padding: 0.35vw 0.9vw;
+  font-size: 0.833vw;
+  line-height: 140%;
+}
+
+.articleDate {
+  font-size: 0.972vw;
+  color: var(--black);
+}
+
+.designedArticle {
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 1.667vw;
+  padding-top: 3.333vw;
+  padding-bottom: 1.667vw;
+}
+
+.articleIntro,
+.articleSection,
+.articleCta {
+  width: 68vw;
+  margin: 0 auto;
+}
+
+.articleIntro,
+.articleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.111vw;
+}
+
+.articleIntro p,
+.articleSection p,
+.articleCta p {
+  font-size: 1.181vw;
+  line-height: 160%;
+  color: var(--black);
+}
+
+.articleThesis {
+  background: var(--primary);
+  border-radius: 1.111vw;
+  padding: 1.389vw 1.667vw;
+}
+
+.articleSection {
+  background: var(--white);
+  border-radius: 1.667vw;
+  padding: 2.222vw;
+}
+
+.articleSectionHead {
+  display: flex;
+  align-items: center;
+  gap: 1.111vw;
+}
+
+.articleIndex {
+  width: 3.333vw;
+  height: 3.333vw;
+  flex-shrink: 0;
+  border-radius: 1000px;
+  background: var(--secondary);
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Signate", sans-serif;
+  font-size: 1.25vw;
+}
+
+.articleSection h3 {
+  font-size: 2.083vw;
+  line-height: 120%;
+}
+
+.articleCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.833vw;
+}
+
+.articleCard {
+  background: var(--background);
+  border-radius: 1.111vw;
+  padding: 1.111vw 1.25vw;
+  margin: 0;
+}
+
+.articleFaqs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.833vw;
+}
+
+.articleFaq {
+  background: var(--background);
+  border-radius: 1.111vw;
+  padding: 1.389vw 1.667vw;
+}
+
+.articleFaq h4 {
+  font-size: 1.389vw;
+  line-height: 130%;
+  margin-bottom: 0.556vw;
+}
+
+.articleSteps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.694vw;
+}
+
+.articleSteps li {
+  display: flex;
+  align-items: center;
+  gap: 0.833vw;
+  background: var(--background);
+  border-radius: 1000px;
+  padding: 0.833vw 1.25vw;
+}
+
+.articleSteps li span {
+  width: 2.222vw;
+  height: 2.222vw;
+  flex-shrink: 0;
+  border-radius: 1000px;
+  background: var(--primary);
+  color: var(--secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Signate", sans-serif;
+  font-size: 0.972vw;
+}
+
+.articleSteps li p {
+  margin: 0;
+}
+
+.articleHighlight {
+  background: var(--secondary);
+  color: var(--white);
+  border-radius: 1.111vw;
+  padding: 1.389vw 1.667vw;
+}
+
+.articleHighlight,
+.articleHighlight span {
+  color: var(--white);
+}
+
+.designedArticle a.articleInline {
+  display: inline;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: var(--secondary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.articleHighlight a.articleInline,
+.articleCta a.articleInline {
+  color: var(--primary);
+}
+
+.articleCta {
+  background: var(--secondary);
+  color: var(--white);
+  border-radius: 1.667vw;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.389vw;
+}
+
+.articleCta p,
+.articleCta span {
+  color: var(--white);
+}
+
+.articleClose h3 {
+  font-size: 2.5vw;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------
@@ -2561,6 +2786,15 @@ body:has(.extraPage) header.header.visible {
 ----------------------------------------------------------------------------------------------------------------------------------------- */
 
 @media (max-width: 1023px) {
+  .articleIntro,
+  .articleSection,
+  .articleCta {
+    width: 100%;
+  }
+
+  .articleCards {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------
@@ -2765,6 +2999,10 @@ body:has(.extraPage) header.header.visible {
 
   header .mobileMenu.open a:nth-child(8) {
     transition-delay: 0.45s;
+  }
+
+  header .mobileMenu.open a:nth-child(9) {
+    transition-delay: 0.5s;
   }
 
   header .mobileMenu .menuCover .close {
@@ -3759,7 +3997,95 @@ body:has(.extraPage) header.header.visible {
   }
 
   .blogPostContent h3 {
-    font-size: 24px;
+    font-size: 24px !important;
+  }
+
+  .blogPostContent li {
+    font-size: 16px;
+  }
+
+  .articleCategory {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .articleDate {
+    font-size: 14px;
+  }
+
+  .designedArticle {
+    gap: 16px;
+    padding-top: 28px;
+    padding-bottom: 12px;
+  }
+
+  .articleIntro,
+  .articleSection {
+    gap: 12px;
+  }
+
+  .articleIntro p,
+  .articleSection p,
+  .articleCta p {
+    font-size: 16px;
+  }
+
+  .articleThesis,
+  .articleHighlight {
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .articleSection,
+  .articleCta {
+    border-radius: 20px;
+    padding: 20px;
+  }
+
+  .articleSection h3,
+  .articleClose h3 {
+    font-size: 26px !important;
+  }
+
+  .articleIndex {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .articleCards {
+    gap: 10px;
+  }
+
+  .articleCard {
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+
+  .articleFaqs {
+    gap: 10px;
+  }
+
+  .articleFaq {
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .articleFaq h4 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .articleSteps li {
+    border-radius: 16px;
+    padding: 12px 14px;
+    align-items: flex-start;
+  }
+
+  .articleSteps li span {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
   }
 
   .blogPostContent img {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import BlogCard, { blogImage } from "../components/blogCard";
+import DesignedArticle from "../components/designedArticle";
 import Loader from "../components/loader";
 import { getCachedBlogPosts, loadBlogPosts } from "../services/blogApi.js";
 
@@ -84,10 +85,19 @@ function BlogPost() {
   return (
     <>
       <Helmet>
-        <title>{post.title} | Growbrandz</title>
-        <meta name="description" content={post.excerpt} />
-        <meta property="og:title" content={`${post.title} | Growbrandz`} />
-        <meta property="og:description" content={post.excerpt} />
+        <title>{post.metaTitle || `${post.title} | Growbrandz`}</title>
+        <meta
+          name="description"
+          content={post.metaDescription || post.excerpt}
+        />
+        <meta
+          property="og:title"
+          content={post.metaTitle || `${post.title} | Growbrandz`}
+        />
+        <meta
+          property="og:description"
+          content={post.metaDescription || post.excerpt}
+        />
       </Helmet>
       <main className="blogInnerPage">
         <section className="blogPostHero">
@@ -96,22 +106,33 @@ function BlogPost() {
               <img src={blogImage(post)} alt={post.title} />
             </div>
             <div className="blogPostHeroContent">
-              {/* <p className="blogPostMeta">{post.date}</p> */}
+              {post.article ? (
+                <div className="articleMeta">
+                  <span className="articleCategory">{post.article.category}</span>
+                 
+                </div>
+              ) : null}
               <h1>{post.title}</h1>
-              <div
-                className="l"
-                dangerouslySetInnerHTML={{ __html: post.excerpt }}
-              />
+              {!post.article && (
+                <div
+                  className="l"
+                  dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                />
+              )}
             </div>
           </div>
         </section>
 
-        <section className="container blogPostBody">
-          <div
-            className="blogPostContent"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-        </section>
+        {post.article ? (
+          <DesignedArticle article={post.article} />
+        ) : (
+          <section className="container blogPostBody">
+            <div
+              className="blogPostContent"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </section>
+        )}
 
         {relatedPosts.length > 0 && (
           <section className="container blogPostRelated">

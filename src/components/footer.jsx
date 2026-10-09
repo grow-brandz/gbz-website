@@ -27,6 +27,7 @@ function Footer() {
               <Link to="/our-process">Our Process</Link>
               <Link to="/services">Services</Link>
               <Link to="/our-approach">Our Approach</Link>
+              <Link to="/blog">Blog</Link>
               <Link to="/contact">Contact Us</Link>
             </div>
           </div>

@@ -1,3 +1,8 @@
+import { firstBlogPost } from "../content/firstBlogPost.js";
+import { secondBlogPost } from "../content/secondBlogPost.js";
+import { thirdBlogPost } from "../content/thirdBlogPost.js";
+import { fourthBlogPost } from "../content/fourthBlogPost.js";
+
 const WORDPRESS_POSTS =
   "https://lightpink-duck-532990.hostingersite.com/wp-json/wp/v2/posts?_embed&per_page=12";
 
@@ -45,6 +50,53 @@ export function loadBlogPosts() {
       })
       .then((posts) => {
         cachedPosts = posts.map(formatWordPressPost);
+        if (cachedPosts[0]) {
+          cachedPosts[0] = {
+            ...cachedPosts[0],
+            title: firstBlogPost.title,
+            metaTitle: firstBlogPost.metaTitle,
+            metaDescription: firstBlogPost.metaDescription,
+            article: firstBlogPost.article,
+          };
+        }
+        const secondIndex = cachedPosts.findIndex(
+          (post) => post.slug === secondBlogPost.slug,
+        );
+        if (secondIndex !== -1) {
+          const [matched] = cachedPosts.splice(secondIndex, 1);
+          cachedPosts.splice(1, 0, {
+            ...matched,
+            title: secondBlogPost.title,
+            metaTitle: secondBlogPost.metaTitle,
+            metaDescription: secondBlogPost.metaDescription,
+            article: secondBlogPost.article,
+          });
+        }
+        if (
+          cachedPosts[2] &&
+          cachedPosts[2].slug !== secondBlogPost.slug &&
+          cachedPosts[2].slug !== fourthBlogPost.slug
+        ) {
+          cachedPosts[2] = {
+            ...cachedPosts[2],
+            title: thirdBlogPost.title,
+            metaTitle: thirdBlogPost.metaTitle,
+            article: thirdBlogPost.article,
+          };
+        }
+        const fourthIndex = cachedPosts.findIndex(
+          (post) => post.slug === fourthBlogPost.slug,
+        );
+        if (fourthIndex > 2) {
+          const [matched] = cachedPosts.splice(fourthIndex, 1);
+          cachedPosts.splice(3, 0, {
+            ...matched,
+            title: fourthBlogPost.title,
+            metaTitle: fourthBlogPost.metaTitle,
+            metaDescription: fourthBlogPost.metaDescription,
+            article: fourthBlogPost.article,
+          });
+        }
         cachedAt = Date.now();
         return cachedPosts;
       })
