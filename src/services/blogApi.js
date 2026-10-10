@@ -1,10 +1,21 @@
-import { firstBlogPost } from "../content/firstBlogPost.js";
-import { secondBlogPost } from "../content/secondBlogPost.js";
-import { thirdBlogPost } from "../content/thirdBlogPost.js";
-import { fourthBlogPost } from "../content/fourthBlogPost.js";
+const WORDPRESS_BLOGS =
+  "https://lightpink-duck-532990.hostingersite.com/wp-json/growbrandz/v1/blogs";
 
-const WORDPRESS_POSTS =
-  "https://lightpink-duck-532990.hostingersite.com/wp-json/wp/v2/posts?_embed&per_page=12";
+const BLOG_TITLES = [
+  "How to Create a D2C Marketing Strategy for a New Product Launch?",
+  "D2C Marketing Services Explained: What Delivers Real ROI",
+  "D2C Whatsapp Marketing",
+  "Ecommerce Performance Marketing",
+];
+
+function normalizeTitle(value) {
+  return String(value || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
 
 const FETCH_TIMEOUT_MS = typeof window === "undefined" ? 2500 : 15000;
 const CACHE_TTL_MS = 5 * 60 * 1000;
@@ -14,17 +25,28 @@ let cachedAt = 0;
 let inflight = null;
 
 export function formatWordPressPost(post) {
+  const sections = Array.isArray(post.content) ? post.content : [];
+
   return {
     id: post.id,
     slug: post.slug,
-    title: post.title?.rendered || "",
-    excerpt: post.excerpt?.rendered || "",
-    content: post.content?.rendered || "",
-    date: post.date,
+    title: post.post_title || post.title || "",
+    excerpt: post.description || "",
+    content: "",
+    sections,
+    date: post.date || "",
     link: `/blog/${post.slug}`,
-    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "",
-    category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog",
+    image: post.banner_image || post.featured_image || "",
+    category: "Blog",
   };
+}
+
+function selectBlogPosts(posts) {
+  return BLOG_TITLES.map((title) =>
+    posts.find((post) => normalizeTitle(post.post_title) === normalizeTitle(title)),
+  )
+    .filter(Boolean)
+    .map(formatWordPressPost);
 }
 
 export function getCachedBlogPosts() {
@@ -41,7 +63,7 @@ export function loadBlogPosts() {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-    inflight = fetch(WORDPRESS_POSTS, { signal: controller.signal })
+    inflight = fetch(WORDPRESS_BLOGS, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Blog API Error: ${response.status}`);
@@ -49,54 +71,8 @@ export function loadBlogPosts() {
         return response.json();
       })
       .then((posts) => {
-        cachedPosts = posts.map(formatWordPressPost);
-        if (cachedPosts[0]) {
-          cachedPosts[0] = {
-            ...cachedPosts[0],
-            title: firstBlogPost.title,
-            metaTitle: firstBlogPost.metaTitle,
-            metaDescription: firstBlogPost.metaDescription,
-            article: firstBlogPost.article,
-          };
-        }
-        const secondIndex = cachedPosts.findIndex(
-          (post) => post.slug === secondBlogPost.slug,
-        );
-        if (secondIndex !== -1) {
-          const [matched] = cachedPosts.splice(secondIndex, 1);
-          cachedPosts.splice(1, 0, {
-            ...matched,
-            title: secondBlogPost.title,
-            metaTitle: secondBlogPost.metaTitle,
-            metaDescription: secondBlogPost.metaDescription,
-            article: secondBlogPost.article,
-          });
-        }
-        if (
-          cachedPosts[2] &&
-          cachedPosts[2].slug !== secondBlogPost.slug &&
-          cachedPosts[2].slug !== fourthBlogPost.slug
-        ) {
-          cachedPosts[2] = {
-            ...cachedPosts[2],
-            title: thirdBlogPost.title,
-            metaTitle: thirdBlogPost.metaTitle,
-            article: thirdBlogPost.article,
-          };
-        }
-        const fourthIndex = cachedPosts.findIndex(
-          (post) => post.slug === fourthBlogPost.slug,
-        );
-        if (fourthIndex > 2) {
-          const [matched] = cachedPosts.splice(fourthIndex, 1);
-          cachedPosts.splice(3, 0, {
-            ...matched,
-            title: fourthBlogPost.title,
-            metaTitle: fourthBlogPost.metaTitle,
-            metaDescription: fourthBlogPost.metaDescription,
-            article: fourthBlogPost.article,
-          });
-        }
+        const list = Array.isArray(posts) ? posts : posts?.data || [];
+        cachedPosts = selectBlogPosts(list);
         cachedAt = Date.now();
         return cachedPosts;
       })

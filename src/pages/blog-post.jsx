@@ -2,9 +2,27 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import BlogCard, { blogImage } from "../components/blogCard";
-import DesignedArticle from "../components/designedArticle";
+import WordpressArticle from "../components/wordpressArticle";
 import Loader from "../components/loader";
 import { getCachedBlogPosts, loadBlogPosts } from "../services/blogApi.js";
+
+function plainText(html) {
+  return String(html || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function sectionParagraphs(section) {
+  const blocks = section?.description;
+  if (!Array.isArray(blocks)) return [];
+
+  return blocks
+    .map((block) => (typeof block === "string" ? block : block?.description || ""))
+    .map((text) => plainText(text))
+    .filter(Boolean);
+}
 
 function postsExcept(posts, slug) {
   return posts.filter((post) => post.slug !== slug).slice(0, 3);
@@ -85,19 +103,10 @@ function BlogPost() {
   return (
     <>
       <Helmet>
-        <title>{post.metaTitle || `${post.title} | Growbrandz`}</title>
-        <meta
-          name="description"
-          content={post.metaDescription || post.excerpt}
-        />
-        <meta
-          property="og:title"
-          content={post.metaTitle || `${post.title} | Growbrandz`}
-        />
-        <meta
-          property="og:description"
-          content={post.metaDescription || post.excerpt}
-        />
+        <title>{`${post.title} | Growbrandz`}</title>
+        <meta name="description" content={plainText(post.excerpt)} />
+        <meta property="og:title" content={`${post.title} | Growbrandz`} />
+        <meta property="og:description" content={plainText(post.excerpt)} />
       </Helmet>
       <main className="blogInnerPage">
         <section className="blogPostHero">
@@ -106,33 +115,13 @@ function BlogPost() {
               <img src={blogImage(post)} alt={post.title} />
             </div>
             <div className="blogPostHeroContent">
-              {post.article ? (
-                <div className="articleMeta">
-                  <span className="articleCategory">{post.article.category}</span>
-                 
-                </div>
-              ) : null}
               <h1>{post.title}</h1>
-              {!post.article && (
-                <div
-                  className="l"
-                  dangerouslySetInnerHTML={{ __html: post.excerpt }}
-                />
-              )}
+              {plainText(post.excerpt) && <p className="l">{post.excerpt}</p>}
             </div>
           </div>
         </section>
 
-        {post.article ? (
-          <DesignedArticle article={post.article} />
-        ) : (
-          <section className="container blogPostBody">
-            <div
-              className="blogPostContent"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-          </section>
-        )}
+        <WordpressArticle post={post} paragraphsFor={sectionParagraphs} />
 
         {relatedPosts.length > 0 && (
           <section className="container blogPostRelated">
