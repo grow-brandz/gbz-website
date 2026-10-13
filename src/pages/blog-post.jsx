@@ -116,7 +116,6 @@ function BlogPost() {
             </div>
             <div className="blogPostHeroContent">
               <h1>{post.title}</h1>
-              {plainText(post.excerpt) && <p className="l">{post.excerpt}</p>}
             </div>
           </div>
         </section>

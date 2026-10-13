@@ -1,22 +1,6 @@
 const WORDPRESS_BLOGS =
   "https://lightpink-duck-532990.hostingersite.com/wp-json/growbrandz/v1/blogs";
 
-const BLOG_TITLES = [
-  "How to Create a D2C Marketing Strategy for a New Product Launch?",
-  "D2C Marketing Services Explained: What Delivers Real ROI",
-  "D2C Whatsapp Marketing",
-  "Ecommerce Performance Marketing",
-];
-
-function normalizeTitle(value) {
-  return String(value || "")
-    .replace(/<[^>]*>/g, "")
-    .replace(/&amp;/g, "&")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
-}
-
 const FETCH_TIMEOUT_MS = typeof window === "undefined" ? 2500 : 15000;
 const CACHE_TTL_MS = 5 * 60 * 1000;
 
@@ -39,14 +23,6 @@ export function formatWordPressPost(post) {
     image: post.banner_image || post.featured_image || "",
     category: "Blog",
   };
-}
-
-function selectBlogPosts(posts) {
-  return BLOG_TITLES.map((title) =>
-    posts.find((post) => normalizeTitle(post.post_title) === normalizeTitle(title)),
-  )
-    .filter(Boolean)
-    .map(formatWordPressPost);
 }
 
 export function getCachedBlogPosts() {
@@ -72,7 +48,7 @@ export function loadBlogPosts() {
       })
       .then((posts) => {
         const list = Array.isArray(posts) ? posts : posts?.data || [];
-        cachedPosts = selectBlogPosts(list);
+        cachedPosts = list.map(formatWordPressPost);
         cachedAt = Date.now();
         return cachedPosts;
       })
