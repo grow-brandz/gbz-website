@@ -20,7 +20,6 @@ function BlogCard({ post }) {
       {/* <p className="blogCardDate">{post.date}</p> */}
       {/* <span className="blogCardDivider" /> */}
       <h5 className="blogCardTitle">{post.title}</h5>
-      <p className="blogCardExcerpt">{post.excerpt}</p>
     </Link>
   );
 }

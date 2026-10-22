@@ -1,5 +1,5 @@
-const WORDPRESS_POSTS =
-  "https://lightpink-duck-532990.hostingersite.com/wp-json/wp/v2/posts?_embed&per_page=12";
+const WORDPRESS_BLOGS =
+  "https://lightpink-duck-532990.hostingersite.com/wp-json/growbrandz/v1/blogs";
 
 const FETCH_TIMEOUT_MS = typeof window === "undefined" ? 2500 : 15000;
 const CACHE_TTL_MS = 5 * 60 * 1000;
@@ -9,16 +9,19 @@ let cachedAt = 0;
 let inflight = null;
 
 export function formatWordPressPost(post) {
+  const sections = Array.isArray(post.content) ? post.content : [];
+
   return {
     id: post.id,
     slug: post.slug,
-    title: post.title?.rendered || "",
-    excerpt: post.excerpt?.rendered || "",
-    content: post.content?.rendered || "",
-    date: post.date,
+    title: post.post_title || post.title || "",
+    excerpt: post.description || "",
+    content: "",
+    sections,
+    date: post.date || "",
     link: `/blog/${post.slug}`,
-    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "",
-    category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog",
+    image: post.banner_image || post.featured_image || "",
+    category: "Blog",
   };
 }
 
@@ -36,7 +39,7 @@ export function loadBlogPosts() {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-    inflight = fetch(WORDPRESS_POSTS, { signal: controller.signal })
+    inflight = fetch(WORDPRESS_BLOGS, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Blog API Error: ${response.status}`);
@@ -44,7 +47,8 @@ export function loadBlogPosts() {
         return response.json();
       })
       .then((posts) => {
-        cachedPosts = posts.map(formatWordPressPost);
+        const list = Array.isArray(posts) ? posts : posts?.data || [];
+        cachedPosts = list.map(formatWordPressPost);
         cachedAt = Date.now();
         return cachedPosts;
       })
