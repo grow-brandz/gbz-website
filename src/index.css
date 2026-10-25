@@ -1387,6 +1387,10 @@ h4.d2c {
 .contactHero {
   background: var(--background);
   color: var(--black);
+  justify-content: safe center;
+  min-height: 100vh;
+  padding-top: 11vw;
+  padding-bottom: 4vw;
   background-image: url("data:image/svg+xml,%3Csvg width='104' height='107' viewBox='0 0 104 107' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='103' height='106' fill='none' stroke='%23000000' stroke-opacity='0.04'/%3E%3C/svg%3E");
 }
 
@@ -1399,6 +1403,10 @@ h4.d2c {
   bottom: -8vw;
   right: 0vw;
   transform: rotate(4deg);
+}
+
+.contactHero .contactHeroCta {
+  margin-top: 2.222vw;
 }
 
 .contactForm {
@@ -1560,6 +1568,174 @@ h4.d2c {
 
 .formGroup button {
   border: 0px !important;
+}
+
+.contactFormOpen {
+  display: flex;
+  align-items: center;
+}
+
+html.form-modal-open,
+html.form-modal-open body {
+  overflow: hidden !important;
+}
+
+.formModal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.222vw;
+  background: rgba(45, 35, 35, 0.45);
+  overflow: hidden;
+}
+
+.formModalPanel {
+  position: relative;
+  width: min(92vw, 980px);
+  max-height: calc(100dvh - 4.444vw);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  background: var(--background);
+  border-radius: 1.111vw;
+}
+
+.formModalBody {
+  display: contents;
+}
+
+.formModalCopy {
+  background: var(--secondary);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.667vw;
+  padding: 2.778vw 2.5vw;
+}
+
+.formModalCopy h3,
+.formModalCopy h3 * {
+  color: var(--white);
+  font-size: 2.222vw;
+  line-height: 115%;
+  text-align: left;
+}
+
+.formModalCopy h6 {
+  color: var(--white);
+  font-size: 0.972vw;
+  letter-spacing: 0.04em;
+}
+
+.formModalCopy p {
+  color: var(--white);
+  font-size: 1.111vw;
+  line-height: 150%;
+}
+
+.formModalCopy .smallContent,
+.formModalCopy .buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.833vw;
+}
+
+.formModalCopy .socialIcons {
+  flex-direction: row;
+}
+
+.formModalCopy .buttons svg {
+  width: 1.389vw;
+}
+
+.formModal .contactFormBox {
+  width: 100%;
+  max-height: none;
+  overflow: hidden;
+  gap: 0.833vw;
+  padding: 2.5vw 2.222vw;
+  border-radius: 0;
+  background: transparent;
+}
+
+.formModalClose {
+  position: absolute;
+  top: 0.833vw;
+  right: 0.833vw;
+  z-index: 1;
+  width: 2.222vw;
+  height: 2.222vw;
+  min-width: 36px;
+  min-height: 36px;
+  border: 0;
+  border-radius: 1000px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 1.5vw;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formModalFields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.833vw;
+  min-height: 0;
+}
+
+.formModal .formGroup {
+  gap: 0.35vw;
+}
+
+.formModal .formGroup input,
+.formModal .formGroup textarea {
+  padding: 0.7vw 0.9vw;
+  font-size: 0.972vw;
+}
+
+.formModal .formGroup textarea {
+  min-height: 4.2vw;
+  max-height: 4.2vw;
+  resize: none;
+}
+
+.formModal .formGroup label {
+  font-size: 0.9vw;
+}
+
+.formModal .submitBtn {
+  align-self: flex-start;
+}
+
+.formModalError {
+  width: 100%;
+  padding: 0.7vw 0.9vw;
+  background: #f8d7da;
+  color: #721c24;
+  border-radius: 0.556vw;
+  font-size: 0.9vw;
+}
+
+@media (max-height: 720px) {
+  .formModal .contactFormBox {
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .formModal .formGroup textarea {
+    min-height: 48px;
+    max-height: 48px;
+  }
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------
@@ -2296,6 +2472,14 @@ h4.d2c {
   line-height: 120%;
 }
 
+.articleIntro img,
+.articleSection img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 1.111vw;
+}
+
 .articleCards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2381,6 +2565,101 @@ h4.d2c {
   color: var(--secondary);
   text-decoration: underline;
   text-underline-offset: 0.15em;
+}
+
+.designedArticle .articleRich {
+  display: flex;
+  flex-direction: column;
+  gap: 1.111vw;
+}
+
+.designedArticle .articleRich h2,
+.designedArticle .articleRich h2 * {
+  font-family: "Signate", sans-serif;
+  font-size: 1.944vw;
+  line-height: 120%;
+  color: var(--black);
+}
+
+.designedArticle .articleRich h3,
+.designedArticle .articleRich h3 * {
+  font-family: "Signate", sans-serif;
+  font-size: 1.528vw;
+  line-height: 130%;
+  color: var(--black);
+}
+
+.designedArticle .articleRich h4,
+.designedArticle .articleRich h4 * {
+  font-family: "Signate", sans-serif;
+  font-size: 1.25vw;
+  line-height: 130%;
+  color: var(--black);
+}
+
+.designedArticle .articleRich p,
+.designedArticle .articleRich li {
+  font-size: 1.181vw;
+  line-height: 160%;
+  color: var(--black);
+}
+
+.designedArticle .articleRich ul,
+.designedArticle .articleRich ol {
+  margin: 0;
+  padding-left: 1.25em;
+}
+
+.designedArticle .articleRich ul {
+  list-style: disc;
+}
+
+.designedArticle .articleRich ol {
+  list-style: decimal;
+}
+
+.designedArticle .articleRich li {
+  margin: 0.35vw 0;
+}
+
+.designedArticle .articleRich a {
+  display: inline;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  color: var(--secondary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.designedArticle .articleRich strong,
+.designedArticle .articleRich b {
+  font-weight: 700;
+}
+
+.designedArticle .articleRich em,
+.designedArticle .articleRich i {
+  font-style: italic;
+}
+
+.designedArticle .articleRich blockquote {
+  margin: 0;
+  border-left: 0.208vw solid var(--black);
+  padding-left: 1.111vw;
+}
+
+.designedArticle .articleRich code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95em;
+}
+
+.designedArticle .articleRich img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 1.111vw;
 }
 
 .articleHighlight a.articleInline,
@@ -3530,13 +3809,24 @@ body:has(.extraPage) header.header.visible {
 --------------------------------------------------------------- Contact --------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------- */
 
+  .contactHero {
+    justify-content: flex-start;
+    min-height: auto;
+    padding-top: 132px;
+    padding-bottom: 8px;
+  }
+
+  .contactHero .contactHeroCta {
+    margin-top: 16px;
+  }
+
   .contactHero .contactHeroFloat {
     width: 100%;
     bottom: 0;
     left: auto;
     position: relative;
-    margin-top: -18vw;
-    margin-bottom: -18vw;
+    margin-top: 8px;
+    margin-bottom: -12vw;
   }
 
   .contactForm {
@@ -3583,6 +3873,79 @@ body:has(.extraPage) header.header.visible {
     gap: 24px;
     padding: 24px 16px;
     border-radius: 8px;
+  }
+
+  .formModal {
+    padding: 16px;
+  }
+
+  .formModalPanel {
+    width: 100%;
+    max-height: calc(100dvh - 32px);
+    display: block;
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .formModalBody {
+    display: block;
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+  }
+
+  .formModalCopy {
+    padding: 56px 20px 8px;
+    gap: 10px;
+  }
+
+  .formModalCopy h3,
+  .formModalCopy h3 * {
+    font-size: 24px !important;
+    line-height: 115%;
+  }
+
+  .formModalCopy h6,
+  .formModalCopy p {
+    font-size: 16px;
+  }
+
+  .formModalCopy .buttons svg {
+    width: 20px;
+  }
+
+  .formModal .contactFormBox {
+    width: 100%;
+    gap: 8px;
+    padding: 14px 20px 6px;
+  }
+
+  .formModalFields {
+    gap: 8px;
+  }
+
+  .formModal .formGroup input,
+  .formModal .formGroup textarea {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  .formModal .formGroup textarea {
+    min-height: 44px;
+    max-height: 44px;
+  }
+
+  .formModal .formGroup label,
+  .formModalError {
+    font-size: 14px;
+  }
+
+  .formModalClose {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
   }
 
   .formGroup {
@@ -4045,6 +4408,52 @@ body:has(.extraPage) header.header.visible {
   .articleSection h3,
   .articleClose h3 {
     font-size: 26px !important;
+  }
+
+  .articleIntro img,
+  .articleSection img {
+    border-radius: 16px;
+  }
+
+  .designedArticle .articleRich {
+    gap: 12px;
+  }
+
+  .designedArticle .articleRich h2,
+  .designedArticle .articleRich h2 * {
+    font-size: 24px !important;
+  }
+
+  .designedArticle .articleRich h3,
+  .designedArticle .articleRich h3 * {
+    font-size: 20px !important;
+  }
+
+  .designedArticle .articleRich h4,
+  .designedArticle .articleRich h4 * {
+    font-size: 18px !important;
+  }
+
+  .designedArticle .articleRich p,
+  .designedArticle .articleRich li {
+    font-size: 16px;
+  }
+
+  .designedArticle .articleRich li {
+    margin: 6px 0;
+  }
+
+  .designedArticle .articleRich a {
+    font-size: inherit !important;
+  }
+
+  .designedArticle .articleRich blockquote {
+    border-left-width: 3px;
+    padding-left: 16px;
+  }
+
+  .designedArticle .articleRich img {
+    border-radius: 16px;
   }
 
   .articleIndex {
