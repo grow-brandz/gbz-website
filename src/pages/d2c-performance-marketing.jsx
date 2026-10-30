@@ -469,9 +469,9 @@ function D2cPerformance() {
           <div className="d2cReasonGrid">
             {reasons.map((item, index) => (
               <article key={item.title}>
-                <p className="d2cIndex">0{index + 1}</p>
+                <p>0{index + 1}</p>
                 <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <p className="d2cLead">{item.text}</p>
               </article>
             ))}
           </div>
