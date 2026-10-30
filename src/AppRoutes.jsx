@@ -8,6 +8,7 @@ import OurProcess from "./pages/our-process.jsx";
 import Services from "./pages/services.jsx";
 import Blog from "./pages/blog.jsx";
 import BlogPost from "./pages/blog-post.jsx";
+import D2cPerformance from "./pages/d2c-performance-marketing.jsx";
 import Thanks from "./components/thanks.jsx";
 import NotFound from "./components/404.jsx";
 
@@ -19,6 +20,10 @@ function AppRoutes() {
       <Route path="/our-approach" element={<OurApproach />} />
       <Route path="/our-process" element={<OurProcess />} />
       <Route path="/services" element={<Services />} />
+      <Route
+        path="/d2c-performance-marketing-agency"
+        element={<D2cPerformance />}
+      />
       <Route path="/contact" element={<Contact />} />
 
       <Route path="/thankyou" element={<Thanks />} />

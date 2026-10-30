@@ -3,11 +3,95 @@ import { useState, useRef, useEffect } from "react";
 import LottieLoop from "./lottiecomp";
 import MobileOne from "../assets/lotties/headermobile.json";
 
+const serviceMenu = [
+  {
+    label: "For D2C Brandz",
+    items: [
+      { label: "D2C Performance Marketing", to: "/d2c-performance-marketing-agency" },
+      { label: "D2C WhatsApp Marketing", to: "/services" },
+      { label: "D2C Influencer Marketing", to: "/services" },
+    ],
+  },
+  {
+    label: "ECOMMERCE",
+    items: [
+      { label: "Ecommerce Marketing", to: "/services" },
+      { label: "Ecommerce Website Development", to: "/services" },
+      { label: "Shopify Development", to: "/services" },
+    ],
+  },
+  {
+    label: "MARKET RESEARCH & GROWTH STRATEGY",
+    items: [
+      { label: "D2C Market Research", to: "/services" },
+      { label: "D2C Growth Strategy", to: "/services" },
+      { label: "Ecommerce Growth Strategy", to: "/services" },
+    ],
+  },
+  {
+    label: "PERFORMANCE MARKETING",
+    items: [
+      { label: "Google Ads", to: "/services" },
+      { label: "PPC Advertising", to: "/services" },
+      { label: "Meta Ads (Facebook & Instagram)", to: "/services" },
+    ],
+  },
+];
+
+const serviceLinks = [
+  { label: "Social Media Marketing", to: "/services" },
+  { label: "Personal Branding", to: "/services" },
+];
+
+function ServiceChevron() {
+  return (
+    <svg className="serviceChevron" viewBox="0 0 12 8" aria-hidden="true">
+      <path
+        d="M1 1.5L6 6.5L11 1.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ServiceGroups({ onNavigate, variant }) {
+  return (
+    <div className={variant === "mobile" ? "mobileServiceList" : "servicePanel"}>
+      {serviceMenu.map((group) => (
+        <div className="serviceGroup" key={group.label}>
+          <p className="serviceGroupLabel">{group.label}</p>
+          <div className="serviceGroupLinks">
+            {group.items.map((item) => (
+              <Link key={item.label} to={item.to} onClick={onNavigate}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div className="serviceGroup serviceGroupLinks serviceStandalone">
+        {serviceLinks.map((item) => (
+          <Link key={item.label} to={item.to} onClick={onNavigate}>
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
 
   const lastScrollY = useRef(0);
+  const desktopServicesRef = useRef(null);
+  const mobileServicesRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +112,37 @@ function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!servicesOpen) return undefined;
+
+    const onPointerDown = (event) => {
+      const target = event.target;
+      if (
+        desktopServicesRef.current?.contains(target) ||
+        mobileServicesRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setServicesOpen(false);
+    };
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setServicesOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [servicesOpen]);
+
+  const closeMenus = () => {
+    setServicesOpen(false);
+    setMenuOpen(false);
+  };
 
   return (
     <header className={`container header ${showHeader ? "visible" : "hidden"}`}>
@@ -50,7 +165,24 @@ function Header() {
         <Link className="lhome" to="/">Home</Link>
         <Link className="labout" to="/about">About</Link>
         <Link className="lprocess" to="/our-process">Our Process</Link>
-        <Link className="lservices" to="/services">Services</Link>
+        <div
+          className={`serviceMenu ${servicesOpen ? "open" : ""}`}
+          ref={desktopServicesRef}
+        >
+          <button
+            type="button"
+            className="lservices"
+            aria-expanded={servicesOpen}
+            aria-controls="service-menu-panel"
+            onClick={() => setServicesOpen((open) => !open)}
+          >
+            Services
+            <ServiceChevron />
+          </button>
+          <div id="service-menu-panel">
+            {servicesOpen && <ServiceGroups onNavigate={closeMenus} />}
+          </div>
+        </div>
         <Link className="lapproach" to="/our-approach">Our Approach</Link>
         <Link className="lblog" to="/blog">Blog</Link>
       </nav>
@@ -71,7 +203,23 @@ function Header() {
             <Link onClick={() => setMenuOpen(false)} className="lhome" to="/">Home</Link>
             <Link onClick={() => setMenuOpen(false)} className="labout" to="/about">About</Link>
             <Link onClick={() => setMenuOpen(false)} className="lprocess" to="/our-process">Our Process</Link>
-            <Link onClick={() => setMenuOpen(false)} className="lservices" to="/services">Services</Link>
+            <div
+              className={`serviceMenu ${servicesOpen ? "open" : ""}`}
+              ref={mobileServicesRef}
+            >
+              <button
+                type="button"
+                className="lservices"
+                aria-expanded={servicesOpen}
+                onClick={() => setServicesOpen((open) => !open)}
+              >
+                Services
+                <ServiceChevron />
+              </button>
+              {servicesOpen && (
+                <ServiceGroups variant="mobile" onNavigate={closeMenus} />
+              )}
+            </div>
             <Link onClick={() => setMenuOpen(false)} className="lapproach" to="/our-approach">Our Approach</Link>
             <Link onClick={() => setMenuOpen(false)} className="lblog" to="/blog">Blog</Link>
             <Link onClick={() => setMenuOpen(false)} className="lcontact" to="/contact">Contact Us</Link>

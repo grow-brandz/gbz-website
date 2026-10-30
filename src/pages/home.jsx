@@ -955,11 +955,8 @@ function Home() {
 
               <p>{homeData?.our_story?.paragraph}</p>
 
-              <Link
-                to={homeData?.our_story?.our_story_button?.url || "/about"}
-                className="button2"
-              >
-                {homeData?.our_story?.our_story_button?.title}
+              <Link to="/contact" className="button2">
+                Let's talk
               </Link>
             </div>
           </div>
