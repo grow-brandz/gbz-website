@@ -5603,6 +5603,15 @@ body:has(.extraPage) header.header.visible {
     box-shadow: 4px 4px 0 var(--pink);
   }
 
+  .d2cReasonGrid p {
+    font-size: 16px;
+    line-height: 160%;
+  }
+
+  .d2cReasonGrid .d2cIndex {
+    font-size: 22px;
+  }
+
   .d2cReasonGrid h3,
   .d2cReasonGrid h3 *,
   .d2cStats h3,
