@@ -3280,6 +3280,7 @@ body:has(.extraPage) header.header.visible {
 }
 
 .d2cReasonGrid p {
+  width: 100%;
   font-size: 0.95vw;
   line-height: 160%;
   color: var(--text);
@@ -5601,6 +5602,11 @@ body:has(.extraPage) header.header.visible {
     border-radius: 16px;
     padding: 20px 18px 22px;
     box-shadow: 4px 4px 0 var(--pink);
+  }
+
+  .d2cReasonGrid p {
+    font-size: 16px;
+    line-height: 160%;
   }
 
   .d2cReasonGrid h3,

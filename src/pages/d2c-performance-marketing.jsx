@@ -471,7 +471,7 @@ function D2cPerformance() {
               <article key={item.title}>
                 <p>0{index + 1}</p>
                 <h3>{item.title}</h3>
-                <p className="d2cLead">{item.text}</p>
+                <p>{item.text}</p>
               </article>
             ))}
           </div>
