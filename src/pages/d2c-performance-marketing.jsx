@@ -3,13 +3,22 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Divider from "../components/divider";
 import LottieLoop from "../components/lottiecomp";
+import ContactFormModal from "../components/contactFormModal";
 import { PageSeo } from "../components/PageSeo";
+import { getHomeData } from "../services/api";
+import { useSsrPageData } from "../hooks/useSsrPageData";
 import Hero from "../assets/lotties/servicesHero.json";
+import Arrow from "../assets/lotties/right-arrow.json";
 import zamZamVideo from "../assets/videos/Zam Zam.mp4";
 import rioGrandeVideo from "../assets/videos/Rio Grande .mp4";
 import earsVideo from "../assets/videos/Earslovingly.mp4";
 import dripVideo from "../assets/videos/Drip Dessert Lab.mp4";
 import veeVeeVideo from "../assets/videos/Vee Vee - House Of Cashews.mp4";
+import zamZamLogo from "../assets/brands/ZAM_ZAM.png";
+import rioGrandeLogo from "../assets/brands/Rio grande.png";
+import earsLogoImage from "../assets/brands/Ears Lovingly.png";
+import dripLogo from "../assets/brands/Drip.png";
+import veeVeeLogo from "../assets/brands/Vee Vee.png";
 
 const PAGE_PATH = "/d2c-performance-marketing-agency";
 
@@ -142,26 +151,87 @@ const categories = [
   {
     title: "FMCG & Consumer Brands",
     text: "Growing direct sales through video marketing, product offers, and customer retention.",
+    icon: "bag",
   },
   {
     title: "Food & Beverage",
     text: "Driving repeat orders through social media, subscriptions, and seasonal offers.",
+    icon: "cup",
   },
   {
     title: "Health & Wellness",
     text: "Building trust while driving customer acquisition and repeat purchases.",
+    icon: "heart",
   },
   {
     title: "Fashion & Apparel",
     text: "Creative-led campaigns that sell new collections and trends.",
+    icon: "hanger",
   },
   {
     title: "Lifestyle & Consumer Products",
     text: "Turning product discovery into purchases through compelling creatives and targeted campaigns.",
+    icon: "spark",
   },
 ];
 
-const brands = ["Zam Zam", "Rio Grande", "Ears Lovingly", "Drip", "Vee Vee"];
+function CategoryIcon({ name }) {
+  const props = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    "aria-hidden": true,
+  };
+
+  if (name === "bag") {
+    return (
+      <svg {...props}>
+        <path d="M6.5 8.5h11l-.8 10.2a1.5 1.5 0 0 1-1.5 1.3H8.8a1.5 1.5 0 0 1-1.5-1.3L6.5 8.5Z" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "cup") {
+    return (
+      <svg {...props}>
+        <path d="M7 8.5h8.2v5.2a3.4 3.4 0 0 1-3.4 3.4H10A3 3 0 0 1 7 14.1V8.5Z" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M15.2 10H17a2 2 0 0 1 0 4h-1.6M8 20.5h8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "heart") {
+    return (
+      <svg {...props}>
+        <path d="M12 19.2s-6.2-3.8-6.2-8.1A3.4 3.4 0 0 1 12 8.6a3.4 3.4 0 0 1 6.2 2.5c0 4.3-6.2 8.1-6.2 8.1Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (name === "hanger") {
+    return (
+      <svg {...props}>
+        <path d="M12 7.2a1.6 1.6 0 1 0-1.5-2.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M12 7.2 4.8 13.2a1.6 1.6 0 0 0 1 2.8h12.4a1.6 1.6 0 0 0 1-2.8L12 7.2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...props}>
+      <path d="M12 3.8 13.2 8l4.3 1.2L13.2 10.4 12 14.6 10.8 10.4 6.5 9.2 10.8 8 12 3.8Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M17.2 14.2 17.8 16l1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6.6-1.8Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const brands = [
+  { name: "Zam Zam", logo: zamZamLogo },
+  { name: "Rio Grande", logo: rioGrandeLogo },
+  { name: "Ears Lovingly", logo: earsLogoImage },
+  { name: "Drip", logo: dripLogo },
+  { name: "Vee Vee", logo: veeVeeLogo },
+];
 
 const stories = [
   {
@@ -243,82 +313,148 @@ function StorySoundIcon({ muted }) {
   );
 }
 
+function StoryPlayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9.2 7.2v9.6L17.4 12 9.2 7.2z" fill="currentColor" />
+    </svg>
+  );
+}
+
 function StoryShowcase() {
   const [active, setActive] = useState(0);
-  const [soundIndex, setSoundIndex] = useState(null);
-  const videoRefs = useRef([]);
+  const [soundOn, setSoundOn] = useState(false);
+  const featureRef = useRef(null);
   const story = stories[active];
 
   useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) return;
-      video.muted = soundIndex !== index;
-      const play = video.play();
-      if (play) play.catch(() => {});
-    });
-  }, [soundIndex]);
+    const video = featureRef.current;
+    if (!video) return;
+    video.muted = !soundOn;
+    const play = video.play();
+    if (play) play.catch(() => {});
+  }, [soundOn, active]);
 
-  const toggleSound = (index) => {
-    setSoundIndex((current) => (current === index ? null : index));
+  const selectStory = (index) => {
     setActive(index);
+    setSoundOn(false);
   };
 
   return (
     <div className="d2cStoryStage">
-      <div className="d2cReelRow">
-        {stories.map((item, index) => {
-          const muted = soundIndex !== index;
-          return (
-            <article
+      <div className="d2cStoryLayout">
+        <div className="d2cStoryList" role="tablist" aria-label="Growth stories">
+          {stories.map((item, index) => (
+            <button
               key={item.brand}
-              className={`d2cReel ${index === active ? "isActive" : ""}`}
-              onClick={() => setActive(index)}
+              type="button"
+              role="tab"
+              aria-selected={index === active}
+              className={index === active ? "isActive" : ""}
+              onClick={() => selectStory(index)}
             >
-              <video
-                ref={(node) => {
-                  videoRefs.current[index] = node;
-                }}
-                src={item.video}
-                autoPlay
-                muted={muted}
-                loop
-                playsInline
-                preload="metadata"
-              />
-              <div className="d2cReelShade" />
-              <p className="d2cReelName">{item.brand}</p>
-              <button
-                type="button"
-                className="d2cStoryMute"
-                aria-pressed={!muted}
-                aria-label={muted ? `Unmute ${item.brand}` : `Mute ${item.brand}`}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  toggleSound(index);
-                }}
-              >
-                <StorySoundIcon muted={muted} />
-              </button>
-            </article>
-          );
-        })}
-      </div>
-      <article className="d2cStoryCard">
-        <div className="d2cStoryCopy">
-          <p className="d2cStoryIndustry">{story.industry}</p>
-          <h3>{story.headline}</h3>
-          <p className="d2cStoryBrand">{story.brand}</p>
-          <p>{story.text}</p>
-        </div>
-        <div className="d2cStoryStats">
-          {story.stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="d2cStoryFigure">{stat.figure}</p>
-              <p>{stat.label}</p>
-            </div>
+              <span>
+                <strong>{item.brand}</strong>
+                <small>{item.industry}</small>
+              </span>
+              <span className="d2cStoryPlay">
+                <StoryPlayIcon />
+              </span>
+            </button>
           ))}
         </div>
-      </article>
+
+        <article className="d2cStoryFeature">
+          <div className="d2cStoryVisual">
+            <p className="d2cFeaturedBadge">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 3.4 14.2 9l5.8.5-4.5 3.8 1.4 5.8L12 16.2 7.1 19.1l1.4-5.8L4 9.5 9.8 9 12 3.4z"
+                  fill="currentColor"
+                />
+              </svg>
+              Featured story
+            </p>
+            <video
+              ref={featureRef}
+              key={story.brand}
+              src={story.video}
+              autoPlay
+              muted={!soundOn}
+              loop
+              playsInline
+              preload="metadata"
+            />
+            <button
+              type="button"
+              className="d2cStoryMute"
+              aria-pressed={soundOn}
+              aria-label={soundOn ? `Mute ${story.brand}` : `Unmute ${story.brand}`}
+              onClick={() => setSoundOn((current) => !current)}
+            >
+              <StorySoundIcon muted={!soundOn} />
+            </button>
+            <div className="d2cStoryDots">
+              {stories.map((item, index) => (
+                <button
+                  key={item.brand}
+                  type="button"
+                  className={index === active ? "isActive" : ""}
+                  aria-label={`Show ${item.brand}`}
+                  onClick={() => selectStory(index)}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="d2cStoryCopy">
+            <p className="d2cStoryIndustry">{story.industry}</p>
+            <h3>{story.headline}</h3>
+            <p>{story.text}</p>
+            <div className="d2cStoryStats">
+              {story.stats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="d2cStoryFigure">{stat.figure}</p>
+                  <p>{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div className="d2cStoryStrip">
+        {stories.map((item, index) =>
+          index === active ? null : (
+            <button
+              key={item.brand}
+              type="button"
+              className="d2cStoryMini"
+              onClick={() => selectStory(index)}
+            >
+              <span className="d2cStoryThumb">
+                <video
+                  src={item.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+              </span>
+              <span className="d2cStoryMiniCopy">
+                <strong>{item.brand}</strong>
+                <small>{item.industry}</small>
+                <span className="d2cStoryMiniStat">
+                  <b>{item.stats[0].figure}</b> {item.stats[0].label}
+                </span>
+              </span>
+              <span className="d2cStoryPlay">
+                <StoryPlayIcon />
+              </span>
+            </button>
+          )
+        )}
+      </div>
     </div>
   );
 }
@@ -375,6 +511,9 @@ const organizationSchema = {
 
 function D2cPerformance() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const homeData = useSsrPageData("/", getHomeData);
+  const story = homeData?.our_story;
 
   return (
     <>
@@ -408,13 +547,14 @@ function D2cPerformance() {
       <main className="d2cPage">
         <section className="container d2cHero servicesHero commonHero">
           <h1>
-            D2C Performance Marketing Agency That Turns Ad Spend{" "}
+            D2C Performance Marketing Agency That{" "}
             <span className="word">
               <svg
                 className="highlight-shape"
                 width="680"
                 height="125"
                 viewBox="0 0 680 125"
+                preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
               >
@@ -423,7 +563,7 @@ function D2cPerformance() {
                   fill="#EC4899"
                 />
               </svg>
-              <span>Into Sales</span>
+              <span>Turns Ad Spend Into Sales</span>
             </span>
           </h1>
           <p>
@@ -432,30 +572,38 @@ function D2cPerformance() {
             and show you every sale in plain words.
           </p>
           <div className="d2cHeroActions">
-            <Link className="button1" to="/contact">
+            <button
+              type="button"
+              className="button1"
+              onClick={() => setFormOpen(true)}
+            >
               Book a call
-            </Link>
+            </button>
             <Link className="button2" to={{ hash: "#growth-stories" }}>
               Explore our work
             </Link>
           </div>
-          <ul className="d2cBrands">
-            {brands.map((brand) => (
-              <li key={brand}>{brand}</li>
-            ))}
-          </ul>
+          <div className="d2cBrandMarquee">
+            <div className="d2cBrandTrack">
+              {[0, 1].map((copy) => (
+                <ul className="d2cBrands" key={copy} aria-hidden={copy === 1}>
+                  {brands.map((brand) => (
+                    <li key={`${brand.name}-${copy}`}>
+                      <img
+                        src={brand.logo}
+                        alt={copy === 0 ? brand.name : ""}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
           <LottieLoop
             animationData={Hero}
             className="commonHeroFloat servicesHeroFloat"
           />
         </section>
-
-        <Divider
-          bgColor="#6842EF"
-          fillColor="#FFF2EC"
-          boxStroke="#000000"
-          gridStroke="#000000"
-        />
 
         <section className="container d2cReasons">
           <h2>
@@ -505,9 +653,13 @@ function D2cPerformance() {
           </p>
           <div className="d2cCtaLine">
             <h3>Ready to turn these growth opportunities into sales?</h3>
-            <Link className="button1" to="/contact">
+            <button
+              type="button"
+              className="button1"
+              onClick={() => setFormOpen(true)}
+            >
               Let's talk
-            </Link>
+            </button>
           </div>
         </section>
 
@@ -537,9 +689,10 @@ function D2cPerformance() {
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <Link className="button1" to="#">
+                <span className="d2cExploreSoon">
                   {service.button}
-                </Link>
+                  <span className="soonBadge">Coming soon</span>
+                </span>
               </div>
             </article>
           ))}
@@ -574,9 +727,13 @@ function D2cPerformance() {
             Book a 30-minute call. Bring your store link and ad numbers. We
             will tell you what we would fix first.
           </p>
-          <Link className="button1" to="/contact">
+          <button
+            type="button"
+            className="button1"
+            onClick={() => setFormOpen(true)}
+          >
             Book a call
-          </Link>
+          </button>
         </section>
 
         <Divider
@@ -596,6 +753,9 @@ function D2cPerformance() {
           <div className="d2cCategoryGrid">
             {categories.map((item) => (
               <article key={item.title}>
+                <span className="d2cCategoryIcon">
+                  <CategoryIcon name={item.icon} />
+                </span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </article>
@@ -613,8 +773,89 @@ function D2cPerformance() {
         </section>
 
         <Divider
-          bgColor="#EC4899"
+          bgColor="#FFD703"
           fillColor="#FFF2EC"
+          boxStroke="#000000"
+          gridStroke="#FFFFFF"
+        />
+
+        <section className="ceoSection">
+          <div className="container row">
+            <div className="imageSide">
+              <img
+                className="homeceoFloat1"
+                src="https://ik.imagekit.io/growbrandz/homeabout1.png"
+                alt=""
+              />
+              {story?.linkedin_id?.url ? (
+                <a
+                  href={story.linkedin_id.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className="homeceoImage"
+                    src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceoImage.png"
+                    alt={story?.team_member_name || "Jafer, Chief executive officer"}
+                  />
+                </a>
+              ) : (
+                <img
+                  className="homeceoImage"
+                  src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceoImage.png"
+                  alt={story?.team_member_name || "Jafer, Chief executive officer"}
+                />
+              )}
+              <LottieLoop animationData={Arrow} className="homeceoFloat2" />
+            </div>
+            <div className="contentSide">
+              <h2>
+                {story?.heading ||
+                  "We are passionate about creative ideas that actually make sense."}
+              </h2>
+              <p>
+                {story?.paragraph ||
+                  "Growbrandz was built with one clear belief. Creativity should solve real business problems. After working closely with founders and fast growing D2C brands, we saw a gap between beautiful work and work that truly drives digital sales growth. So we built a team that thinks in strategy, performance, and long term ecommerce revenue growth, not just visuals. We partner closely with brands, understand their goals deeply, and work as an extension of their team to help them scale with clarity and confidence."}
+              </p>
+              <button
+                type="button"
+                className="button2"
+                onClick={() => setFormOpen(true)}
+              >
+                Let's talk
+              </button>
+            </div>
+          </div>
+          <img
+            className="homeceoExtra1"
+            src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo1.png"
+            alt=""
+          />
+          <img
+            className="homeceoExtra2"
+            src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo2.png"
+            alt=""
+          />
+          <img
+            className="homeceoExtra3"
+            src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo3.png"
+            alt=""
+          />
+          <img
+            className="homeceoExtra4"
+            src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo4.png"
+            alt=""
+          />
+          <img
+            className="homeceoExtra5"
+            src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo5.png"
+            alt=""
+          />
+        </section>
+
+        <Divider
+          bgColor="#EC4899"
+          fillColor="#FFD703"
           boxStroke="#000000"
           gridStroke="#000000"
         />
@@ -644,6 +885,7 @@ function D2cPerformance() {
           </div>
         </section>
       </main>
+      <ContactFormModal open={formOpen} onClose={() => setFormOpen(false)} />
     </>
   );
 }

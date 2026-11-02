@@ -8,39 +8,39 @@ const serviceMenu = [
     label: "For D2C Brandz",
     items: [
       { label: "D2C Performance Marketing", to: "/d2c-performance-marketing-agency" },
-      { label: "D2C WhatsApp Marketing", to: "/services" },
-      { label: "D2C Influencer Marketing", to: "/services" },
+      { label: "D2C WhatsApp Marketing" },
+      { label: "D2C Influencer Marketing" },
     ],
   },
   {
     label: "ECOMMERCE",
     items: [
-      { label: "Ecommerce Marketing", to: "/services" },
-      { label: "Ecommerce Website Development", to: "/services" },
-      { label: "Shopify Development", to: "/services" },
+      { label: "Ecommerce Marketing" },
+      { label: "Ecommerce Website Development" },
+      { label: "Shopify Development" },
     ],
   },
   {
     label: "MARKET RESEARCH & GROWTH STRATEGY",
     items: [
-      { label: "D2C Market Research", to: "/services" },
-      { label: "D2C Growth Strategy", to: "/services" },
-      { label: "Ecommerce Growth Strategy", to: "/services" },
+      { label: "D2C Market Research" },
+      { label: "D2C Growth Strategy" },
+      { label: "Ecommerce Growth Strategy" },
     ],
   },
   {
     label: "PERFORMANCE MARKETING",
     items: [
-      { label: "Google Ads", to: "/services" },
-      { label: "PPC Advertising", to: "/services" },
-      { label: "Meta Ads (Facebook & Instagram)", to: "/services" },
+      { label: "Google Ads" },
+      { label: "PPC Advertising" },
+      { label: "Meta Ads (Facebook & Instagram)" },
     ],
   },
 ];
 
 const serviceLinks = [
-  { label: "Social Media Marketing", to: "/services" },
-  { label: "Personal Branding", to: "/services" },
+  { label: "Social Media Marketing" },
+  { label: "Personal Branding" },
 ];
 
 function ServiceChevron() {
@@ -58,6 +58,23 @@ function ServiceChevron() {
   );
 }
 
+function ServiceItem({ item, onNavigate }) {
+  if (item.to) {
+    return (
+      <Link to={item.to} onClick={onNavigate}>
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <span className="serviceSoon">
+      {item.label}
+      <span className="soonBadge">Coming soon</span>
+    </span>
+  );
+}
+
 function ServiceGroups({ onNavigate, variant }) {
   return (
     <div className={variant === "mobile" ? "mobileServiceList" : "servicePanel"}>
@@ -66,18 +83,14 @@ function ServiceGroups({ onNavigate, variant }) {
           <p className="serviceGroupLabel">{group.label}</p>
           <div className="serviceGroupLinks">
             {group.items.map((item) => (
-              <Link key={item.label} to={item.to} onClick={onNavigate}>
-                {item.label}
-              </Link>
+              <ServiceItem key={item.label} item={item} onNavigate={onNavigate} />
             ))}
           </div>
         </div>
       ))}
-      <div className="serviceGroup serviceGroupLinks serviceStandalone">
+      <div className="serviceStandalone">
         {serviceLinks.map((item) => (
-          <Link key={item.label} to={item.to} onClick={onNavigate}>
-            {item.label}
-          </Link>
+          <ServiceItem key={item.label} item={item} onNavigate={onNavigate} />
         ))}
       </div>
     </div>
