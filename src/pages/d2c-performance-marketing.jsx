@@ -236,6 +236,7 @@ const brands = [
 const stories = [
   {
     brand: "Zam Zam",
+    logo: zamZamLogo,
     industry: "Food & Beverages",
     headline: "Turning store growth into stronger sales.",
     text: "We helped Zamzam strengthen its online presence and drive business growth through a focused digital marketing strategy.",
@@ -247,6 +248,7 @@ const stories = [
   },
   {
     brand: "Rio Grande",
+    logo: rioGrandeLogo,
     industry: "Real Estate",
     headline: "Turning ad spend into a steady flow of leads.",
     text: "We ran targeted Meta Ads campaigns to help Rio reach potential customers and generate daily leads while managing advertising spend.",
@@ -258,6 +260,7 @@ const stories = [
   },
   {
     brand: "Earslovingly",
+    logo: earsLogoImage,
     industry: "Healthcare",
     headline: "Building visibility for a new brand.",
     text: "We focused on growing brand awareness through social media content, helping a new brand reach a wider audience and gain organic attention.",
@@ -269,6 +272,7 @@ const stories = [
   },
   {
     brand: "Drip Dessert Lab",
+    logo: dripLogo,
     industry: "Food & Beverages",
     headline: "Turning local visibility into more store visits.",
     text: "We helped Drip Dessert Lab improve its local brand visibility and attract more customers to its physical store.",
@@ -280,6 +284,7 @@ const stories = [
   },
   {
     brand: "Vee Vee - House Of Cashews",
+    logo: veeVeeLogo,
     industry: "Food & Beverages",
     headline: "Growing brand visibility and organic enquiries.",
     text: "We helped Vee Vee House of Cashews strengthen brand and founder visibility across Tamil Nadu, creating more opportunities to attract organic enquiries.",
@@ -353,9 +358,12 @@ function StoryShowcase() {
               className={index === active ? "isActive" : ""}
               onClick={() => selectStory(index)}
             >
-              <span>
-                <strong>{item.brand}</strong>
-                <small>{item.industry}</small>
+              <span className="d2cStoryBrand">
+                <img src={item.logo} alt="" />
+                <span>
+                  <strong>{item.brand}</strong>
+                  <small>{item.industry}</small>
+                </span>
               </span>
               <span className="d2cStoryPlay">
                 <StoryPlayIcon />

@@ -3632,6 +3632,28 @@ body:has(.extraPage) header.header.visible {
   box-shadow: 0 0.45vw 1.3vw rgba(104, 66, 239, 0.08);
 }
 
+.d2cStoryBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.55vw;
+  min-width: 0;
+}
+
+.d2cStoryBrand img {
+  flex: 0 0 auto;
+  width: 2.35vw;
+  height: 2.35vw;
+  object-fit: contain;
+  background: var(--white);
+  border: 1px solid rgba(45, 35, 35, 0.08);
+  border-radius: 0.45vw;
+  padding: 0.16vw;
+}
+
+.d2cStoryList button.isActive .d2cStoryBrand img {
+  background: var(--background);
+}
+
 .d2cStoryList strong {
   display: block;
   font-size: 0.92vw;
@@ -6080,6 +6102,17 @@ body:has(.extraPage) header.header.visible {
   .d2cStoryList button {
     padding: 12px 12px 12px 14px;
     border-radius: 14px;
+  }
+
+  .d2cStoryBrand {
+    gap: 10px;
+  }
+
+  .d2cStoryBrand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    padding: 3px;
   }
 
   .d2cStoryList strong {
