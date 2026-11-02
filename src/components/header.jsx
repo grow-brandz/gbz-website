@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import LottieLoop from "./lottiecomp";
 import MobileOne from "../assets/lotties/headermobile.json";
 
-const serviceMenu = [
+export const serviceMenu = [
   {
     label: "For D2C Brandz",
     items: [
@@ -38,12 +38,12 @@ const serviceMenu = [
   },
 ];
 
-const serviceLinks = [
+export const serviceLinks = [
   { label: "Social Media Marketing" },
   { label: "Personal Branding" },
 ];
 
-function ServiceChevron() {
+export function ServiceChevron() {
   return (
     <svg className="serviceChevron" viewBox="0 0 12 8" aria-hidden="true">
       <path
@@ -75,7 +75,7 @@ function ServiceItem({ item, onNavigate }) {
   );
 }
 
-function ServiceGroups({ onNavigate, variant }) {
+export function ServiceGroups({ onNavigate, variant }) {
   return (
     <div className={variant === "mobile" ? "mobileServiceList" : "servicePanel"}>
       {serviceMenu.map((group) => (

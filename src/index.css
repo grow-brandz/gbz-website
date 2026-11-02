@@ -2894,6 +2894,11 @@ html.form-modal-open body {
   transition: transform 0.35s ease;
 }
 
+.footerCover:has(.footerServiceMenu.open) .footerSiteMap {
+  position: relative;
+  z-index: 4;
+}
+
 .footerSiteMap {
   background: var(--secondary);
   background-image: url("data:image/svg+xml,%3Csvg width='104' height='107' viewBox='0 0 104 107' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='103' height='106' fill='none' stroke='%23FFFFFF' stroke-opacity='0.04'/%3E%3C/svg%3E");
@@ -2949,6 +2954,129 @@ html.form-modal-open body {
   flex-direction: column;
   gap: 0.278vw;
   align-items: end;
+}
+
+.footerServiceMenu {
+  position: relative;
+}
+
+.footerServiceMenu.open {
+  z-index: 5;
+}
+
+.footerServiceMenu > button {
+  gap: 0.4vw;
+  padding: 0;
+  background: transparent;
+  color: var(--white);
+  font-size: 1.389vw;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.footerServiceMenu .serviceChevron {
+  width: 0.75vw;
+  height: 0.5vw;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.footerServiceMenu.open .serviceChevron {
+  transform: rotate(180deg);
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .servicePanel {
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 0.9vw);
+  left: 0;
+  max-height: 70vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25vw 1.8vw;
+  width: min(72vw, 860px);
+  padding: 1.5vw 1.6vw;
+  background: var(--background);
+  border-radius: 1.25vw;
+  box-shadow: 0.28vw 0.28vw 0 var(--pink);
+  text-align: left;
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .serviceGroup,
+.footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28vw;
+  width: 100%;
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLabel {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.72vw;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 140%;
+  padding: 0 0.55vw;
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLinks {
+  gap: 0;
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .servicePanel a,
+.footerSiteMap .leftColumn .footerServiceMenu .serviceSoon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45vw;
+  width: 100%;
+  padding: 0.42vw 0.55vw;
+  border-radius: 1000px;
+  background: transparent;
+  color: var(--black);
+  font-size: 0.9vw;
+  font-weight: 400;
+  line-height: 140%;
+  text-align: left;
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .servicePanel a:hover {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .soonBadge {
+  flex: 0 0 auto;
+  padding: 0.12vw 0.42vw;
+  background: var(--primary);
+  color: var(--secondary);
+  border-radius: 1000px;
+  font-size: 0.58vw;
+  font-weight: 600;
+  line-height: 150%;
+  white-space: nowrap;
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7vw;
+  width: 100%;
+  margin-top: 0.15vw;
+  padding-top: 1vw;
+  border-top: 1px solid rgba(104, 66, 239, 0.22);
+}
+
+.footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone .serviceSoon {
+  background: var(--white);
+  border-radius: 0.7vw;
+  padding: 0.72vw 0.85vw;
+  box-shadow: 0.16vw 0.16vw 0 var(--secondary);
+  font-weight: 500;
 }
 
 footer {
@@ -3504,16 +3632,14 @@ body:has(.extraPage) header.header.visible {
   box-shadow: 0 0.45vw 1.3vw rgba(104, 66, 239, 0.08);
 }
 
-.d2cStoryList strong,
-.d2cStoryMiniCopy strong {
+.d2cStoryList strong {
   display: block;
   font-size: 0.92vw;
   font-weight: 600;
   line-height: 130%;
 }
 
-.d2cStoryList small,
-.d2cStoryMiniCopy small {
+.d2cStoryList small {
   display: block;
   margin-top: 0.12vw;
   font-size: 0.7vw;
@@ -3536,8 +3662,7 @@ body:has(.extraPage) header.header.visible {
   color: #8a8494;
 }
 
-.d2cStoryList button.isActive .d2cStoryPlay,
-.d2cStoryMini .d2cStoryPlay {
+.d2cStoryList button.isActive .d2cStoryPlay {
   background: var(--secondary);
   border-color: var(--secondary);
   color: var(--white);
@@ -3733,60 +3858,6 @@ body:has(.extraPage) header.header.visible {
   font-size: 0.75vw;
   line-height: 140%;
   color: #5e5868;
-}
-
-.d2cStoryStrip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75vw;
-}
-
-.d2cStoryMini {
-  display: flex;
-  align-items: center;
-  gap: 0.65vw;
-  min-width: 0;
-  padding: 0.65vw;
-  border: 1px solid rgba(26, 18, 40, 0.08);
-  border-radius: 0.9vw;
-  background: var(--white);
-  color: var(--black);
-  text-align: left;
-}
-
-.d2cStoryThumb {
-  flex: 0 0 auto;
-  width: 3.7vw;
-  height: 3.7vw;
-  min-width: 52px;
-  min-height: 52px;
-  border-radius: 0.55vw;
-  overflow: hidden;
-  background: #1a1a1a;
-}
-
-.d2cStoryThumb video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.d2cStoryMiniCopy {
-  min-width: 0;
-  flex: 1;
-}
-
-.d2cStoryMiniStat {
-  display: block;
-  margin-top: 0.22vw;
-  font-size: 0.7vw;
-  line-height: 135%;
-  color: var(--black);
-}
-
-.d2cStoryMiniStat b {
-  font-weight: 700;
 }
 
 .d2cCtaLine {
@@ -5766,6 +5837,57 @@ body:has(.extraPage) header.header.visible {
     font-size: 20px !important;
   }
 
+  .footerServiceMenu > button {
+    font-size: 20px;
+    gap: 8px;
+  }
+
+  .footerServiceMenu .serviceChevron {
+    width: 12px;
+    height: 8px;
+  }
+
+  .footerSiteMap .leftColumn .footerServiceMenu .servicePanel {
+    left: 0;
+    width: min(92vw, 420px);
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+
+  .footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLabel {
+    font-size: 12px;
+    padding: 4px 8px 0;
+  }
+
+  .footerSiteMap .leftColumn .footerServiceMenu .servicePanel a,
+  .footerSiteMap .leftColumn .footerServiceMenu .serviceSoon {
+    gap: 8px;
+    padding: 8px;
+    font-size: 15px !important;
+  }
+
+  .footerSiteMap .leftColumn .footerServiceMenu .soonBadge {
+    padding: 2px 8px;
+    font-size: 11px;
+  }
+
+  .footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+    padding-top: 12px;
+  }
+
+  .footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone .serviceSoon {
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 3px 3px 0 var(--secondary);
+  }
+
   .footerSiteMap .leftColumn {
     display: flex;
     flex-direction: row;
@@ -5951,8 +6073,7 @@ body:has(.extraPage) header.header.visible {
   }
 
   .d2cStoryLayout,
-  .d2cStoryFeature,
-  .d2cStoryStrip {
+  .d2cStoryFeature {
     grid-template-columns: 1fr;
   }
 
@@ -5961,13 +6082,11 @@ body:has(.extraPage) header.header.visible {
     border-radius: 14px;
   }
 
-  .d2cStoryList strong,
-  .d2cStoryMiniCopy strong {
+  .d2cStoryList strong {
     font-size: 15px;
   }
 
-  .d2cStoryList small,
-  .d2cStoryMiniCopy small {
+  .d2cStoryList small {
     font-size: 13px;
   }
 
@@ -6030,23 +6149,6 @@ body:has(.extraPage) header.header.visible {
   .d2cStoryStats div {
     padding: 12px;
     border-radius: 12px;
-  }
-
-  .d2cStoryMini {
-    gap: 10px;
-    padding: 10px;
-    border-radius: 14px;
-  }
-
-  .d2cStoryThumb {
-    width: 56px;
-    height: 56px;
-    min-width: 56px;
-    border-radius: 10px;
-  }
-
-  .d2cStoryMiniStat {
-    font-size: 13px;
   }
 
   .d2cStories .d2cFeaturedBadge,

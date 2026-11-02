@@ -421,40 +421,6 @@ function StoryShowcase() {
           </div>
         </article>
       </div>
-
-      <div className="d2cStoryStrip">
-        {stories.map((item, index) =>
-          index === active ? null : (
-            <button
-              key={item.brand}
-              type="button"
-              className="d2cStoryMini"
-              onClick={() => selectStory(index)}
-            >
-              <span className="d2cStoryThumb">
-                <video
-                  src={item.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                />
-              </span>
-              <span className="d2cStoryMiniCopy">
-                <strong>{item.brand}</strong>
-                <small>{item.industry}</small>
-                <span className="d2cStoryMiniStat">
-                  <b>{item.stats[0].figure}</b> {item.stats[0].label}
-                </span>
-              </span>
-              <span className="d2cStoryPlay">
-                <StoryPlayIcon />
-              </span>
-            </button>
-          )
-        )}
-      </div>
     </div>
   );
 }
@@ -663,13 +629,6 @@ function D2cPerformance() {
           </div>
         </section>
 
-        <Divider
-          bgColor="#6842EF"
-          fillColor="#FFF2EC"
-          boxStroke="#000000"
-          gridStroke="#000000"
-        />
-
         <section className="container d2cServices">
           <h2>Our D2C performance marketing services</h2>
           <p className="d2cLead">
@@ -735,13 +694,6 @@ function D2cPerformance() {
             Book a call
           </button>
         </section>
-
-        <Divider
-          bgColor="#6842EF"
-          fillColor="#FFF2EC"
-          boxStroke="#000000"
-          gridStroke="#000000"
-        />
 
         <section className="container d2cCategories">
           <h2>Our D2C brand marketing for every category</h2>

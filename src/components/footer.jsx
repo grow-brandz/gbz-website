@@ -1,7 +1,30 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Divider from "./divider";
+import { ServiceChevron, ServiceGroups } from "./header";
 
 function Footer() {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesRef = useRef(null);
+
+  useEffect(() => {
+    if (!servicesOpen) return;
+
+    const closeOnOutside = (event) => {
+      if (!servicesRef.current?.contains(event.target)) setServicesOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setServicesOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutside);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutside);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [servicesOpen]);
+
   return (
     <div className="footerCover">
       <div className="preFooter">
@@ -25,7 +48,22 @@ function Footer() {
             <div className="linkCover">
               <Link to="/about">About</Link>
               <Link to="/our-process">Our Process</Link>
-              <Link to="/services">Services</Link>
+              <div
+                className={`footerServiceMenu ${servicesOpen ? "open" : ""}`}
+                ref={servicesRef}
+              >
+                <button
+                  type="button"
+                  aria-expanded={servicesOpen}
+                  onClick={() => setServicesOpen((open) => !open)}
+                >
+                  Services
+                  <ServiceChevron />
+                </button>
+                {servicesOpen && (
+                  <ServiceGroups onNavigate={() => setServicesOpen(false)} />
+                )}
+              </div>
               <Link to="/our-approach">Our Approach</Link>
               <Link to="/blog">Blog</Link>
               <Link to="/contact">Contact Us</Link>
