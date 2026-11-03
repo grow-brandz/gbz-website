@@ -19,11 +19,12 @@ import rioGrandePoster from "../assets/videos/posters/rio-grande.jpg";
 import earsPoster from "../assets/videos/posters/ears-lovingly.jpg";
 import dripPoster from "../assets/videos/posters/drip.jpg";
 import veeVeePoster from "../assets/videos/posters/vee-vee.jpg";
-import zamZamLogo from "../assets/brands/ZAM_ZAM.png";
-import rioGrandeLogo from "../assets/brands/Rio grande.png";
-import earsLogoImage from "../assets/brands/Ears Lovingly.png";
-import dripLogo from "../assets/brands/Drip.png";
-import veeVeeLogo from "../assets/brands/Vee Vee.png";
+import signateFont from "../assets/font/Signate-Grotesk-Black.woff2";
+import zamZamLogo from "../assets/brands/zam-zam.webp";
+import rioGrandeLogo from "../assets/brands/rio-grande.webp";
+import earsLogoImage from "../assets/brands/ears-lovingly.webp";
+import dripLogo from "../assets/brands/drip.webp";
+import veeVeeLogo from "../assets/brands/vee-vee.webp";
 
 const PAGE_PATH = "/d2c-performance-marketing";
 
@@ -231,11 +232,11 @@ function CategoryIcon({ name }) {
 }
 
 const brands = [
-  { name: "Zam Zam", logo: zamZamLogo },
-  { name: "Rio Grande", logo: rioGrandeLogo },
-  { name: "Ears Lovingly", logo: earsLogoImage },
-  { name: "Drip", logo: dripLogo },
-  { name: "Vee Vee", logo: veeVeeLogo },
+  { name: "Zam Zam", logo: zamZamLogo, width: 150, height: 67 },
+  { name: "Rio Grande", logo: rioGrandeLogo, width: 156, height: 200 },
+  { name: "Ears Lovingly", logo: earsLogoImage, width: 150, height: 150 },
+  { name: "Drip", logo: dripLogo, width: 400, height: 400 },
+  { name: "Vee Vee", logo: veeVeeLogo, width: 400, height: 398 },
 ];
 
 const stories = [
@@ -251,6 +252,8 @@ const stories = [
     ],
     video: zamZamVideo,
     poster: zamZamPoster,
+    width: 150,
+    height: 67,
   },
   {
     brand: "Rio Grande",
@@ -264,6 +267,8 @@ const stories = [
     ],
     video: rioGrandeVideo,
     poster: rioGrandePoster,
+    width: 156,
+    height: 200,
   },
   {
     brand: "Earslovingly",
@@ -277,6 +282,8 @@ const stories = [
     ],
     video: earsVideo,
     poster: earsPoster,
+    width: 150,
+    height: 150,
   },
   {
     brand: "Drip Dessert Lab",
@@ -290,6 +297,8 @@ const stories = [
     ],
     video: dripVideo,
     poster: dripPoster,
+    width: 400,
+    height: 400,
   },
   {
     brand: "Vee Vee - House Of Cashews",
@@ -303,6 +312,8 @@ const stories = [
     ],
     video: veeVeeVideo,
     poster: veeVeePoster,
+    width: 400,
+    height: 398,
   },
 ];
 
@@ -418,7 +429,13 @@ function StoryShowcase() {
               onClick={() => selectStory(index)}
             >
               <span className="d2cStoryBrand">
-                <img src={item.logo} alt="" />
+                <img
+                  src={item.logo}
+                  alt=""
+                  width={item.width}
+                  height={item.height}
+                  decoding="async"
+                />
                 <span>
                   <strong>{item.brand}</strong>
                   <small>{item.industry}</small>
@@ -568,8 +585,17 @@ const activeFaqIcon = `
 function D2cPerformance() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [showHeroArt, setShowHeroArt] = useState(false);
   const homeData = useSsrPageData("/", getHomeData);
   const story = homeData?.our_story;
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 766px)");
+    const update = () => setShowHeroArt(!query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   return (
     <>
@@ -579,6 +605,13 @@ function D2cPerformance() {
         path={PAGE_PATH}
       />
       <Helmet>
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href={signateFont}
+          crossOrigin="anonymous"
+        />
         <meta name="robots" content="index, follow" />
         <script
           type="application/ld+json"
@@ -648,6 +681,9 @@ function D2cPerformance() {
                       <img
                         src={brand.logo}
                         alt={copy === 0 ? brand.name : ""}
+                        width={brand.width}
+                        height={brand.height}
+                        decoding="async"
                       />
                     </li>
                   ))}
@@ -655,10 +691,14 @@ function D2cPerformance() {
               ))}
             </div>
           </div>
-          <LottieLoop
-            animationData={Hero}
-            className="commonHeroFloat servicesHeroFloat"
-          />
+          {showHeroArt ? (
+            <LottieLoop
+              animationData={Hero}
+              className="commonHeroFloat servicesHeroFloat"
+            />
+          ) : (
+            <div className="commonHeroFloat servicesHeroFloat" />
+          )}
         </section>
 
         <section className="container d2cReasons">
@@ -828,6 +868,8 @@ function D2cPerformance() {
                 className="homeceoFloat1"
                 src="https://ik.imagekit.io/growbrandz/homeabout1.png"
                 alt=""
+                loading="lazy"
+                decoding="async"
               />
               {story?.linkedin_id?.url ? (
                 <a
@@ -839,6 +881,8 @@ function D2cPerformance() {
                     className="homeceoImage"
                     src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceoImage.png"
                     alt={story?.team_member_name || "Jafer, Chief executive officer"}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </a>
               ) : (
@@ -846,6 +890,8 @@ function D2cPerformance() {
                   className="homeceoImage"
                   src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceoImage.png"
                   alt={story?.team_member_name || "Jafer, Chief executive officer"}
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
               <LottieLoop animationData={Arrow} className="homeceoFloat2" />
@@ -872,26 +918,36 @@ function D2cPerformance() {
             className="homeceoExtra1"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo1.png"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
           <img
             className="homeceoExtra2"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo2.png"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
           <img
             className="homeceoExtra3"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo3.png"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
           <img
             className="homeceoExtra4"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo4.png"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
           <img
             className="homeceoExtra5"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo5.png"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
         </section>
 
