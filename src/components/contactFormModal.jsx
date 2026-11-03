@@ -107,7 +107,9 @@ function ContactFormModal({ open, onClose }) {
             )}
             <div className="formModalFields">
               <div className="formGroup">
-                <label htmlFor="contact-name">Full Name</label>
+                <label htmlFor="contact-name">
+                  Full Name <span className="requiredMark" aria-hidden="true">*</span>
+                </label>
                 <input
                   id="contact-name"
                   ref={nameInputRef}
@@ -120,7 +122,9 @@ function ContactFormModal({ open, onClose }) {
                 />
               </div>
               <div className="formGroup">
-                <label htmlFor="contact-email">Email</label>
+                <label htmlFor="contact-email">
+                  Email <span className="requiredMark" aria-hidden="true">*</span>
+                </label>
                 <input
                   id="contact-email"
                   name="email"
@@ -132,7 +136,9 @@ function ContactFormModal({ open, onClose }) {
                 />
               </div>
               <div className="formGroup">
-                <label htmlFor="contact-phone">Phone Number</label>
+                <label htmlFor="contact-phone">
+                  Phone Number <span className="requiredMark" aria-hidden="true">*</span>
+                </label>
                 <input
                   id="contact-phone"
                   name="phone"

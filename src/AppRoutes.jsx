@@ -21,7 +21,7 @@ function AppRoutes() {
       <Route path="/our-process" element={<OurProcess />} />
       <Route path="/services" element={<Services />} />
       <Route
-        path="/d2c-performance-marketing-agency"
+        path="/d2c-performance-marketing"
         element={<D2cPerformance />}
       />
       <Route path="/contact" element={<Contact />} />

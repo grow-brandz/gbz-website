@@ -20,7 +20,7 @@ import earsLogoImage from "../assets/brands/Ears Lovingly.png";
 import dripLogo from "../assets/brands/Drip.png";
 import veeVeeLogo from "../assets/brands/Vee Vee.png";
 
-const PAGE_PATH = "/d2c-performance-marketing-agency";
+const PAGE_PATH = "/d2c-performance-marketing";
 
 const reasons = [
   {
@@ -415,8 +415,13 @@ function StoryShowcase() {
             </div>
           </div>
           <div className="d2cStoryCopy">
+            <div className="d2cStoryIdentity">
+              <img src={story.logo} alt="" />
+              <strong>{story.brand}</strong>
+            </div>
+            <div className="d2cStoryBody">
             <p className="d2cStoryIndustry">{story.industry}</p>
-            <h3>{story.headline}</h3>
+            <p className="d2cStoryHeadline">{story.headline}</p>
             <p>{story.text}</p>
             <div className="d2cStoryStats">
               {story.stats.map((stat) => (
@@ -425,6 +430,7 @@ function StoryShowcase() {
                   <p>{stat.label}</p>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </article>
@@ -482,6 +488,20 @@ const organizationSchema = {
     "https://www.instagram.com/grow_brandz",
   ],
 };
+
+const inactiveFaqIcon = `
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="44" height="44" rx="22" fill="#EFECFD"/>
+  <path d="M16 19L22 25L28 19" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
+  </svg>
+`;
+
+const activeFaqIcon = `
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="44" height="44" rx="22" fill="#6842EF"/>
+  <path d="M16 19L22 25L28 19" stroke="#EFECFD" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
+  </svg>
+`;
 
 function D2cPerformance() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -769,10 +789,10 @@ function D2cPerformance() {
               <LottieLoop animationData={Arrow} className="homeceoFloat2" />
             </div>
             <div className="contentSide">
-              <h2>
+              <div className="ceoHeading">
                 {story?.heading ||
                   "We are passionate about creative ideas that actually make sense."}
-              </h2>
+              </div>
               <p>
                 {story?.paragraph ||
                   "Growbrandz was built with one clear belief. Creativity should solve real business problems. After working closely with founders and fast growing D2C brands, we saw a gap between beautiful work and work that truly drives digital sales growth. So we built a team that thinks in strategy, performance, and long term ecommerce revenue growth, not just visuals. We partner closely with brands, understand their goals deeply, and work as an extension of their team to help them scale with clarity and confidence."}
@@ -831,12 +851,16 @@ function D2cPerformance() {
                   setActiveIndex(activeIndex === index ? null : index)
                 }
               >
-                <h4 className="faqQuestion">
+                <h5 className="faqQuestion">
                   {item.question}
-                  <span className="d2cFaqMark" aria-hidden="true">
-                    {activeIndex === index ? "–" : "+"}
-                  </span>
-                </h4>
+                  <div
+                    className={`faqIcon ${activeIndex === index ? "rotate" : ""}`}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        activeIndex === index ? activeFaqIcon : inactiveFaqIcon,
+                    }}
+                  />
+                </h5>
                 {activeIndex === index && (
                   <p className="faqAnswer">{item.answer}</p>
                 )}

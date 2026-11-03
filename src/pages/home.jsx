@@ -951,7 +951,7 @@ function Home() {
             </div>
 
             <div className="contentSide">
-              <h2>{homeData?.our_story?.heading}</h2>
+              <div className="ceoHeading">{homeData?.our_story?.heading}</div>
 
               <p>{homeData?.our_story?.paragraph}</p>
 

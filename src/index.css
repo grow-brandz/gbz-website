@@ -1165,6 +1165,13 @@ h4.d2c {
   gap: 1.667vw;
 }
 
+.ceoSection .ceoHeading {
+  font-family: "Signate", sans-serif;
+  font-size: 5.694vw;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
 .homeceoExtra1 {
   position: absolute;
   width: 9.514vw;
@@ -1594,6 +1601,11 @@ h4.d2c {
 
 .formGroup label {
   color: var(--black);
+}
+
+.formGroup label .requiredMark {
+  color: var(--darkpink);
+  margin-left: 0.15em;
 }
 
 .formGroup input[type="text"],
@@ -2832,8 +2844,17 @@ html.form-modal-open body {
   z-index: 1;
 }
 
+.preFooter .preFooterLead {
+  font-family: "Signate", sans-serif;
+  font-size: 2.014vw;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
 .preFooter .bigCTA {
+  font-family: "Signate", sans-serif;
   font-size: 17.639vw;
+  font-weight: 900;
   color: var(--primary);
   position: relative;
   display: inline-block;
@@ -2894,21 +2915,18 @@ html.form-modal-open body {
   transition: transform 0.35s ease;
 }
 
-.footerCover:has(.footerServiceMenu.open) .footerSiteMap {
-  position: relative;
-  z-index: 4;
-}
-
 .footerSiteMap {
   background: var(--secondary);
   background-image: url("data:image/svg+xml,%3Csvg width='104' height='107' viewBox='0 0 104 107' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='103' height='106' fill='none' stroke='%23FFFFFF' stroke-opacity='0.04'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
   justify-content: space-between;
+  align-items: start;
+  column-gap: 2.4vw;
   color: var(--white);
-  padding-top: 4.444vw;
+  padding-top: 3.6vw;
+  padding-bottom: 3.2vw;
 }
 
 .footerSiteMap span {
@@ -2920,9 +2938,7 @@ html.form-modal-open body {
 }
 
 .footerSiteMap .leftColumn {
-  display: flex;
-  flex-direction: row;
-  gap: 5.556vw;
+  display: contents;
 }
 
 .footerSiteMap .leftColumn div:not(.linkCover) {
@@ -2936,7 +2952,23 @@ html.form-modal-open body {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.833vw;
-  margin-top: -0.139vw;
+  margin-top: 0;
+}
+
+.footerSiteMap .leftColumn div.explore,
+.footerSiteMap .leftColumn div.footerServices,
+.footerSiteMap .leftColumn div.socials {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9vw;
+}
+
+.footerSiteMap .leftColumn div.explore > span,
+.footerSiteMap .leftColumn div.footerServices > span,
+.footerSiteMap .leftColumn div.socials > span {
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+  line-height: 140%;
 }
 
 .footerSiteMap .rightColumn {
@@ -2956,127 +2988,110 @@ html.form-modal-open body {
   align-items: end;
 }
 
-.footerServiceMenu {
-  position: relative;
+.footerSiteMap .leftColumn .footerServices {
+  align-items: flex-start;
+  gap: 1.15vw;
+  min-width: 0;
 }
 
-.footerServiceMenu.open {
-  z-index: 5;
-}
-
-.footerServiceMenu > button {
-  gap: 0.4vw;
-  padding: 0;
-  background: transparent;
-  color: var(--white);
-  font-size: 1.389vw;
-  font-weight: 400;
-  line-height: 140%;
-}
-
-.footerServiceMenu .serviceChevron {
-  width: 0.75vw;
-  height: 0.5vw;
-  display: block;
-  transition: transform 0.2s ease;
-}
-
-.footerServiceMenu.open .serviceChevron {
-  transform: rotate(180deg);
-}
-
-.footerSiteMap .leftColumn .footerServiceMenu .servicePanel {
-  position: absolute;
-  z-index: 6;
-  top: calc(100% + 0.9vw);
-  left: 0;
-  max-height: 70vh;
-  overflow-y: auto;
+.footerSiteMap .leftColumn .footerServices .linkCover {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25vw 1.8vw;
-  width: min(72vw, 860px);
-  padding: 1.5vw 1.6vw;
-  background: var(--background);
-  border-radius: 1.25vw;
-  box-shadow: 0.28vw 0.28vw 0 var(--pink);
-  text-align: left;
+  grid-template-columns: max-content max-content;
+  align-items: start;
+  width: auto;
+  gap: 1.25vw 2.6vw;
+  margin-top: 0;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .serviceGroup,
-.footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLinks {
+.footerSiteMap .leftColumn div.footerServiceGroup {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.28vw;
-  width: 100%;
+  gap: 0.55vw;
+  min-width: 0;
+  max-width: 100%;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLabel {
-  margin: 0;
-  color: var(--secondary);
-  font-size: 0.72vw;
+.footerSiteMap .leftColumn .footerServiceLabel {
+  color: var(--primary);
+  font-size: 0.62vw;
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 140%;
-  padding: 0 0.55vw;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLinks {
-  gap: 0;
-}
-
-.footerSiteMap .leftColumn .footerServiceMenu .servicePanel a,
-.footerSiteMap .leftColumn .footerServiceMenu .serviceSoon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.45vw;
-  width: 100%;
-  padding: 0.42vw 0.55vw;
-  border-radius: 1000px;
-  background: transparent;
-  color: var(--black);
+.footerSiteMap .leftColumn .footerServices .linkCover a,
+.footerSiteMap .leftColumn .footerSoonItem {
+  color: var(--white);
   font-size: 0.9vw;
   font-weight: 400;
   line-height: 140%;
-  text-align: left;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .servicePanel a:hover {
-  background: var(--primary);
-  color: var(--secondary);
+.footerSiteMap .leftColumn .footerSoonItem {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.45vw;
+  width: auto;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .soonBadge {
+.footerSiteMap .leftColumn .footerSoonLabel {
+  min-width: 0;
+  font-size: 0.9vw;
+  line-height: 140%;
+}
+
+.footerSiteMap .leftColumn .footerSoonItem .soonBadge {
   flex: 0 0 auto;
-  padding: 0.12vw 0.42vw;
+  padding: 0.08vw 0.38vw;
   background: var(--primary);
   color: var(--secondary);
   border-radius: 1000px;
-  font-size: 0.58vw;
+  font-size: 0.52vw;
   font-weight: 600;
   line-height: 150%;
   white-space: nowrap;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.7vw;
-  width: 100%;
-  margin-top: 0.15vw;
-  padding-top: 1vw;
-  border-top: 1px solid rgba(104, 66, 239, 0.22);
+.footerSiteMap .leftColumn .socials {
+  align-items: flex-start;
 }
 
-.footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone .serviceSoon {
-  background: var(--white);
-  border-radius: 0.7vw;
-  padding: 0.72vw 0.85vw;
-  box-shadow: 0.16vw 0.16vw 0 var(--secondary);
-  font-weight: 500;
+.footerSiteMap .leftColumn .linkCover.footerSocialIcons {
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.55vw;
+}
+
+.footerSiteMap .footerSocialIcons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15vw;
+  height: 2.15vw;
+  min-width: 34px;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1000px;
+  color: var(--white);
+  line-height: 0;
+}
+
+.footerSiteMap .footerSocialIcons a:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--secondary);
+}
+
+.footerSiteMap .footerSocialIcons svg {
+  width: 1.05vw;
+  height: 1.05vw;
+  min-width: 16px;
+  min-height: 16px;
 }
 
 footer {
@@ -3700,7 +3715,7 @@ body:has(.extraPage) header.header.visible {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 1.3vw;
-  align-items: center;
+  align-items: stretch;
   min-width: 0;
   padding: 1.05vw;
   background: var(--white);
@@ -3813,8 +3828,40 @@ body:has(.extraPage) header.header.visible {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
+  gap: 0.85vw;
+  padding: 0.15vw 0.4vw 0.15vw 0.15vw;
+}
+
+.d2cStoryIdentity {
+  display: flex;
+  align-items: center;
+  gap: 0.7vw;
+}
+
+.d2cStoryIdentity img {
+  width: 3.4vw;
+  height: 3.4vw;
+  object-fit: contain;
+  background: var(--background);
+  border: 1px solid rgba(45, 35, 35, 0.08);
+  border-radius: 0.65vw;
+  padding: 0.28vw;
+}
+
+.d2cStoryIdentity strong {
+  font-size: 1.25vw;
+  font-weight: 600;
+  line-height: 120%;
+  color: var(--black);
+}
+
+.d2cStoryBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 0.5vw;
-  padding-right: 0.4vw;
+  width: 100%;
 }
 
 .d2cStoryIndustry {
@@ -3830,18 +3877,18 @@ body:has(.extraPage) header.header.visible {
   text-transform: none;
 }
 
-.d2cStoryCopy h3,
-.d2cStoryCopy h3 * {
+.d2cStoryHeadline {
   font-family: "Poppins", sans-serif;
-  font-size: 1.7vw;
-  font-weight: 600;
+  font-size: 0.9vw;
+  font-weight: 400;
   letter-spacing: 0;
-  line-height: 118%;
+  line-height: 160%;
   color: var(--black);
   text-align: left;
 }
 
-.d2cStoryCopy > p {
+.d2cStoryCopy > p,
+.d2cStoryBody > p {
   width: auto;
   margin: 0;
   text-align: left;
@@ -4275,22 +4322,6 @@ body:has(.extraPage) header.header.visible {
 
 .d2cPage .homeFAQ {
   padding: 4.5vw 4vw 6vw;
-}
-
-.d2cPage .faqQuestion {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1vw;
-  cursor: pointer;
-}
-
-.d2cFaqMark {
-  font-family: "Signate", sans-serif;
-  color: var(--secondary);
-  font-size: 2vw;
-  line-height: 1;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------
@@ -4880,6 +4911,10 @@ body:has(.extraPage) header.header.visible {
     text-align: center;
     align-items: center;
     gap: 24px;
+  }
+
+  .ceoSection .ceoHeading {
+    font-size: 41px;
   }
 
   .homeceoExtra1 {
@@ -5810,6 +5845,10 @@ body:has(.extraPage) header.header.visible {
     margin-bottom: 0;
   }
 
+  .preFooter .preFooterLead {
+    font-size: 22px;
+  }
+
   .preFooter .bigCTA {
     font-size: 100px;
     margin-top: 20px;
@@ -5846,6 +5885,9 @@ body:has(.extraPage) header.header.visible {
   }
 
   .footerSiteMap {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     flex-wrap: wrap;
     padding-top: 40px;
     padding-bottom: 20px;
@@ -5859,60 +5901,72 @@ body:has(.extraPage) header.header.visible {
     font-size: 20px !important;
   }
 
-  .footerServiceMenu > button {
-    font-size: 20px;
-    gap: 8px;
+  .footerSiteMap .leftColumn .explore {
+    order: 1;
   }
 
-  .footerServiceMenu .serviceChevron {
-    width: 12px;
-    height: 8px;
+  .footerSiteMap .leftColumn .socials {
+    order: 2;
   }
 
-  .footerSiteMap .leftColumn .footerServiceMenu .servicePanel {
-    left: 0;
-    width: min(92vw, 420px);
-    grid-template-columns: 1fr;
+  .footerSiteMap .leftColumn .footerServices {
+    order: 3;
+    flex: 1 0 100%;
+    width: 100%;
     gap: 12px;
-    padding: 14px;
-    border-radius: 16px;
-    box-shadow: 4px 4px 0 var(--pink);
   }
 
-  .footerSiteMap .leftColumn .footerServiceMenu .serviceGroupLabel {
+  .footerSiteMap .leftColumn .footerServices .linkCover {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .footerSiteMap .leftColumn div.footerServiceGroup {
+    gap: 6px;
+  }
+
+  .footerSiteMap .leftColumn .footerServiceLabel {
     font-size: 12px;
-    padding: 4px 8px 0;
   }
 
-  .footerSiteMap .leftColumn .footerServiceMenu .servicePanel a,
-  .footerSiteMap .leftColumn .footerServiceMenu .serviceSoon {
+  .footerSiteMap .leftColumn .footerServices .linkCover a,
+  .footerSiteMap .leftColumn .footerSoonItem {
+    font-size: 16px !important;
+  }
+
+  .footerSiteMap .leftColumn .footerSoonItem {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 8px;
-    padding: 8px;
-    font-size: 15px !important;
   }
 
-  .footerSiteMap .leftColumn .footerServiceMenu .soonBadge {
+  .footerSiteMap .leftColumn .footerSoonItem .soonBadge {
     padding: 2px 8px;
     font-size: 11px;
   }
 
-  .footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 4px;
-    padding-top: 12px;
+  .footerSiteMap .leftColumn .linkCover.footerSocialIcons {
+    flex-direction: row;
+    gap: 10px;
   }
 
-  .footerSiteMap .leftColumn .footerServiceMenu .serviceStandalone .serviceSoon {
-    border-radius: 12px;
-    padding: 12px 14px;
-    box-shadow: 3px 3px 0 var(--secondary);
+  .footerSiteMap .footerSocialIcons a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footerSiteMap .footerSocialIcons svg {
+    width: 18px;
+    height: 18px;
   }
 
   .footerSiteMap .leftColumn {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: space-between;
     width: 100%;
@@ -6084,10 +6138,13 @@ body:has(.extraPage) header.header.visible {
   .d2cSteps h3,
   .d2cSteps h3 *,
   .d2cCtaLine h3,
-  .d2cCtaLine h3 *,
-  .d2cStoryCopy h3,
-  .d2cStoryCopy h3 * {
+  .d2cCtaLine h3 * {
     font-size: 22px !important;
+  }
+
+  .d2cStoryHeadline {
+    font-size: 15px;
+    font-weight: 400;
   }
 
   .d2cStoryStage {
@@ -6171,7 +6228,23 @@ body:has(.extraPage) header.header.visible {
     font-size: 14px;
   }
 
-  .d2cStoryCopy > p {
+  .d2cStoryIdentity {
+    gap: 10px;
+  }
+
+  .d2cStoryIdentity img {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    padding: 4px;
+  }
+
+  .d2cStoryIdentity strong {
+    font-size: 18px;
+  }
+
+  .d2cStoryCopy > p,
+  .d2cStoryBody > p {
     font-size: 15px;
   }
 
@@ -6188,6 +6261,7 @@ body:has(.extraPage) header.header.visible {
   .d2cStories .d2cStoryIndustry,
   .d2cStories .d2cStoryFigure,
   .d2cStories .d2cStoryCopy > p,
+  .d2cStories .d2cStoryBody > p,
   .d2cStories .d2cStoryStats p {
     width: auto;
     text-align: left;
