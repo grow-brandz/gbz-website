@@ -5932,7 +5932,8 @@ body:has(.extraPage) header.header.visible {
   }
 
   .footerSiteMap .leftColumn .footerServices .linkCover a,
-  .footerSiteMap .leftColumn .footerSoonItem {
+  .footerSiteMap .leftColumn .footerSoonItem,
+  .footerSiteMap .leftColumn .footerSoonLabel {
     font-size: 16px !important;
   }
 
