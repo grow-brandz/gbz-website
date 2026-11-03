@@ -14,11 +14,6 @@ import rioGrandeVideo from "../assets/videos/Rio Grande .mp4";
 import earsVideo from "../assets/videos/Earslovingly.mp4";
 import dripVideo from "../assets/videos/Drip Dessert Lab.mp4";
 import veeVeeVideo from "../assets/videos/Vee Vee - House Of Cashews.mp4";
-import zamZamPoster from "../assets/videos/posters/zam-zam.jpg";
-import rioGrandePoster from "../assets/videos/posters/rio-grande.jpg";
-import earsPoster from "../assets/videos/posters/ears-lovingly.jpg";
-import dripPoster from "../assets/videos/posters/drip.jpg";
-import veeVeePoster from "../assets/videos/posters/vee-vee.jpg";
 import zamZamLogo from "../assets/brands/ZAM_ZAM.png";
 import rioGrandeLogo from "../assets/brands/Rio grande.png";
 import earsLogoImage from "../assets/brands/Ears Lovingly.png";
@@ -250,7 +245,6 @@ const stories = [
       { figure: "12.5K", label: "Followers, up from 9.8K" },
     ],
     video: zamZamVideo,
-    poster: zamZamPoster,
   },
   {
     brand: "Rio Grande",
@@ -263,7 +257,6 @@ const stories = [
       { figure: "₹1,000–₹1,200", label: "Average daily ad spend" },
     ],
     video: rioGrandeVideo,
-    poster: rioGrandePoster,
   },
   {
     brand: "Earslovingly",
@@ -276,7 +269,6 @@ const stories = [
       { figure: "New brand", label: "Building awareness and visibility" },
     ],
     video: earsVideo,
-    poster: earsPoster,
   },
   {
     brand: "Drip Dessert Lab",
@@ -289,7 +281,6 @@ const stories = [
       { figure: "Local visibility", label: "Greater awareness among potential customers" },
     ],
     video: dripVideo,
-    poster: dripPoster,
   },
   {
     brand: "Vee Vee - House Of Cashews",
@@ -302,7 +293,6 @@ const stories = [
       { figure: "Organic enquiries", label: "More opportunities to connect with potential customers" },
     ],
     video: veeVeeVideo,
-    poster: veeVeePoster,
   },
 ];
 
@@ -339,65 +329,16 @@ function StoryPlayIcon() {
 function StoryShowcase() {
   const [active, setActive] = useState(0);
   const [soundOn, setSoundOn] = useState(false);
-  const [mediaReady, setMediaReady] = useState(false);
   const featureRef = useRef(null);
-  const stageRef = useRef(null);
   const story = stories[active];
 
   useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return undefined;
-
-    const playIfLoaded = () => {
-      const video = featureRef.current;
-      if (!video || !video.getAttribute("src")) return;
-      const pending = video.play();
-      if (pending) pending.catch(() => {});
-    };
-
-    if (typeof IntersectionObserver === "undefined") {
-      setMediaReady(true);
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setMediaReady(true);
-            playIfLoaded();
-          } else {
-            featureRef.current?.pause();
-          }
-        });
-      },
-      { rootMargin: "400px 0px", threshold: 0.01 }
-    );
-
-    observer.observe(stage);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     const video = featureRef.current;
-    if (!video || !mediaReady) return undefined;
-
+    if (!video) return;
     video.muted = !soundOn;
-    const tryPlay = () => {
-      const stage = stageRef.current;
-      if (!stage) return;
-      const rect = stage.getBoundingClientRect();
-      const near = rect.bottom > -400 && rect.top < window.innerHeight + 400;
-      if (!near) return;
-      const pending = video.play();
-      if (pending) pending.catch(() => {});
-    };
-
-    if (video.readyState >= 2) tryPlay();
-    else video.addEventListener("loadeddata", tryPlay, { once: true });
-
-    return () => video.removeEventListener("loadeddata", tryPlay);
-  }, [soundOn, active, mediaReady]);
+    const play = video.play();
+    if (play) play.catch(() => {});
+  }, [soundOn, active]);
 
   const selectStory = (index) => {
     setActive(index);
@@ -405,7 +346,7 @@ function StoryShowcase() {
   };
 
   return (
-    <div className="d2cStoryStage" ref={stageRef}>
+    <div className="d2cStoryStage">
       <div className="d2cStoryLayout">
         <div className="d2cStoryList" role="tablist" aria-label="Growth stories">
           {stories.map((item, index) => (
@@ -445,15 +386,12 @@ function StoryShowcase() {
             <video
               ref={featureRef}
               key={story.brand}
-              poster={story.poster}
-              src={mediaReady ? story.video : undefined}
-              autoPlay={mediaReady}
+              src={story.video}
+              autoPlay
               muted={!soundOn}
               loop
               playsInline
-              preload="none"
-              width="720"
-              height="1280"
+              preload="metadata"
             />
             <button
               type="button"
