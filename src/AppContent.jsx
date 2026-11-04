@@ -31,7 +31,21 @@ function AppContent() {
 
     requestAnimationFrame(raf);
 
+    const stopForModal = () => {
+      if (document.documentElement.classList.contains("form-modal-open")) {
+        l.stop();
+      } else {
+        l.start();
+      }
+    };
+    const modalObserver = new MutationObserver(stopForModal);
+    modalObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     return () => {
+      modalObserver.disconnect();
       l.destroy();
     };
   }, []);

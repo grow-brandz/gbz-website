@@ -492,8 +492,8 @@ function Home() {
   return (
     <>
       <PageSeo
-        title="D2C Marketing Agency for Ecommerce Sales Growth | Growbrandz"
-        description="Growbrandz is a D2C ecommerce marketing agency helping product brands scale digital sales through performance marketing, SEO, Shopify, and conversion-focused branding."
+        title="Growbrandz | Brand Strategy, Creative & Digital Growth"
+        description="Build a stronger brand with Growbrandz. We combine strategic thinking, creative design and digital solutions to help businesses stand out and grow."
         path="/"
       />
       <Helmet>
@@ -951,15 +951,12 @@ function Home() {
             </div>
 
             <div className="contentSide">
-              <h2>{homeData?.our_story?.heading}</h2>
+              <div className="ceoHeading">{homeData?.our_story?.heading}</div>
 
               <p>{homeData?.our_story?.paragraph}</p>
 
-              <Link
-                to={homeData?.our_story?.our_story_button?.url || "/about"}
-                className="button2"
-              >
-                {homeData?.our_story?.our_story_button?.title}
+              <Link to="/contact" className="button2">
+                Let's talk
               </Link>
             </div>
           </div>

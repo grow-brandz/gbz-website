@@ -8,8 +8,26 @@ let cachedPosts = null;
 let cachedAt = 0;
 let inflight = null;
 
+function richContentValue(raw) {
+  if (typeof raw === "string") return raw;
+  if (raw && typeof raw === "object" && typeof raw.rendered === "string") {
+    return raw.rendered;
+  }
+  return "";
+}
+
+function normalizeSection(section) {
+  if (!section || typeof section !== "object") return section;
+  return {
+    ...section,
+    rich_content: richContentValue(section?.rich_content),
+  };
+}
+
 export function formatWordPressPost(post) {
-  const sections = Array.isArray(post.content) ? post.content : [];
+  const sections = Array.isArray(post.content)
+    ? post.content.map(normalizeSection)
+    : [];
 
   return {
     id: post.id,
@@ -17,6 +35,7 @@ export function formatWordPressPost(post) {
     title: post.post_title || post.title || "",
     excerpt: post.description || "",
     content: "",
+    richContent: richContentValue(post?.rich_content),
     sections,
     date: post.date || "",
     link: `/blog/${post.slug}`,
