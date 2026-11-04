@@ -851,7 +851,7 @@ function D2cPerformance() {
                   setActiveIndex(activeIndex === index ? null : index)
                 }
               >
-                <h5 className="faqQuestion">
+                <div className="faqQuestion">
                   {item.question}
                   <div
                     className={`faqIcon ${activeIndex === index ? "rotate" : ""}`}
@@ -860,7 +860,7 @@ function D2cPerformance() {
                         activeIndex === index ? activeFaqIcon : inactiveFaqIcon,
                     }}
                   />
-                </h5>
+                </div>
                 {activeIndex === index && (
                   <p className="faqAnswer">{item.answer}</p>
                 )}

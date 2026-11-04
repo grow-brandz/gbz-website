@@ -1285,6 +1285,12 @@ h4.d2c {
   align-items: center;
 }
 
+.d2cPage .homeFAQ .faqQuestion,
+.d2cPage .homeFAQ .faqQuestion * {
+  font-family: "Signate", sans-serif;
+  font-size: 2.014vw;
+}
+
 .homeFAQ .faqItem.open .faqQuestion {
   color: var(--secondary);
 }
@@ -4990,6 +4996,11 @@ body:has(.extraPage) header.header.visible {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .d2cPage .homeFAQ .faqQuestion,
+  .d2cPage .homeFAQ .faqQuestion * {
+    font-size: 22px;
   }
 
   .homeFAQ .faqAnswer {

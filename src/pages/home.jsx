@@ -492,8 +492,8 @@ function Home() {
   return (
     <>
       <PageSeo
-        title="D2C Marketing Agency for Ecommerce Sales Growth | Growbrandz"
-        description="Growbrandz is a D2C ecommerce marketing agency helping product brands scale digital sales through performance marketing, SEO, Shopify, and conversion-focused branding."
+        title="Growbrandz | Brand Strategy, Creative & Digital Growth"
+        description="Build a stronger brand with Growbrandz. We combine strategic thinking, creative design and digital solutions to help businesses stand out and grow."
         path="/"
       />
       <Helmet>
