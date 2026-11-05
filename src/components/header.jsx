@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import LottieLoop from "./lottiecomp";
+import ContactFormModal from "./contactFormModal";
 import MobileOne from "../assets/lotties/headermobile.json";
 
 export const serviceMenu = [
@@ -101,6 +102,7 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
+  const [formOpen, setFormOpen] = useState(false);
 
   const lastScrollY = useRef(0);
   const desktopServicesRef = useRef(null);
@@ -159,7 +161,7 @@ function Header() {
 
   return (
     <header className={`container header ${showHeader ? "visible" : "hidden"}`}>
-      <Link className="headerLogo" to="/">
+      <Link className="headerLogo" to="/" aria-label="Growbrandz">
         <svg className="logo" viewBox="0 0 97 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.661 16.7455V24.4677H16.7627V17.2693H16.5932L15.5085 23.1159C15.339 24.0171 14.7966 24.4677 13.8814 24.4677H11.4915C7.77401 24.4677 4.92655 23.4201 2.94915 21.3248C0.983051 19.2182 0 16.1823 0 12.217C0 8.27419 0.988701 5.25515 2.9661 3.15985C4.9435 1.05328 7.78531 0 11.4915 0C14.9718 0 17.6723 0.918103 19.5932 2.75431C21.5254 4.57925 22.548 7.20401 22.661 10.6286H16.5593C16.4463 8.9501 15.9774 7.71094 15.1525 6.91112C14.3277 6.1113 13.1073 5.71139 11.4915 5.71139C9.61582 5.71139 8.24294 6.23521 7.37288 7.28287C6.50282 8.33052 6.0678 9.97522 6.0678 12.217C6.0678 14.47 6.50282 16.1259 7.37288 17.1849C8.24294 18.2325 9.60452 18.7563 11.4576 18.7563H11.7288C12.6215 18.7563 13.1751 18.3733 13.3898 17.6073L13.4915 17.2693H10.7966V11.7269H17.6271C19.2768 11.7269 20.5254 12.155 21.3729 13.0112C22.2316 13.856 22.661 15.1008 22.661 16.7455Z" fill="currentColor" />
           <path d="M34.661 16.9652H30.2203V24.4677H24.1356V0.236566H35.3559C37.8192 0.236566 39.7627 0.86741 41.1864 2.1291C42.6215 3.39079 43.339 5.11434 43.339 7.29976C43.339 9.3838 42.678 11.006 41.3559 12.1663C40.0339 13.3266 38.1921 13.9067 35.8305 13.9067V14.0926C39.7288 14.0926 41.9548 15.4162 42.5085 18.0635L43.8136 24.4677H37.6441L36.322 18.3001C36.1525 17.4102 35.5989 16.9652 34.661 16.9652ZM30.2203 11.2538H35.6271C36.2712 11.2538 36.7853 11.0116 37.1695 10.5272C37.5537 10.0315 37.7458 9.3838 37.7458 8.58398C37.7458 7.78416 37.5537 7.14769 37.1695 6.67455C36.7853 6.19015 36.2712 5.94796 35.6271 5.94796H30.2203V11.2538Z" fill="currentColor" />
@@ -201,7 +203,9 @@ function Header() {
       </nav>
 
       <div className="headerNav">
-        <Link className="book" to="/contact">Book a call</Link>
+        <button type="button" className="book" onClick={() => setFormOpen(true)}>
+          Book a call
+        </button>
         <svg className="ham" onClick={() => setMenuOpen(true)} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" rx="24" fill="white" />
           <path d="M15 30V28H33V30H15ZM15 25V23H33V25H15ZM15 20V18H33V20H15Z" fill="#6842EF" />
@@ -242,6 +246,7 @@ function Header() {
         </div>
       </div>
 
+      <ContactFormModal open={formOpen} onClose={() => setFormOpen(false)} />
     </header>
   );
 }

@@ -359,7 +359,7 @@ function StoryShowcase() {
               onClick={() => selectStory(index)}
             >
               <span className="d2cStoryBrand">
-                <img src={item.logo} alt="" />
+                <img src={item.logo} alt={`${item.brand} logo`} />
                 <span>
                   <strong>{item.brand}</strong>
                   <small>{item.industry}</small>
@@ -392,6 +392,7 @@ function StoryShowcase() {
               loop
               playsInline
               preload="metadata"
+              aria-label={`${story.brand} growth story video`}
             />
             <button
               type="button"
@@ -416,7 +417,7 @@ function StoryShowcase() {
           </div>
           <div className="d2cStoryCopy">
             <div className="d2cStoryIdentity">
-              <img src={story.logo} alt="" />
+              <img src={story.logo} alt={`${story.brand} logo`} />
               <strong>{story.brand}</strong>
             </div>
             <div className="d2cStoryBody">
@@ -585,7 +586,7 @@ function D2cPerformance() {
                     <li key={`${brand.name}-${copy}`}>
                       <img
                         src={brand.logo}
-                        alt={copy === 0 ? brand.name : ""}
+                        alt={copy === 0 ? `${brand.name} logo` : ""}
                       />
                     </li>
                   ))}
@@ -765,7 +766,7 @@ function D2cPerformance() {
               <img
                 className="homeceoFloat1"
                 src="https://ik.imagekit.io/growbrandz/homeabout1.png"
-                alt=""
+                alt="Creative elements representing D2C brand building"
               />
               {story?.linkedin_id?.url ? (
                 <a
@@ -809,27 +810,27 @@ function D2cPerformance() {
           <img
             className="homeceoExtra1"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo1.png"
-            alt=""
+            alt="D2C marketing and ecommerce strategy visual element"
           />
           <img
             className="homeceoExtra2"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo2.png"
-            alt=""
+            alt="Brand growth and performance marketing illustration"
           />
           <img
             className="homeceoExtra3"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo3.png"
-            alt=""
+            alt="Creative process behind ecommerce marketing campaigns"
           />
           <img
             className="homeceoExtra4"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo4.png"
-            alt=""
+            alt="Design and strategy supporting online store growth"
           />
           <img
             className="homeceoExtra5"
             src="https://ik.imagekit.io/growbrandz/tr:f-auto/ceo5.png"
-            alt=""
+            alt="Team collaboration for D2C performance marketing"
           />
         </section>
 
