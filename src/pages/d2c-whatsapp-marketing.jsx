@@ -271,10 +271,13 @@ function ServiceSlides({ services }) {
     let gsap = null;
     let cancelled = false;
 
+    let runId = 0;
+
     const init = async () => {
+      const id = ++runId;
       const gsapModule = await import("gsap");
       const scrollTriggerModule = await import("gsap/ScrollTrigger");
-      if (cancelled) return;
+      if (cancelled || id !== runId) return;
 
       gsap = gsapModule.gsap || gsapModule.default;
       const ScrollTrigger =
@@ -288,7 +291,32 @@ function ServiceSlides({ services }) {
       const cards = container ? [...container.querySelectorAll(".waSlide")] : [];
       if (!container || cards.length === 0) return;
 
-      const lip = Math.round(window.innerHeight * 0.045);
+      try {
+        timeline?.scrollTrigger?.kill();
+        timeline?.kill();
+      } catch (error) {
+        console.error(error);
+      }
+
+      const mobile = window.innerWidth <= 766;
+      const lip = mobile ? 48 : Math.round(window.innerHeight * 0.045);
+      const peek = mobile ? 12 : 0;
+
+      if (mobile) {
+        cards.forEach((card) => {
+          card.style.height = "auto";
+        });
+        const tallest = Math.max(...cards.map((card) => card.offsetHeight));
+        cards.forEach((card) => {
+          card.style.height = `${tallest}px`;
+        });
+        container.style.height = `${tallest + peek}px`;
+      } else {
+        cards.forEach((card) => {
+          card.style.height = "";
+        });
+        container.style.height = "";
+      }
 
       cards.forEach((card, index) => {
         gsap.set(card, {
@@ -301,8 +329,8 @@ function ServiceSlides({ services }) {
       timeline = gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: "center center",
-          end: () => `+=${(cards.length - 1) * window.innerHeight}`,
+          start: mobile ? "top 88px" : "center center",
+          end: () => `+=${(cards.length - 1) * window.innerHeight * (mobile ? 0.72 : 1)}`,
           scrub: 1,
           pin: true,
           pinSpacing: true,
@@ -333,8 +361,17 @@ function ServiceSlides({ services }) {
 
     init();
 
+    let resizeTimer = null;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 150);
+    };
+    window.addEventListener("resize", onResize);
+
     return () => {
       cancelled = true;
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
       try {
         timeline?.scrollTrigger?.kill();
         timeline?.kill();
