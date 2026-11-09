@@ -9,6 +9,7 @@ import Services from "./pages/services.jsx";
 import Blog from "./pages/blog.jsx";
 import BlogPost from "./pages/blog-post.jsx";
 import D2cPerformance from "./pages/d2c-performance-marketing.jsx";
+import D2cWhatsapp from "./pages/d2c-whatsapp-marketing.jsx";
 import Thanks from "./components/thanks.jsx";
 import NotFound from "./components/404.jsx";
 
@@ -23,6 +24,10 @@ function AppRoutes() {
       <Route
         path="/d2c-performance-marketing"
         element={<D2cPerformance />}
+      />
+      <Route
+        path="/d2c-whatsapp-marketing"
+        element={<D2cWhatsapp />}
       />
       <Route path="/contact" element={<Contact />} />
 
