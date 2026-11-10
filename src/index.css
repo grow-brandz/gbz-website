@@ -3606,70 +3606,257 @@ body:has(.extraPage) header.header.visible {
   color: var(--black);
 }
 
-.waPreviewHead {
-  display: flex;
-  align-items: center;
-  gap: 0.45vw;
-  margin-bottom: 0.55vw;
+.waPhone {
+  width: 100%;
+  margin-top: auto;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #075e54;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-.waMark {
-  display: inline-flex;
-  flex: 0 0 auto;
+.waPhoneScreen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.waTop {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 1.55vw;
-  height: 1.55vw;
-  border-radius: 1000px;
-  background: #25d366;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 10px;
   color: #fff;
 }
 
-.waMark svg {
-  width: 0.95vw;
-  height: 0.95vw;
+.waBack {
+  width: 16px;
+  height: 16px;
+  flex: none;
 }
 
-.waPreviewFrom {
-  width: auto;
-  margin: 0;
-  font-size: 0.78vw;
+.waAvatar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e7f6ef;
+  color: #1b7a46;
+}
+
+.waAvatar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.waWho {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.waWho strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
   font-weight: 600;
-  line-height: 1.2;
-  color: #128c7e;
 }
 
-.waBubble {
-  width: 100%;
-  margin-top: auto;
-  padding: 0.75vw 0.8vw 0.5vw;
-  border-radius: 0.15vw 0.9vw 0.9vw 0.9vw;
-  background: #e7ffdb;
+.waWho strong svg {
+  width: 13px;
+  height: 13px;
 }
 
-.waBubble p {
+.waWho small {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.waTopActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.waTopActions svg {
+  width: 16px;
+  height: 16px;
+}
+
+.waChat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 8px 12px;
+  background-color: #efe6da;
+  background-image:
+    radial-gradient(circle at 10px 12px, rgba(120, 90, 60, 0.09) 1.3px, transparent 1.5px),
+    radial-gradient(circle at 30px 28px, rgba(120, 90, 60, 0.06) 2px, transparent 2.2px);
+  background-size: 46px 46px;
+}
+
+.waToday {
+  align-self: center;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: #fff;
+  color: #54656f;
+  font-size: 11px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.waMsg {
+  position: relative;
+  margin-left: 8px;
+  padding: 10px 10px 8px;
+  border-radius: 0 12px 12px 12px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+.waMsg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -7px;
+  border-width: 0 8px 10px 0;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent;
+}
+
+.waMsg p {
   width: auto;
   margin: 0;
-  font-size: 0.82vw;
-  line-height: 150%;
+  color: #111b21;
+  font-size: 12.5px;
+  line-height: 145%;
   overflow-wrap: anywhere;
 }
 
-.waBubbleMeta {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.28vw;
-  margin-top: 0.4vw;
-  font-size: 0.68vw;
-  line-height: 1;
-  color: #667781;
+.waHi {
+  margin-bottom: 4px !important;
+  font-weight: 700;
 }
 
-.waBubbleMeta svg {
-  width: 0.9vw;
-  height: 0.62vw;
-  color: #53bdeb;
+.waProduct {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+  padding: 6px;
+  border-radius: 10px;
+  background: #f6f1e8;
+}
+
+.waSerum {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+}
+
+.waProductName {
+  font-size: 13px !important;
+  font-weight: 700;
+  line-height: 1.25 !important;
+}
+
+.waProductDetail {
+  margin-top: 2px !important;
+  color: #667781 !important;
+  font-size: 11.5px !important;
+}
+
+.waGo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #1b7a46;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.waGo svg {
+  width: 14px;
+  height: 14px;
+}
+
+.waNote {
+  margin-top: 8px !important;
+  font-weight: 600;
+}
+
+.waLink {
+  margin-top: 2px !important;
+  color: #027eb5 !important;
+  font-size: 11px !important;
+}
+
+.waTime {
+  margin-top: 4px !important;
+  color: #667781 !important;
+  font-size: 10.5px !important;
+  text-align: right;
+}
+
+.waComposer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 8px;
+  background: #f0f2f5;
+  color: #54656f;
+}
+
+.waComposer svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.waSmile {
+  display: flex;
+  flex: none;
+  color: #8696a0;
+}
+
+.waInput {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: 20px;
+  background: #fff;
+  color: #8696a0;
+  font-size: 12px;
+}
+
+.waMic {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1fa855;
+  color: #fff;
+}
+
+.waMic svg {
+  width: 16px;
+  height: 16px;
 }
 
 @keyframes waPromoRise {
@@ -3694,8 +3881,7 @@ body:has(.extraPage) header.header.visible {
     font-size: 28px;
   }
 
-  .waPromoValue,
-  .waBubble p {
+  .waPromoValue {
     font-size: 16px;
   }
 
@@ -3705,29 +3891,9 @@ body:has(.extraPage) header.header.visible {
     font-size: 16px;
   }
 
-  .waMark {
-    width: 26px;
-    height: 26px;
-  }
-
-  .waMark svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .waPreviewFrom,
-  .waBubbleMeta {
-    font-size: 13px;
-  }
-
-  .waBubble {
-    padding: 14px 14px 10px;
-    border-radius: 2px 16px 16px 16px;
-  }
-
-  .waBubbleMeta svg {
-    width: 15px;
-    height: 11px;
+  .waPhone {
+    max-width: 420px;
+    margin-inline: auto;
   }
 }
 
@@ -4415,6 +4581,15 @@ body:has(.extraPage) header.header.visible {
   line-height: 150%;
   color: inherit;
   text-align: left;
+}
+
+.waSlide .button1,
+.waSlide .button2 {
+  margin-top: 0.6vw;
+}
+
+.waSlide.tone-pink .button1 {
+  box-shadow: 0.278vw 0.278vw 0 var(--secondary);
 }
 
 .waSlideCopy ul {
@@ -6789,6 +6964,16 @@ body:has(.extraPage) header.header.visible {
 
   .waSlideCopy li {
     padding-left: 14px;
+  }
+
+  .waSlide .button1,
+  .waSlide .button2 {
+    margin-top: 6px;
+    font-size: 16px;
+  }
+
+  .waSlide.tone-pink .button1 {
+    box-shadow: 4px 4px 0 var(--secondary);
   }
 
   .d2cService li::before {

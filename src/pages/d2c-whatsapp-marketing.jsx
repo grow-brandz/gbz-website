@@ -49,16 +49,37 @@ const examples = [
     title: "Cart reminder",
     chat: "Hi Priya, your Vitamin C Face Serum is still waiting in your cart. Complete your order whenever you're ready: https://glowcare.in/products/vitamin-c-face-serum",
     result: "Brings back shoppers who got distracted before paying.",
+    text: "Your Vitamin C Face Serum is still waiting in your cart. Complete your order whenever you're ready.",
+    product: "Vitamin C Face Serum",
+    detail: "Still waiting in your cart",
+    action: "Go to Checkout",
+    note: "Your cart is waiting.",
+    time: "10:24 AM",
+    link: "glowcare.in/products/vitamin-c-face-serum",
   },
   {
     title: "Order update",
     chat: "Hi Priya, your order #GC10245 has been shipped. Your GlowCare Vitamin C Face Serum should reach you by November 8. Track it here: https://glowcare.in/track/GC10245",
     result: "Keeps customers informed after they buy.",
+    text: "Your order #GC10245 has been shipped. Your GlowCare Vitamin C Face Serum should reach you by November 8.",
+    product: "Vitamin C Face Serum",
+    detail: "Order #GC10245",
+    action: "Track order",
+    note: "Should reach you by November 8.",
+    time: "4:12 PM",
+    link: "glowcare.in/track/GC10245",
   },
   {
     title: "Reorder reminder",
     chat: "Hi Priya, it's been a month since you ordered your GlowCare Vitamin C Face Serum. Running low? Get your next bottle here: https://glowcare.in/products/vitamin-c-face-serum",
     result: "Reminds customers when it is time to buy again.",
+    text: "It's been a month since you ordered your GlowCare Vitamin C Face Serum. Running low?",
+    product: "Vitamin C Face Serum",
+    detail: "Time for the next bottle",
+    action: "Order again",
+    note: "Running low?",
+    time: "11:05 AM",
+    link: "glowcare.in/products/vitamin-c-face-serum",
   },
 ];
 
@@ -261,7 +282,7 @@ const activeFaqIcon = `
 
 const slideTones = ["purple", "yellow", "pink"];
 
-function ServiceSlides({ services }) {
+function ServiceSlides({ services, onBook }) {
   const deckRef = useRef(null);
 
   useEffect(() => {
@@ -401,6 +422,17 @@ function ServiceSlides({ services }) {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
+              <button
+                type="button"
+                className={
+                  slideTones[index % slideTones.length] === "yellow"
+                    ? "button2"
+                    : "button1"
+                }
+                onClick={onBook}
+              >
+                Book a call
+              </button>
             </div>
           </article>
         ))}
@@ -409,16 +441,146 @@ function ServiceSlides({ services }) {
   );
 }
 
-function WhatsAppMark() {
+function SerumArt() {
   return (
-    <span className="waMark" aria-hidden="true">
-      <svg viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.39-1.41a10.1 10.1 0 0 0 4.65 1.14h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2zm5.76 13.89c-.24.68-1.4 1.25-1.94 1.33-.5.07-1.12.1-1.81-.11-.42-.13-.95-.3-1.64-.59-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.16-1.54-1.16-2.94s.73-2.08 1-2.37c.24-.27.64-.39.85-.39.21 0 .42 0 .6.01.19.01.45-.07.7.54.26.62.88 2.14.96 2.3.08.16.13.34.03.55-.1.21-.16.34-.31.52-.16.18-.33.4-.47.54-.16.16-.32.32-.14.63.19.31.83 1.37 1.78 2.22 1.23 1.09 2.26 1.43 2.58 1.59.32.16.5.13.69-.08.19-.21.8-.93 1.01-1.25.21-.32.42-.26.7-.16.28.1 1.79.84 2.1.99.31.16.51.23.59.36.07.13.07.75-.17 1.43z"
-        />
-      </svg>
-    </span>
+    <svg className="waSerum" viewBox="0 0 72 72" aria-hidden="true">
+      <rect width="72" height="72" rx="10" fill="#f4e4cf" />
+      <circle cx="16" cy="54" r="11" fill="#f0a35a" />
+      <circle cx="16" cy="54" r="6" fill="#f7c98a" />
+      <path d="M48 8h6v7h-6z" fill="#243028" />
+      <rect x="49.5" y="14" width="3" height="6" fill="#243028" />
+      <rect x="44" y="20" width="14" height="38" rx="6" fill="#8d4e22" />
+      <rect x="46" y="34" width="10" height="16" rx="2" fill="#fbf7f0" />
+      <path d="M48 39h6M48.5 43h5" stroke="#1b7a46" strokeWidth="1.2" />
+      <path d="M54 28c6 2 10 8 8 16" fill="none" stroke="#7dae6a" strokeWidth="1.4" />
+    </svg>
+  );
+}
+
+function CustomerChat({ item }) {
+  return (
+    <div className="waPhone" role="img" aria-label={item.chat}>
+      <div className="waPhoneScreen" aria-hidden="true">
+        <div className="waTop">
+          <svg className="waBack" viewBox="0 0 24 24">
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 5 8 12l7 7"
+            />
+          </svg>
+          <span className="waAvatar">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M12 3c2 3 2 5 0 8 3-1 6 1 6 5a6 6 0 1 1-12 0c0-4 3-6 6-5-2-3-2-5 0-8z"
+              />
+            </svg>
+          </span>
+          <span className="waWho">
+            <strong>
+              GlowCare
+              <svg viewBox="0 0 16 16">
+                <circle cx="8" cy="8" r="8" fill="#25d366" />
+                <path
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  d="M4.5 8.2 7 10.5 11.5 5.5"
+                />
+              </svg>
+            </strong>
+            <small>Online</small>
+          </span>
+          <span className="waTopActions">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="7" width="12" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1.7" />
+              <path fill="currentColor" d="M16 10.5 21 8v8l-5-2.5z" />
+            </svg>
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M7 4h3l1.2 3-2 1.2a12 12 0 0 0 6.6 6.6L17 12.8 20 14v3a2 2 0 0 1-2.2 2A16 16 0 0 1 5 6.2 2 2 0 0 1 7 4z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="5" r="1.6" fill="currentColor" />
+              <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+              <circle cx="12" cy="19" r="1.6" fill="currentColor" />
+            </svg>
+          </span>
+        </div>
+        <div className="waChat">
+          <span className="waToday">Today</span>
+          <div className="waMsg">
+            <p className="waHi">Hi Priya 👋</p>
+            <p>{item.text}</p>
+            <div className="waProduct">
+              <SerumArt />
+              <div>
+                <p className="waProductName">{item.product}</p>
+                <p className="waProductDetail">{item.detail}</p>
+              </div>
+            </div>
+            <span className="waGo">
+              {item.action}
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 12h14M13 6l6 6-6 6"
+                />
+              </svg>
+            </span>
+            <p className="waNote">{item.note}</p>
+            <p className="waLink">{item.link}</p>
+            <p className="waTime">{item.time}</p>
+          </div>
+        </div>
+        <div className="waComposer">
+          <span className="waSmile">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <circle cx="9" cy="10" r="1" fill="currentColor" />
+              <circle cx="15" cy="10" r="1" fill="currentColor" />
+              <path d="M8.5 14c.8 1.4 2 2 3.5 2s2.7-.6 3.5-2" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </span>
+          <span className="waInput">Type a message</span>
+          <svg viewBox="0 0 24 24">
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+              d="M8 12.5 14.5 6a3 3 0 0 1 4.2 4.2l-8.2 8.2a4.2 4.2 0 0 1-6-6l7.4-7.4"
+            />
+          </svg>
+          <svg viewBox="0 0 24 24">
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              d="M5 8h3l1.2-2h5.6L16 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"
+            />
+            <circle cx="12" cy="13" r="2.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          </svg>
+          <span className="waMic">
+            <svg viewBox="0 0 24 24">
+              <rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor" />
+              <path d="M7 11a5 5 0 0 0 10 0M12 16v4M9 20h6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -562,22 +724,7 @@ function D2cWhatsapp() {
                 <p className="waPromoIndex">0{index + 1}</p>
                 <h3>{item.title}</h3>
                 <p className="waPromoValue">{item.result}</p>
-                <div className="waBubble">
-                  <div className="waPreviewHead">
-                    <WhatsAppMark />
-                    <p className="waPreviewFrom">GlowCare</p>
-                  </div>
-                  <p>{item.chat}</p>
-                  <p className="waBubbleMeta">
-                    Sent
-                    <svg viewBox="0 0 16 11" aria-hidden="true">
-                      <path
-                        fill="currentColor"
-                        d="M11.1.2 5.4 6.1 3.3 4l-1.2 1.2 3.3 3.3L12.3 1.4 11.1.2zm3.2 0L8.6 6.1l-.7-.7-1.2 1.2 1.9 1.9L15.5 1.4 14.3.2z"
-                      />
-                    </svg>
-                  </p>
-                </div>
+                <CustomerChat item={item} />
               </article>
             ))}
           </div>
@@ -604,7 +751,10 @@ function D2cWhatsapp() {
             from setting up your account to sending campaigns and reading the
             results.
           </p>
-          <ServiceSlides services={services} />
+          <ServiceSlides
+            services={services}
+            onBook={() => setFormOpen(true)}
+          />
         </section>
 
         <Divider
