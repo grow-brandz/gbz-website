@@ -45,6 +45,12 @@
   </url>
 
   <url>
+    <loc>https://growbrandz.com/d2c-influencer-marketing</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://growbrandz.com/contact</loc>
     <priority>0.7</priority>
     <changefreq>yearly</changefreq>
