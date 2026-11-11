@@ -88,6 +88,7 @@ const services = [
       "Re-engage past customers with relevant offers",
     ],
     button: "Explore D2C WhatsApp marketing",
+    to: "/d2c-whatsapp-marketing",
   },
   {
     title: "Ad creative",
@@ -175,7 +176,7 @@ const categories = [
   },
 ];
 
-function CategoryIcon({ name }) {
+export function CategoryIcon({ name }) {
   const props = {
     viewBox: "0 0 24 24",
     fill: "none",
@@ -326,7 +327,7 @@ function StoryPlayIcon() {
   );
 }
 
-function StoryShowcase() {
+export function StoryShowcase() {
   const [active, setActive] = useState(0);
   const [soundOn, setSoundOn] = useState(false);
   const featureRef = useRef(null);
@@ -677,10 +678,16 @@ function D2cPerformance() {
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <span className="d2cExploreSoon">
-                  {service.button}
-                  <span className="soonBadge">Coming soon</span>
-                </span>
+                {service.to ? (
+                  <Link className="d2cExploreSoon" to={service.to}>
+                    {service.button}
+                  </Link>
+                ) : (
+                  <span className="d2cExploreSoon">
+                    {service.button}
+                    <span className="soonBadge">Coming soon</span>
+                  </span>
+                )}
               </div>
             </article>
           ))}

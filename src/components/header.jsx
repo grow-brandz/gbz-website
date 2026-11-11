@@ -9,7 +9,7 @@ export const serviceMenu = [
     label: "For D2C Brandz",
     items: [
       { label: "D2C Performance Marketing", to: "/d2c-performance-marketing" },
-      { label: "D2C WhatsApp Marketing" },
+      { label: "D2C WhatsApp Marketing", to: "/d2c-whatsapp-marketing" },
       { label: "D2C Influencer Marketing" },
     ],
   },

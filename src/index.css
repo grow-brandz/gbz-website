@@ -3517,6 +3517,395 @@ body:has(.extraPage) header.header.visible {
   margin-bottom: 0.7vw;
 }
 
+.waPromoGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25vw;
+  text-align: left;
+}
+
+.waPromoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7vw;
+  min-width: 0;
+  padding: 1.45vw 1.3vw 1.3vw;
+  background: var(--white);
+  border-radius: 1.25vw;
+  box-shadow: 0.28vw 0.28vw 0 var(--pink);
+  animation: waPromoRise 0.6s ease both;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.waPromoCard:nth-child(2) {
+  animation-delay: 0.08s;
+  box-shadow: 0.28vw 0.28vw 0 var(--secondary);
+}
+
+.waPromoCard:nth-child(3) {
+  animation-delay: 0.16s;
+  box-shadow: 0.28vw 0.28vw 0 var(--primary);
+}
+
+.waPromoCard:hover {
+  transform: translateY(-0.4vw);
+  box-shadow: 0.45vw 0.55vw 0 var(--pink);
+}
+
+.waPromoCard:nth-child(2):hover {
+  box-shadow: 0.45vw 0.55vw 0 var(--secondary);
+}
+
+.waPromoCard:nth-child(3):hover {
+  box-shadow: 0.45vw 0.55vw 0 var(--primary);
+}
+
+.waPromoIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5vw;
+  height: 2.5vw;
+  margin: 0;
+  border-radius: 1000px;
+  background: var(--secondary);
+  color: var(--primary);
+  font-family: "Signate", sans-serif;
+  font-size: 0.95vw;
+  line-height: 1;
+}
+
+.waPromoCard:nth-child(2) .waPromoIndex {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.waPromoCard:nth-child(3) .waPromoIndex {
+  background: var(--darkpink);
+  color: var(--white);
+}
+
+.waPromoCard h3,
+.waPromoCard h3 * {
+  margin: 0;
+  font-family: "Signate", sans-serif;
+  font-size: 1.85vw;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--black);
+}
+
+.waPromoValue {
+  width: auto;
+  margin: 0;
+  font-size: 1.02vw;
+  font-weight: 600;
+  line-height: 145%;
+  color: var(--black);
+}
+
+.waPhone {
+  width: 100%;
+  margin-top: auto;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #075e54;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.waPhoneScreen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.waTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 10px;
+  color: #fff;
+}
+
+.waBack {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.waAvatar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e7f6ef;
+  color: #1b7a46;
+}
+
+.waAvatar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.waWho {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.waWho strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.waWho strong svg {
+  width: 13px;
+  height: 13px;
+}
+
+.waWho small {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.waTopActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.waTopActions svg {
+  width: 16px;
+  height: 16px;
+}
+
+.waChat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 8px 12px;
+  background-color: #efe6da;
+  background-image:
+    radial-gradient(circle at 10px 12px, rgba(120, 90, 60, 0.09) 1.3px, transparent 1.5px),
+    radial-gradient(circle at 30px 28px, rgba(120, 90, 60, 0.06) 2px, transparent 2.2px);
+  background-size: 46px 46px;
+}
+
+.waToday {
+  align-self: center;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: #fff;
+  color: #54656f;
+  font-size: 11px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.waMsg {
+  position: relative;
+  margin-left: 8px;
+  padding: 10px 10px 8px;
+  border-radius: 0 12px 12px 12px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+.waMsg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -7px;
+  border-width: 0 8px 10px 0;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent;
+}
+
+.waMsg p {
+  width: auto;
+  margin: 0;
+  color: #111b21;
+  font-size: 12.5px;
+  line-height: 145%;
+  overflow-wrap: anywhere;
+}
+
+.waHi {
+  margin-bottom: 4px !important;
+  font-weight: 700;
+}
+
+.waProduct {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+  padding: 6px;
+  border-radius: 10px;
+  background: #f6f1e8;
+}
+
+.waSerum {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+}
+
+.waProductName {
+  font-size: 13px !important;
+  font-weight: 700;
+  line-height: 1.25 !important;
+}
+
+.waProductDetail {
+  margin-top: 2px !important;
+  color: #667781 !important;
+  font-size: 11.5px !important;
+}
+
+.waGo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #1b7a46;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.waGo svg {
+  width: 14px;
+  height: 14px;
+}
+
+.waNote {
+  margin-top: 8px !important;
+  font-weight: 600;
+}
+
+.waLink {
+  margin-top: 2px !important;
+  color: #027eb5 !important;
+  font-size: 11px !important;
+}
+
+.waTime {
+  margin-top: 4px !important;
+  color: #667781 !important;
+  font-size: 10.5px !important;
+  text-align: right;
+}
+
+.waComposer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 8px;
+  background: #f0f2f5;
+  color: #54656f;
+}
+
+.waComposer svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.waSmile {
+  display: flex;
+  flex: none;
+  color: #8696a0;
+}
+
+.waInput {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: 20px;
+  background: #fff;
+  color: #8696a0;
+  font-size: 12px;
+}
+
+.waMic {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1fa855;
+  color: #fff;
+}
+
+.waMic svg {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes waPromoRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .waPromoGrid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .waPromoCard h3,
+  .waPromoCard h3 * {
+    font-size: 28px;
+  }
+
+  .waPromoValue {
+    font-size: 16px;
+  }
+
+  .waPromoIndex {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .waPhone {
+    max-width: 420px;
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waPromoCard,
+  .waPromoCard:hover {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+}
+
 .d2cLead {
   width: min(46vw, 680px);
   text-align: center;
@@ -4110,6 +4499,122 @@ body:has(.extraPage) header.header.visible {
 
 .d2cServices .d2cLead {
   width: min(46vw, 680px);
+}
+
+.waSlides {
+  width: 100%;
+}
+
+.waDeck {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+
+.waSlide {
+  position: absolute;
+  top: 8vh;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 16vh);
+  display: flex;
+  align-items: center;
+  gap: 3vw;
+  padding: 2.4vw 2.8vw;
+  border-radius: 1.4vw;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.waSlide:first-child {
+  transform: translateY(0);
+  z-index: 2;
+}
+
+.waSlide.tone-purple {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.waSlide.tone-yellow {
+  background: var(--primary);
+  color: var(--black);
+}
+
+.waSlide.tone-pink {
+  background: var(--darkpink);
+  color: var(--white);
+}
+
+.waSlideIndex {
+  flex: 0 0 auto;
+  width: 12vw;
+  margin: 0;
+  font-family: "Signate", sans-serif;
+  font-size: 7vw;
+  line-height: 0.9;
+}
+
+.waSlideCopy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7vw;
+  text-align: left;
+}
+
+.waSlideCopy h3,
+.waSlideCopy h3 * {
+  font-family: "Signate", sans-serif;
+  font-size: 3.2vw;
+  line-height: 1.05;
+  color: inherit;
+}
+
+.waSlideCopy p,
+.waSlideCopy li {
+  width: auto;
+  margin: 0;
+  line-height: 150%;
+  color: inherit;
+  text-align: left;
+}
+
+.waSlide .button1,
+.waSlide .button2 {
+  margin-top: 0.6vw;
+}
+
+.waSlide.tone-pink .button1 {
+  box-shadow: 0.278vw 0.278vw 0 var(--secondary);
+}
+
+.waSlideCopy ul {
+  margin: 0.2vw 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35vw;
+}
+
+.waSlideCopy li {
+  position: relative;
+  padding-left: 1vw;
+}
+
+.waSlideCopy li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.4vw;
+  height: 0.4vw;
+  border-radius: 100px;
+  background: currentColor;
 }
 
 .d2cService {
@@ -6141,6 +6646,27 @@ body:has(.extraPage) header.header.visible {
     line-height: 160%;
   }
 
+  .waPromoCard {
+    gap: 10px;
+    padding: 22px 18px 18px;
+    border-radius: 18px;
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+
+  .waPromoCard:nth-child(2) {
+    box-shadow: 4px 4px 0 var(--secondary);
+  }
+
+  .waPromoCard:nth-child(3) {
+    box-shadow: 4px 4px 0 var(--primary);
+  }
+
+  .waPromoCard:hover,
+  .waPromoCard:nth-child(2):hover,
+  .waPromoCard:nth-child(3):hover {
+    transform: none;
+  }
+
   .d2cReasonGrid h3,
   .d2cReasonGrid h3 *,
   .d2cStats h3,
@@ -6402,6 +6928,52 @@ body:has(.extraPage) header.header.visible {
 
   .d2cService li {
     padding-left: 16px;
+  }
+
+  .d2cServices .waSlides {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .waDeck {
+    height: auto;
+    min-height: 0;
+  }
+
+  .waSlide {
+    top: 0;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 22px 20px 18px;
+    border-radius: 22px;
+  }
+
+  .waSlideIndex {
+    flex: none;
+    width: auto;
+    font-size: 56px;
+  }
+
+  .waSlideCopy {
+    gap: 8px;
+  }
+
+  .waSlideCopy li {
+    padding-left: 14px;
+  }
+
+  .waSlide .button1,
+  .waSlide .button2 {
+    margin-top: 6px;
+    font-size: 16px;
+  }
+
+  .waSlide.tone-pink .button1 {
+    box-shadow: 4px 4px 0 var(--secondary);
   }
 
   .d2cService li::before {
