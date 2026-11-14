@@ -350,7 +350,14 @@ function ServiceSlides({ services, onBook }) {
       timeline = gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: mobile ? "top 88px" : "center center",
+          start: () => {
+            if (window.innerWidth > 766) return "center center";
+            const header = document.querySelector("header");
+            const headerSpace = header ? Math.ceil(header.getBoundingClientRect().height) + 12 : 88;
+            const deckHeight = container.offsetHeight;
+            const centered = Math.round((window.innerHeight - deckHeight) / 2);
+            return `top ${Math.max(headerSpace, centered)}px`;
+          },
           end: () => `+=${(cards.length - 1) * window.innerHeight * (mobile ? 0.72 : 1)}`,
           scrub: 1,
           pin: true,
