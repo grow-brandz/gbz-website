@@ -4698,6 +4698,10 @@ button.d2cExploreSoon {
   cursor: pointer;
 }
 
+.d2cServices > .button1 {
+  align-self: center;
+}
+
 .d2cReelRow {
   display: grid;
   grid-auto-flow: column;
@@ -7159,6 +7163,7 @@ button.d2cExploreSoon {
     font-size: 15px;
     box-shadow: 4px 4px 0 var(--pink);
   }
+
 
   .d2cReelRow {
     grid-auto-columns: 210px;

@@ -541,16 +541,16 @@ function D2cInfluencer() {
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <button
-                  type="button"
-                  className="d2cExploreSoon"
-                  onClick={() => setFormOpen(true)}
-                >
-                  Find my ideal influencers
-                </button>
               </div>
             </article>
           ))}
+          <button
+            type="button"
+            className="button1"
+            onClick={() => setFormOpen(true)}
+          >
+            Find my ideal influencers
+          </button>
         </section>
 
         <Divider
