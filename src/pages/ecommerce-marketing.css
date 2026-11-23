@@ -45,7 +45,6 @@
 
 .ecomHero:not(:has(img)),
 .ecomSplit:not(:has(img)),
-.ecomMarketInner:not(:has(img)),
 .ecomAskInner:not(:has(img)),
 .ecomSheetTop:not(:has(img)) {
   grid-template-columns: 1fr;
@@ -105,7 +104,8 @@
 }
 
 .ecomWhy ol,
-.ecomDays ol,
+.ecomDayTrack,
+.ecomFestiveSteps,
 .ecomSheet ol,
 .ecomCheckList {
   list-style: none;
@@ -156,47 +156,90 @@
 .ecomDays,
 .ecomReport,
 .ecomChoose,
-.ecomStories,
-.ecomFaq {
+.ecomStories {
   padding-top: 4vw;
   padding-bottom: 4vw;
 }
 
 .ecomStageGrid {
+  position: relative;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1vw;
-  margin-top: 1.8vw;
+  margin-top: 2.2vw;
+}
+
+.ecomStageGrid::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 2.45vw;
+  height: 2px;
+  background: var(--secondary);
 }
 
 .ecomStageGrid article {
-  padding: 1.6vw;
-  border-radius: 1.3vw;
+  position: relative;
+  padding: 1.15vw 1.05vw 1.3vw;
+  border-radius: 1.2vw;
   background: var(--white);
-  box-shadow: 0.25vw 0.25vw 0 var(--secondary);
+  box-shadow: 0.28vw 0.28vw 0 var(--secondary);
 }
 
-.ecomStageGrid article:first-child {
-  grid-row: span 2;
+.ecomStageGrid span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5vw;
+  height: 2.5vw;
+  margin-bottom: 0.9vw;
+  border-radius: 100px;
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+.ecomStageGrid span svg {
+  width: 1.2vw;
+  height: 1.2vw;
+}
+
+.ecomStageGrid article:nth-child(1) {
   background: var(--secondary);
   color: var(--white);
-  box-shadow: 0.25vw 0.25vw 0 var(--pink);
+  box-shadow: 0.28vw 0.28vw 0 var(--pink);
+}
+
+.ecomStageGrid article:nth-child(1) span {
+  background: var(--primary);
+  color: var(--secondary);
 }
 
 .ecomStageGrid article:nth-child(2) {
   background: var(--primary);
-  box-shadow: 0.25vw 0.25vw 0 var(--darkpink);
+  box-shadow: 0.28vw 0.28vw 0 var(--darkpink);
+}
+
+.ecomStageGrid article:nth-child(2) span {
+  background: var(--darkpink);
+  color: var(--white);
 }
 
 .ecomStageGrid article:nth-child(4) {
   background: var(--darkpink);
   color: var(--white);
-  box-shadow: 0.25vw 0.25vw 0 var(--primary);
+  box-shadow: 0.28vw 0.28vw 0 var(--primary);
+}
+
+.ecomStageGrid article:nth-child(4) span {
+  background: var(--primary);
+  color: var(--secondary);
 }
 
 .ecomStageGrid p {
-  margin-top: 0.6vw;
+  margin-top: 0.55vw;
 }
 
 .ecomServices {
@@ -205,59 +248,81 @@
 }
 
 .ecomServicesHead {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 32vw);
-  gap: 2.4vw;
-  align-items: end;
+  max-width: 44rem;
 }
 
-.ecomServicesHead .ecomPhoto {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  border-radius: 1.3vw;
-  box-shadow: 0.4vw 0.4vw 0 var(--secondary);
+.ecomServiceGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7vw;
+  margin-top: 1.8vw;
 }
 
 .ecomServices article {
   display: grid;
-  grid-template-columns: 3.6vw minmax(0, 1fr) auto;
-  gap: 1.3vw;
+  grid-template-columns: 3.6vw minmax(0, 1fr) 16rem;
+  gap: 1.2vw;
   align-items: center;
-  margin-top: 0.8vw;
-  padding: 1.15vw 1.3vw;
-  border-radius: 1.1vw;
+  margin: 0;
+  padding: 1vw 1.2vw;
+  border-radius: 1.15vw;
   background: var(--background);
 }
 
-.ecomServices article:nth-of-type(even) {
-  background: #fff;
-  box-shadow: inset 0 0 0 1.5px rgba(104, 66, 239, 0.18);
+.ecomServices article:nth-child(3n + 1) {
+  box-shadow: inset 0.32vw 0 0 var(--secondary);
 }
 
-.ecomServices article > p {
+.ecomServices article:nth-child(3n + 2) {
+  box-shadow: inset 0.32vw 0 0 var(--primary);
+}
+
+.ecomServices article:nth-child(3n) {
+  box-shadow: inset 0.32vw 0 0 var(--darkpink);
+}
+
+.ecomServices article p {
+  margin-top: 0.3vw;
+}
+
+.ecomServiceIcon {
   display: grid;
   place-items: center;
   width: 3.2vw;
   height: 3.2vw;
-  margin: 0;
   border-radius: 100px;
   background: var(--secondary);
-  font-family: "Signate", sans-serif;
-  font-size: 1.15vw;
-  line-height: 1;
   color: var(--primary);
 }
 
-.ecomServices article:nth-of-type(even) > p {
+.ecomServiceIcon svg {
+  width: 1.5vw;
+  height: 1.5vw;
+}
+
+.ecomServices article:nth-child(3n + 2) .ecomServiceIcon {
   background: var(--primary);
   color: var(--secondary);
 }
 
+.ecomServices article:nth-child(3n) .ecomServiceIcon {
+  background: var(--darkpink);
+  color: var(--white);
+}
+
 .ecomServices .button1,
 .ecomServices .button2 {
-  max-width: 16rem;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16rem;
+  height: 3.4rem;
+  margin: 0;
+  padding: 0.45rem 0.9rem;
   white-space: normal;
   text-align: center;
+  line-height: 1.2;
 }
 
 .ecomMarket {
@@ -267,12 +332,49 @@
 
 .ecomMarketInner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(12rem, 18vw);
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 28vw);
   align-items: center;
   gap: 2vw;
   padding-top: 2.4vw;
   padding-bottom: 2.4vw;
 }
+
+.ecomMarketCollage {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(6px, 0.45vw, 10px);
+  width: min(100%, 440px);
+  justify-self: end;
+  padding: clamp(8px, 0.7vw, 14px);
+  border-radius: 1.1vw;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ecomMarketCollage span {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 12%;
+  border-radius: 0.7vw;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.ecomMarketCollage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ecomMarketCollage span:nth-child(odd) {
+  transform: rotate(-2deg);
+}
+
+.ecomMarketCollage span:nth-child(even) {
+  transform: rotate(2deg);
+}
+
 
 .ecomMarketInner .button1 {
   margin-top: 1.2vw;
@@ -285,34 +387,96 @@
   text-align: left;
 }
 
-.ecomDays ol {
+.ecomDayTrack {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  margin-top: 1.6vw;
-  border-left: 0.22vw solid var(--secondary);
+  gap: 1vw;
+  margin: 2vw 0 0;
+  padding: 0;
 }
 
-.ecomDays li {
-  position: relative;
-  padding: 0 0 1.8vw 1.8vw;
-}
-
-.ecomDays li::before {
+.ecomDayTrack::before {
   content: "";
   position: absolute;
-  left: -0.45vw;
-  top: 0.35vw;
-  width: 0.7vw;
-  height: 0.7vw;
-  border-radius: 100px;
-  background: var(--primary);
-  box-shadow: 0 0 0 0.22vw var(--secondary);
+  left: 3.55vw;
+  top: 1.6vw;
+  bottom: 1.6vw;
+  width: 2px;
+  background: var(--secondary);
 }
 
-.ecomDays p {
-  max-width: 46rem;
-  margin-top: 0.45vw;
+.ecomDayTrack li {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 7.2vw minmax(0, 1fr);
+  border-radius: 1.15vw;
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0.4vw 0.4vw 0 var(--secondary);
+}
+
+.ecomDayTrack li:nth-child(2) {
+  box-shadow: 0.4vw 0.4vw 0 var(--primary);
+}
+
+.ecomDayTrack li:nth-child(3) {
+  box-shadow: 0.4vw 0.4vw 0 var(--darkpink);
+}
+
+.ecomDayMark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2vw;
+  border-radius: 1.15vw 0 0 1.15vw;
+  background: var(--primary);
+  color: var(--black);
+}
+
+.ecomDayTrack li:nth-child(2) .ecomDayMark {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.ecomDayTrack li:nth-child(3) .ecomDayMark {
+  background: var(--darkpink);
+  color: var(--white);
+}
+
+.ecomDayMark span {
+  font-size: 0.72vw;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.ecomDayMark strong {
+  font-family: "Signate", sans-serif;
+  font-size: 1.55vw;
+  line-height: 0.9;
+}
+
+.ecomDayTrack li > div:last-child {
+  padding: 1.25vw 1.5vw;
+}
+
+.ecomDayTrack p {
+  margin-top: 0.4vw;
+}
+
+.ecomDayTrack li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(3.6vw - 0.45vw);
+  bottom: -0.95vw;
+  width: 0.9vw;
+  height: 0.9vw;
+  border: 0.16vw solid var(--secondary);
+  border-radius: 100px;
+  background: var(--white);
+  z-index: 2;
 }
 
 .ecomFestive {
@@ -320,90 +484,173 @@
   padding: 4vw 0 4.4vw;
 }
 
-.ecomFestiveRow {
+.ecomFestiveBoard {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1vw;
+  grid-template-columns: minmax(16rem, 0.78fr) minmax(0, 1.25fr);
+  gap: 1.2vw;
+  align-items: stretch;
   margin-top: 2vw;
-  padding-top: 1.2vw;
-  background-image: linear-gradient(var(--secondary), var(--secondary));
-  background-repeat: no-repeat;
-  background-size: calc(100% - 8vw) 0.18vw;
-  background-position: center 0.35vw;
 }
 
-.ecomFestiveRow article {
-  padding: 1.3vw 1.1vw 1.2vw;
+.ecomFestive .ecomPhoto {
+  width: 100%;
+  height: 100%;
+  min-height: 22vw;
+  aspect-ratio: auto;
+  justify-self: stretch;
+  border-radius: 1.3vw;
+  box-shadow: 0.45vw 0.45vw 0 var(--pink);
+}
+
+.ecomFestiveSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7vw;
+  margin: 0;
+  padding: 0;
+}
+
+.ecomFestiveSteps li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 1.1vw 1.3vw;
   border-radius: 1.1vw;
   background: var(--background);
+  color: var(--black);
 }
 
-.ecomFestiveRow span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.4vw;
-  height: 2.4vw;
-  margin-bottom: 0.8vw;
-  border-radius: 100px;
+.ecomFestiveSteps li:nth-child(2) {
   background: var(--secondary);
-  color: var(--primary);
-  font-family: "Signate", sans-serif;
-  font-size: 1vw;
-}
-
-.ecomFestiveRow article:nth-child(2) span {
-  background: var(--primary);
-  color: var(--secondary);
-}
-
-.ecomFestiveRow article:nth-child(3) span {
-  background: var(--darkpink);
   color: var(--white);
 }
 
-.ecomFestiveRow p {
-  margin-top: 0.5vw;
+.ecomFestiveSteps li:nth-child(3) {
+  background: var(--primary);
+  color: var(--black);
+}
+
+.ecomFestiveSteps p {
+  margin-top: 0.35vw;
 }
 
 .ecomSheet {
   overflow: hidden;
-  border-radius: 1.4vw;
+  border-radius: 1.2vw;
   background: var(--white);
-  box-shadow: 0.35vw 0.35vw 0 var(--pink);
+  color: var(--black);
+  box-shadow: 0.4vw 0.4vw 0 var(--secondary);
 }
 
-.ecomSheetTop {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(10rem, 16vw);
-  gap: 1.4vw;
+.ecomSheetBar {
+  display: flex;
   align-items: center;
-  padding: 1.8vw 1.8vw 1.4vw;
+  justify-content: space-between;
+  gap: 1vw;
+  padding: 0.7vw 1.4vw;
   background: var(--secondary);
   color: var(--white);
 }
 
+.ecomSheetBar span:first-child {
+  font-family: "Signate", sans-serif;
+  font-size: 1.25vw;
+  line-height: 1;
+}
+
+.ecomSheetBar span:last-child {
+  font-size: 0.75vw;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ecomSheetTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(9rem, 14vw);
+  gap: 1.2vw;
+  align-items: center;
+  padding: 1.4vw 1.4vw 1.2vw;
+  background: var(--white);
+  color: var(--black);
+}
+
 .ecomSheetTop p {
   max-width: 40rem;
-  margin-top: 0.7vw;
+  margin-top: 0.6vw;
 }
 
-.ecomSheet li {
+.ecomSheet .ecomPhoto {
+  width: 100%;
+  border-radius: 0.7vw;
+}
+
+.ecomSheetGrid {
   display: grid;
-  grid-template-columns: 4vw 1fr;
-  gap: 1vw;
-  align-items: start;
-  padding: 1.1vw 1.8vw;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid #eadff5;
 }
 
-.ecomSheet li:nth-child(even) {
-  background: #fff8ea;
+.ecomSheetGrid li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35vw;
+  min-width: 0;
+  padding: 1.05vw 1.15vw 0.9vw;
+  border-right: 1px solid #eadff5;
+  border-bottom: 1px solid #eadff5;
+  background: var(--white);
 }
 
-.ecomSheet li > span {
-  font-family: "Signate", sans-serif;
-  font-size: 1.5vw;
-  color: var(--secondary);
+.ecomSheetGrid li:nth-child(3n) {
+  border-right: 0;
+}
+
+.ecomSheetGrid li:nth-child(n + 4) {
+  border-bottom: 0;
+}
+
+.ecomSheetGrid h3,
+.ecomSheetGrid p {
+  margin: 0;
+}
+
+.ecomSheetBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.28vw;
+  height: 2.4vw;
+  margin-top: auto;
+  padding-top: 0.7vw;
+}
+
+.ecomSheetBars i {
+  display: block;
+  flex: 1;
+  height: 42%;
+  border-radius: 0.2vw 0.2vw 0 0;
+  background: var(--primary);
+}
+
+.ecomSheetBars i:nth-child(2) {
+  height: 76%;
+  background: var(--secondary);
+}
+
+.ecomSheetBars i:nth-child(3) {
+  height: 48%;
+  background: var(--darkpink);
+}
+
+.ecomSheetBars i:nth-child(4) {
+  height: 92%;
+  background: var(--secondary);
+}
+
+.ecomSheetGrid li:nth-child(even) .ecomSheetBars {
+  transform: scaleX(-1);
 }
 
 .ecomBrands {
@@ -413,32 +660,76 @@
 
 .ecomBrandGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1vw;
-  margin-top: 1.8vw;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8vw;
+  margin-top: 2vw;
 }
 
 .ecomBrandGrid article {
-  padding: 1.1vw;
-  border-radius: 1.2vw;
-  background: var(--background);
-  border-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8vw;
+  min-height: 15vw;
+  padding: 1.2vw 1.05vw 1.15vw;
+  border-radius: 1.15vw;
+  background: var(--secondary);
+  color: var(--white);
+  box-shadow: 0.35vw 0.35vw 0 var(--primary);
 }
 
 .ecomBrandGrid article:nth-child(2) {
-  border-left-color: var(--primary);
+  background: var(--primary);
+  color: var(--black);
+  box-shadow: 0.35vw 0.35vw 0 var(--secondary);
 }
 
 .ecomBrandGrid article:nth-child(3) {
-  border-left-color: var(--darkpink);
+  background: var(--darkpink);
+  color: var(--white);
+  box-shadow: 0.35vw 0.35vw 0 var(--secondary);
 }
 
 .ecomBrandGrid article:nth-child(4) {
-  border-left-color: var(--black);
+  background: var(--background);
+  color: var(--black);
+  box-shadow: 0.35vw 0.35vw 0 var(--darkpink);
+}
+
+.ecomBrandGrid h3 {
+  margin: 0.7vw 0 0;
+}
+
+.ecomBrandIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6vw;
+  height: 2.6vw;
+  border-radius: 0.7vw;
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.ecomBrandIcon svg {
+  display: block;
+  width: 1.3vw;
+  height: 1.3vw;
+}
+
+.ecomBrandGrid article:nth-child(2) .ecomBrandIcon,
+.ecomBrandGrid article:nth-child(4) .ecomBrandIcon {
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+.ecomBrandGrid article:nth-child(3) .ecomBrandIcon {
+  background: var(--white);
+  color: var(--darkpink);
 }
 
 .ecomBrandGrid p {
-  margin-top: 0.45vw;
+  margin: 0;
 }
 
 .ecomCheckList {
@@ -515,70 +806,13 @@
   box-shadow: 0.15vw 0.15vw 0 var(--pink);
 }
 
-.ecomFaq h2 {
-  margin-bottom: 1.4vw;
-}
-
-.ecomFaq article {
-  border-bottom: 1px solid rgba(45, 35, 35, 0.14);
-}
-
-.ecomFaq button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1vw;
-  width: 100%;
-  padding: 1.1vw 0;
-  background: transparent;
-  color: var(--black);
-  text-align: left;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.15vw;
-  font-weight: 600;
-}
-
-.ecomFaq button i {
-  flex: 0 0 auto;
-  width: 2.2vw;
-  height: 2.2vw;
-  border-radius: 100px;
-  background: #efecfd;
-  position: relative;
-}
-
-.ecomFaq button i::before,
-.ecomFaq button i::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0.85vw;
-  height: 2px;
-  background: var(--darkpink);
-  transform: translate(-50%, -50%);
-}
-
-.ecomFaq button i::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.ecomFaq article.open button i {
-  background: var(--secondary);
-}
-
-.ecomFaq article.open button i::before,
-.ecomFaq article.open button i::after {
-  background: var(--white);
-}
-
-.ecomFaq article.open button i::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.ecomFaq article p {
-  max-width: 52rem;
-  padding-bottom: 1.1vw;
+.ecomPage .homeFAQ h2,
+.ecomPage .homeFAQ h2 * {
+  max-width: 14em;
+  color: var(--white);
+  font-size: 5.2vw;
+  line-height: 100%;
+  text-align: center;
 }
 
 @media (max-width: 1100px) {
@@ -620,55 +854,203 @@
     grid-template-columns: 1fr;
   }
 
+  .ecomSheet .ecomPhoto {
+    max-width: 420px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .ecomSheetGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ecomSheetGrid li,
+  .ecomSheetGrid li:nth-child(3n),
+  .ecomSheetGrid li:nth-child(n + 4) {
+    border-right: 1px solid #eadff5;
+    border-bottom: 1px solid #eadff5;
+  }
+
+  .ecomSheetGrid li:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .ecomSheetGrid li:nth-child(n + 5) {
+    border-bottom: 0;
+  }
+
+  .ecomDayTrack {
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .ecomDayTrack::before {
+    left: 45px;
+    top: 24px;
+    bottom: 24px;
+  }
+
+  .ecomDayTrack li,
+  .ecomDayTrack li:nth-child(2),
+  .ecomDayTrack li:nth-child(3) {
+    grid-template-columns: 92px minmax(0, 1fr);
+    border-radius: 16px;
+    box-shadow: 6px 6px 0 var(--secondary);
+  }
+
+  .ecomDayTrack li:nth-child(2) {
+    box-shadow: 6px 6px 0 var(--primary);
+  }
+
+  .ecomDayTrack li:nth-child(3) {
+    box-shadow: 6px 6px 0 var(--darkpink);
+  }
+
+  .ecomDayMark {
+    gap: 4px;
+    border-radius: 16px 0 0 16px;
+  }
+
+  .ecomDayMark span {
+    font-size: 12px;
+  }
+
+  .ecomDayMark strong {
+    font-size: 22px;
+  }
+
+  .ecomDayTrack li > div:last-child {
+    padding: 16px 18px;
+  }
+
+  .ecomDayTrack li:not(:last-child)::after {
+    left: 40px;
+    bottom: -13px;
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+  }
+
   .ecomWhy li > span {
     font-size: 40px;
   }
 
-  .ecomServicesHead {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .ecomServicesHead .ecomPhoto {
-    max-width: 520px;
-  }
-
   .ecomServices article,
-  .ecomServices article:nth-of-type(even) {
-    grid-template-columns: 56px minmax(0, 1fr);
+  .ecomServices article:nth-child(3n + 1),
+  .ecomServices article:nth-child(3n + 2),
+  .ecomServices article:nth-child(3n) {
+    grid-template-columns: 52px minmax(0, 1fr);
+    box-shadow: none;
+    border-left: 5px solid var(--secondary);
   }
 
-  .ecomServices article > p {
-    width: 56px;
-    height: 56px;
-    font-size: 20px;
+  .ecomServices article:nth-child(3n + 2) {
+    border-left-color: var(--primary);
   }
 
-  .ecomServices article > a,
-  .ecomServices article > button {
-    grid-column: 2;
-    justify-self: start;
+  .ecomServices article:nth-child(3n) {
+    border-left-color: var(--darkpink);
   }
 
-  .ecomFestiveRow,
+  .ecomServiceIcon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .ecomServiceIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ecomServices .button1,
+  .ecomServices .button2 {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 52px;
+  }
+
+  .ecomStageGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ecomStageGrid::before {
+    display: none;
+  }
+
+  .ecomStageGrid span {
+    width: 42px;
+    height: 42px;
+  }
+
+  .ecomStageGrid span svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .ecomBrandGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ecomBrandGrid article,
+  .ecomBrandGrid article:nth-child(2),
+  .ecomBrandGrid article:nth-child(3),
+  .ecomBrandGrid article:nth-child(4) {
+    min-height: 0;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 6px 6px 0 var(--primary);
+  }
+
+  .ecomBrandGrid article:nth-child(2),
+  .ecomBrandGrid article:nth-child(3) {
+    box-shadow: 6px 6px 0 var(--secondary);
+  }
+
+  .ecomBrandGrid article:nth-child(4) {
+    box-shadow: 6px 6px 0 var(--darkpink);
+  }
+
+  .ecomBrandIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .ecomBrandIcon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .ecomBrandGrid h3 {
+    margin-top: 12px;
+  }
+
+  .ecomFestiveBoard {
     grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 22px;
   }
 
-  .ecomFestiveRow {
-    background: none;
+  .ecomFestive .ecomPhoto {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    box-shadow: 6px 6px 0 var(--pink);
   }
 
-  .ecomFestiveRow span {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+  .ecomFestiveSteps {
+    gap: 10px;
+  }
+
+  .ecomFestiveSteps li {
+    padding: 16px;
+    border-radius: 16px;
   }
 }
 
 @media (max-width: 766px) {
-  .ecomPage p,
-  .ecomFaq button {
+  .ecomPage p {
     font-size: 16px;
   }
 
@@ -697,8 +1079,7 @@
   .ecomDays,
   .ecomReport,
   .ecomChoose,
-  .ecomStories,
-  .ecomFaq {
+  .ecomStories {
     padding-top: 36px;
     padding-bottom: 36px;
   }
@@ -709,7 +1090,6 @@
 
   .ecomWhy ol,
   .ecomStageGrid,
-  .ecomFestiveRow,
   .ecomBrandGrid,
   .ecomCheckList {
     gap: 12px;
@@ -729,14 +1109,24 @@
   }
 
   .ecomStageGrid article {
-    grid-row: auto;
     padding: 18px 16px;
     border-radius: 16px;
     box-shadow: 4px 4px 0 var(--secondary);
   }
 
-  .ecomStageGrid article:first-child {
+  .ecomStageGrid article:nth-child(1) {
     box-shadow: 4px 4px 0 var(--pink);
+  }
+
+  .ecomStageGrid span {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
+  }
+
+  .ecomStageGrid span svg {
+    width: 18px;
+    height: 18px;
   }
 
   .ecomStageGrid article:nth-child(2) {
@@ -747,24 +1137,25 @@
     box-shadow: 4px 4px 0 var(--primary);
   }
 
-  .ecomServices article,
-  .ecomServices article:nth-of-type(even) {
-    grid-template-columns: 48px minmax(0, 1fr);
-    gap: 10px 12px;
-    padding: 16px;
+  .ecomServices article {
+    gap: 12px;
+    padding: 14px;
     border-radius: 16px;
   }
 
-  .ecomServices article > p {
-    width: 48px;
-    height: 48px;
-    font-size: 18px;
+  .ecomServiceIcon {
+    width: 44px;
+    height: 44px;
   }
 
-  .ecomServices article > a,
-  .ecomServices article > button {
-    grid-column: 1 / -1;
-    justify-self: start;
+  .ecomServiceIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ecomServices .button1,
+  .ecomServices .button2 {
+    height: 52px;
   }
 
   .ecomMarketInner,
@@ -774,50 +1165,107 @@
     padding-bottom: 28px;
   }
 
-  .ecomDays ol {
-    margin-top: 18px;
-    border-left-width: 3px;
+  .ecomMarketCollage {
+    justify-self: start;
   }
 
-  .ecomDays li {
-    padding: 0 0 20px 16px;
+  .ecomDayTrack li,
+  .ecomDayTrack li:nth-child(2),
+  .ecomDayTrack li:nth-child(3) {
+    grid-template-columns: 76px minmax(0, 1fr);
   }
 
-  .ecomDays li::before {
-    left: -7px;
-    width: 11px;
-    height: 11px;
-    box-shadow: 0 0 0 3px var(--secondary);
+  .ecomDayTrack::before {
+    left: 37px;
   }
 
-  .ecomFestiveRow article {
-    padding: 16px;
-    border-radius: 16px;
+  .ecomDayMark strong {
+    font-size: 18px;
+  }
+
+  .ecomDayTrack li:not(:last-child)::after {
+    left: 32px;
   }
 
   .ecomSheet {
     border-radius: 16px;
-    box-shadow: 4px 4px 0 var(--pink);
+    box-shadow: 6px 6px 0 var(--secondary);
+  }
+
+  .ecomSheetBar {
+    padding: 10px 16px;
+  }
+
+  .ecomSheetBar span:first-child {
+    font-size: 22px;
+  }
+
+  .ecomSheetBar span:last-child {
+    font-size: 12px;
   }
 
   .ecomSheetTop,
-  .ecomSheet li {
+  .ecomSheetGrid li {
     padding: 16px;
   }
 
-  .ecomSheet li {
-    grid-template-columns: 36px 1fr;
-    gap: 10px;
+  .ecomSheetGrid {
+    grid-template-columns: 1fr;
   }
 
-  .ecomSheet li > span,
+  .ecomSheetGrid li,
+  .ecomSheetGrid li:nth-child(3n),
+  .ecomSheetGrid li:nth-child(n + 4) {
+    border-right: 0;
+    border-bottom: 1px solid #eadff5;
+  }
+
+  .ecomSheetGrid li:last-child {
+    border-bottom: 0;
+  }
+
   .ecomCheckList span {
     font-size: 22px;
   }
 
-  .ecomBrandGrid article {
-    padding: 14px;
+  .ecomSheetBars {
+    height: 36px;
+    gap: 4px;
+    padding-top: 10px;
+  }
+
+  .ecomSheetBars i {
+    border-radius: 3px 3px 0 0;
+  }
+
+  .ecomBrandGrid article,
+  .ecomBrandGrid article:nth-child(2),
+  .ecomBrandGrid article:nth-child(3),
+  .ecomBrandGrid article:nth-child(4) {
+    min-height: 0;
+    padding: 16px;
     border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--primary);
+  }
+
+  .ecomBrandGrid article:nth-child(2),
+  .ecomBrandGrid article:nth-child(3) {
+    box-shadow: 4px 4px 0 var(--secondary);
+  }
+
+  .ecomBrandGrid article:nth-child(4) {
+    box-shadow: 4px 4px 0 var(--darkpink);
+  }
+
+  .ecomBrandIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .ecomBrandIcon svg {
+    width: 20px;
+    height: 20px;
   }
 
   .ecomCheckList article {
@@ -832,17 +1280,8 @@
     border-radius: 18px;
   }
 
-  .ecomFaq button {
-    padding: 16px 0;
-  }
-
-  .ecomFaq button i {
-    width: 36px;
-    height: 36px;
-  }
-
-  .ecomFaq button i::before,
-  .ecomFaq button i::after {
-    width: 12px;
+  .ecomPage .homeFAQ h2,
+  .ecomPage .homeFAQ h2 * {
+    font-size: 41px;
   }
 }

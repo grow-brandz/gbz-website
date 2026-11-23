@@ -8,14 +8,104 @@ import { getHomeData } from "../services/api";
 import { useSsrPageData } from "../hooks/useSsrPageData";
 import Arrow from "../assets/lotties/right-arrow.json";
 import { StoryShowcase } from "./d2c-performance-marketing.jsx";
+import Divider from "../components/divider";
 import ecomHero from "../assets/img/ecom-hero.png";
 import ecomWhyTeam from "../assets/img/ecom-why-team.png";
-import ecomServicesPhoto from "../assets/img/ecom-services.png";
-import ecomMarketplaces from "../assets/img/ecom-marketplaces.jpg";
 import ecomFestive from "../assets/img/ecom-festive.jpg";
+import amazonLogo from "../assets/img/amazon.png";
+import flipkartLogo from "../assets/img/flipkart.png";
+import meeshoLogo from "../assets/img/meesho.png";
+import myntraLogo from "../assets/img/myntra.png";
+import ajioLogo from "../assets/img/ajio.png";
+import nykaaLogo from "../assets/img/nykaa.png";
+import jiomartLogo from "../assets/img/jiomart.png";
+import snapdealLogo from "../assets/img/snapdeal.png";
 import ecomReport from "../assets/img/ecom-report.jpg";
 import ecomCall from "../assets/img/ecom-call.jpg";
 import "./ecommerce-marketing.css";
+
+function StageIcon({ index }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  const icons = [
+    <svg key="launch" {...common}><path d="M6 20V4" /><path d="M6 5h9l-2 3 2 3H6" /></svg>,
+    <svg key="uneven" {...common}><path d="M3 14c2-3.5 4-3.5 6 0s4 3.5 6 0 4-3.5 6 0" /></svg>,
+    <svg key="grow" {...common}><path d="M4 16l5-5 3 3 8-8" /><path d="M14 6h6v6" /></svg>,
+    <svg key="markets" {...common}><path d="M12 21s6-5.2 6-11a6 6 0 0 0-12 0c0 5.8 6 11 6 11z" /><circle cx="12" cy="10" r="2.2" /></svg>,
+  ];
+  return icons[index];
+}
+
+function BrandIcon({ index }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  const icons = [
+    <svg key="new" {...common}><path d="M12 21V11" /><path d="M12 15c-3-.8-5-3.4-5-6.2 3 .2 5.4 2 5 6.2z" /><path d="M12 14c3-.6 5.6-2.6 6-5.6-3 .6-5.2 2.4-6 5.6z" /></svg>,
+    <svg key="national" {...common}><circle cx="6" cy="15" r="2" /><circle cx="12" cy="7" r="2" /><circle cx="18" cy="15" r="2" /><path d="M7.6 13.6L10.4 8.6" /><path d="M13.6 8.6l2.8 5" /></svg>,
+    <svg key="direct" {...common}><path d="M3 8h8v8H3z" /><path d="M13 12h7" /><path d="M17 9l3 3-3 3" /></svg>,
+    <svg key="market" {...common}><path d="M4 10h16" /><path d="M6 10l1.5-4h9L18 10" /><path d="M6 10v8h12v-8" /><path d="M10 18v-4h4v4" /></svg>,
+  ];
+  return icons[index];
+}
+
+function ServiceIcon({ index }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  const icons = [
+    <svg key="ads" {...common}><path d="M4 10h3l6-4v12l-6-4H4z" /><path d="M16 9.5a3.5 3.5 0 0 1 0 5" /></svg>,
+    <svg key="search" {...common}><circle cx="11" cy="11" r="6" /><path d="M16 16l4 4" /></svg>,
+    <svg key="messages" {...common}><path d="M5 6h14v9H8l-3 3V6z" /></svg>,
+    <svg key="creators" {...common}><circle cx="12" cy="8" r="3" /><path d="M6 19c1.2-2.6 3.2-4 6-4s4.8 1.4 6 4" /></svg>,
+    <svg key="photos" {...common}><path d="M4 8h3l1.5-2h7L17 8h3v10H4z" /><circle cx="12" cy="13" r="3" /></svg>,
+    <svg key="social" {...common}><path d="M12 19s-6-3.6-6-8a3.4 3.4 0 0 1 6-2 3.4 3.4 0 0 1 6 2c0 4.4-6 8-6 8z" /></svg>,
+    <svg key="store" {...common}><path d="M6 8h12l-1 11H7L6 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>,
+  ];
+  return <span className="ecomServiceIcon">{icons[index]}</span>;
+}
+
+const marketplaces = [
+  { name: "Amazon", src: amazonLogo },
+  { name: "Flipkart", src: flipkartLogo },
+  { name: "Meesho", src: meeshoLogo },
+  { name: "Myntra", src: myntraLogo },
+  { name: "Ajio", src: ajioLogo },
+  { name: "Nykaa", src: nykaaLogo },
+  { name: "JioMart", src: jiomartLogo },
+  { name: "Snapdeal", src: snapdealLogo },
+];
+
+function MarketCollage() {
+  return (
+    <div className="ecomMarketCollage">
+      {marketplaces.map((item) => (
+        <span key={item.name}>
+          <img src={item.src} alt={`${item.name} logo`} />
+        </span>
+      ))}
+    </div>
+  );
+}
 
 function EcomPhoto({ src, alt, priority = false }) {
   if (!src) return null;
@@ -112,14 +202,17 @@ const services = [
 
 const days = [
   {
+    range: "1–30",
     title: "Days 1 to 30: get the basics right",
     text: "We study your store, your buyers and your past results, and set up tracking so every order can be traced to where it came from. You receive a short plan that says what will happen first and why.",
   },
   {
+    range: "31–60",
     title: "Days 31 to 60: test what sells",
     text: "The first campaigns go live as small tests. GrowBrandz tries different offers, messages and channels, then keeps what brings orders and drops what does not.",
   },
   {
+    range: "61–90",
     title: "Days 61 to 90: grow what works",
     text: "Budget moves toward the channels that are paying back, and the next set of ideas goes into testing. By the end of month three you have a clear picture of what works for your store and a plan for the next quarter.",
   },
@@ -212,6 +305,20 @@ const checks = [
     text: "We will not promise a fixed number of orders, spend your budget without your approval, or hide a bad month from you.",
   },
 ];
+
+const inactiveFaqIcon = `
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="44" height="44" rx="22" fill="#EFECFD"/>
+  <path d="M16 19L22 25L28 19" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
+  </svg>
+`;
+
+const activeFaqIcon = `
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="44" height="44" rx="22" fill="#6842EF"/>
+  <path d="M16 19L22 25L28 19" stroke="#EFECFD" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
+  </svg>
+`;
 
 const faqs = [
   {
@@ -360,8 +467,8 @@ function EcommerceMarketing() {
         <section className="container ecomHero">
           <div className="ecomHeroCopy">
             <h1>
-              Ecommerce marketing agency in India with{" "}
-              <Highlight>one plan for every channel</Highlight>
+              Ecommerce Marketing Agency in India with{" "}
+              <Highlight>One Plan for Every Channel</Highlight>
             </h1>
             <p>
               Selling online means juggling ads, search, messages and content,
@@ -421,8 +528,11 @@ function EcommerceMarketing() {
             at first.
           </p>
           <div className="ecomStageGrid">
-            {stages.map((item) => (
+            {stages.map((item, index) => (
               <article key={item.title}>
+                <span>
+                  <StageIcon index={index} />
+                </span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </article>
@@ -433,33 +543,29 @@ function EcommerceMarketing() {
         <section className="ecomServices">
           <div className="container">
             <div className="ecomServicesHead">
-              <div>
-                <h2>Our ecommerce marketing services</h2>
-                <p className="ecomIntro">
-                  Every store needs a different mix. We pick the ones that fit your
-                  stage and budget, and leave the rest for later.
-                </p>
-              </div>
-              <EcomPhoto
-                src={ecomServicesPhoto}
-                alt="A team looking at a product page on a phone"
-              />
+              <h2>Our ecommerce marketing services</h2>
+              <p className="ecomIntro">
+                Every store needs a different mix. We pick the ones that fit your
+                stage and budget, and leave the rest for later.
+              </p>
             </div>
-            {services.map((service, index) => (
-              <article key={service.title}>
-                <p>0{index + 1}</p>
-                <div>
-                  <h3>{service.title}</h3>
-                  <p>{service.text}</p>
-                </div>
-                <EcomAction
-                  label={service.button}
-                  to={service.to}
-                  tone={index % 2 === 0 ? "button1" : "button2"}
-                  onBook={openForm}
-                />
-              </article>
-            ))}
+            <div className="ecomServiceGrid">
+              {services.map((service, index) => (
+                <article key={service.title}>
+                  <ServiceIcon index={index} />
+                  <div>
+                    <h3>{service.title}</h3>
+                    <p>{service.text}</p>
+                  </div>
+                  <EcomAction
+                    label={service.button}
+                    to={service.to}
+                    tone={index % 2 === 0 ? "button1" : "button2"}
+                    onBook={openForm}
+                  />
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -474,10 +580,7 @@ function EcommerceMarketing() {
                 Book a call
               </button>
             </div>
-            <EcomPhoto
-              src={ecomMarketplaces}
-              alt="Packaged products lined up on a shop shelf"
-            />
+            <MarketCollage />
           </div>
         </section>
 
@@ -486,11 +589,17 @@ function EcommerceMarketing() {
           <p className="ecomIntro">
             Here is what to expect after you say yes, month by month.
           </p>
-          <ol>
-            {days.map((item) => (
+          <ol className="ecomDayTrack">
+            {days.map((item, index) => (
               <li key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <div className="ecomDayMark" aria-hidden="true">
+                  <span>0{index + 1}</span>
+                  <strong>{item.range}</strong>
+                </div>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
               </li>
             ))}
           </ol>
@@ -498,34 +607,35 @@ function EcommerceMarketing() {
 
         <section className="ecomFestive">
           <div className="container">
-            <div className="ecomSplit">
-              <div>
-                <h2>How we plan for festive and sale seasons</h2>
-                <p className="ecomIntro">
-                  Diwali, wedding season and big sale days can bring a large share
-                  of a year's orders for many Indian stores. Ad costs often rise at
-                  the same time, so early planning makes a real difference.
-                </p>
-              </div>
+            <h2>How we plan for festive and sale seasons</h2>
+            <p className="ecomIntro">
+              Diwali, wedding season and big sale days can bring a large share
+              of a year's orders for many Indian stores. Ad costs often rise at
+              the same time, so early planning makes a real difference.
+            </p>
+            <div className="ecomFestiveBoard">
               <EcomPhoto
                 src={ecomFestive}
                 alt="A sale tag being cut from jewellery"
               />
-            </div>
-            <div className="ecomFestiveRow">
-              {seasons.map((item, index) => (
-                <article key={item.title}>
-                  <span>0{index + 1}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </article>
-              ))}
+              <ol className="ecomFestiveSteps">
+                {seasons.map((item) => (
+                  <li key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
         </section>
 
         <section className="container ecomReport">
           <div className="ecomSheet">
+            <div className="ecomSheetBar">
+              <span>GrowBrandz</span>
+              <span>Monthly report</span>
+            </div>
             <div className="ecomSheetTop">
               <div>
                 <h2>What your monthly report looks like</h2>
@@ -539,13 +649,16 @@ function EcommerceMarketing() {
                 alt="People reviewing a printed monthly report with charts"
               />
             </div>
-            <ol>
-              {reportParts.map((item, index) => (
+            <ol className="ecomSheetGrid">
+              {reportParts.map((item) => (
                 <li key={item.title}>
-                  <span>0{index + 1}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                  <div className="ecomSheetBars" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                    <i />
                   </div>
                 </li>
               ))}
@@ -561,9 +674,14 @@ function EcommerceMarketing() {
               customers. These are the brands we meet most often.
             </p>
             <div className="ecomBrandGrid">
-            {brands.map((item) => (
+            {brands.map((item, index) => (
               <article key={item.title}>
-                <h3>{item.title}</h3>
+                <div>
+                  <span className="ecomBrandIcon">
+                    <BrandIcon index={index} />
+                  </span>
+                  <h3>{item.title}</h3>
+                </div>
                 <p>{item.text}</p>
               </article>
             ))}
@@ -689,26 +807,38 @@ function EcommerceMarketing() {
           />
         </section>
 
-        <section className="container ecomFaq">
+        <Divider
+          bgColor="#EC4899"
+          fillColor="#FFD703"
+          boxStroke="#000000"
+          gridStroke="#000000"
+        />
+
+        <section className="homeFAQ">
           <h2>Ecommerce marketing questions founders ask</h2>
-          <div>
+          <div className="FAQ">
             {faqs.map((item, index) => (
-              <article
+              <div
                 key={item.question}
-                className={activeIndex === index ? "open" : ""}
+                className={`faqItem ${activeIndex === index ? "open" : ""}`}
+                onClick={() =>
+                  setActiveIndex(activeIndex === index ? null : index)
+                }
               >
-                <button
-                  type="button"
-                  onClick={() =>
-                    setActiveIndex(activeIndex === index ? null : index)
-                  }
-                  aria-expanded={activeIndex === index}
-                >
-                  <span>{item.question}</span>
-                  <i aria-hidden="true" />
-                </button>
-                {activeIndex === index && <p>{item.answer}</p>}
-              </article>
+                <div className="faqQuestion">
+                  {item.question}
+                  <div
+                    className={`faqIcon ${activeIndex === index ? "rotate" : ""}`}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        activeIndex === index ? activeFaqIcon : inactiveFaqIcon,
+                    }}
+                  />
+                </div>
+                {activeIndex === index && (
+                  <p className="faqAnswer">{item.answer}</p>
+                )}
+              </div>
             ))}
           </div>
         </section>
