@@ -1,0 +1,848 @@
+.ecomPage {
+  background: var(--background);
+}
+
+.ecomPage h1,
+.ecomPage h1 * {
+  font-size: 4.4vw;
+  line-height: 108%;
+}
+
+.ecomPage h2,
+.ecomPage h2 * {
+  font-size: 3.2vw;
+  line-height: 110%;
+}
+
+.ecomPage h3,
+.ecomPage h3 * {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25vw;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 130%;
+  color: inherit;
+}
+
+.ecomPage p {
+  width: auto;
+  line-height: 165%;
+}
+
+.ecomIntro {
+  max-width: 46rem;
+  margin-top: 1vw;
+}
+
+.ecomHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 0.7fr);
+  gap: 3vw;
+  align-items: center;
+  padding-top: 8vw;
+  padding-bottom: 4vw;
+}
+
+.ecomHero:not(:has(img)),
+.ecomSplit:not(:has(img)),
+.ecomMarketInner:not(:has(img)),
+.ecomAskInner:not(:has(img)),
+.ecomSheetTop:not(:has(img)) {
+  grid-template-columns: 1fr;
+}
+
+.ecomHeroCopy p {
+  max-width: 40rem;
+  margin-top: 1.4vw;
+}
+
+.ecomHeroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8vw;
+  margin-top: 1.8vw;
+}
+
+.ecomPhoto {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 1.2vw;
+  aspect-ratio: 4 / 3;
+  background:
+    radial-gradient(circle at 18% 20%, #ffd703 0 18%, transparent 19%),
+    radial-gradient(circle at 78% 72%, #ec4899 0 22%, transparent 23%),
+    #6842ef;
+}
+
+.ecomPhoto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ecomHero .ecomPhoto {
+  aspect-ratio: 16 / 10;
+  border-radius: 1.4vw;
+  box-shadow: 0.45vw 0.45vw 0 var(--pink);
+}
+
+.ecomSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.6fr);
+  gap: 2vw;
+  align-items: center;
+}
+
+.ecomSplit .ecomPhoto {
+  justify-self: end;
+  width: min(100%, 22vw);
+}
+
+.ecomWhy {
+  background: var(--white);
+  padding: 4vw 0;
+}
+
+.ecomWhy ol,
+.ecomDays ol,
+.ecomSheet ol,
+.ecomCheckList {
+  list-style: none;
+}
+
+.ecomWhy ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vw;
+  margin-top: 2vw;
+}
+
+.ecomWhy li {
+  display: grid;
+  grid-template-columns: 7vw minmax(0, 1fr);
+  gap: 1.4vw;
+  align-items: center;
+  padding: 1.4vw 1.6vw;
+  border-radius: 1.2vw;
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.ecomWhy li:nth-child(2) {
+  background: var(--primary);
+  color: var(--black);
+}
+
+.ecomWhy li:nth-child(3) {
+  background: var(--background);
+  color: var(--black);
+  box-shadow: inset 0 0 0 2px var(--darkpink);
+}
+
+.ecomWhy li > span {
+  font-family: "Signate", sans-serif;
+  font-size: 3.4vw;
+  line-height: 0.9;
+  color: var(--primary);
+}
+
+.ecomWhy li:nth-child(2) > span,
+.ecomWhy li:nth-child(3) > span {
+  color: var(--secondary);
+}
+
+.ecomStages,
+.ecomDays,
+.ecomReport,
+.ecomChoose,
+.ecomStories,
+.ecomFaq {
+  padding-top: 4vw;
+  padding-bottom: 4vw;
+}
+
+.ecomStageGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-rows: auto auto;
+  gap: 1vw;
+  margin-top: 1.8vw;
+}
+
+.ecomStageGrid article {
+  padding: 1.6vw;
+  border-radius: 1.3vw;
+  background: var(--white);
+  box-shadow: 0.25vw 0.25vw 0 var(--secondary);
+}
+
+.ecomStageGrid article:first-child {
+  grid-row: span 2;
+  background: var(--secondary);
+  color: var(--white);
+  box-shadow: 0.25vw 0.25vw 0 var(--pink);
+}
+
+.ecomStageGrid article:nth-child(2) {
+  background: var(--primary);
+  box-shadow: 0.25vw 0.25vw 0 var(--darkpink);
+}
+
+.ecomStageGrid article:nth-child(4) {
+  background: var(--darkpink);
+  color: var(--white);
+  box-shadow: 0.25vw 0.25vw 0 var(--primary);
+}
+
+.ecomStageGrid p {
+  margin-top: 0.6vw;
+}
+
+.ecomServices {
+  background: var(--white);
+  padding: 4vw 0;
+}
+
+.ecomServicesHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 32vw);
+  gap: 2.4vw;
+  align-items: end;
+}
+
+.ecomServicesHead .ecomPhoto {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 1.3vw;
+  box-shadow: 0.4vw 0.4vw 0 var(--secondary);
+}
+
+.ecomServices article {
+  display: grid;
+  grid-template-columns: 3.6vw minmax(0, 1fr) auto;
+  gap: 1.3vw;
+  align-items: center;
+  margin-top: 0.8vw;
+  padding: 1.15vw 1.3vw;
+  border-radius: 1.1vw;
+  background: var(--background);
+}
+
+.ecomServices article:nth-of-type(even) {
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px rgba(104, 66, 239, 0.18);
+}
+
+.ecomServices article > p {
+  display: grid;
+  place-items: center;
+  width: 3.2vw;
+  height: 3.2vw;
+  margin: 0;
+  border-radius: 100px;
+  background: var(--secondary);
+  font-family: "Signate", sans-serif;
+  font-size: 1.15vw;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.ecomServices article:nth-of-type(even) > p {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.ecomServices .button1,
+.ecomServices .button2 {
+  max-width: 16rem;
+  white-space: normal;
+  text-align: center;
+}
+
+.ecomMarket {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.ecomMarketInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 18vw);
+  align-items: center;
+  gap: 2vw;
+  padding-top: 2.4vw;
+  padding-bottom: 2.4vw;
+}
+
+.ecomMarketInner .button1 {
+  margin-top: 1.2vw;
+}
+
+.ecomMarket h2,
+.ecomMarket h2 * {
+  max-width: 18em;
+  color: var(--white);
+  text-align: left;
+}
+
+.ecomDays ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 1.6vw;
+  border-left: 0.22vw solid var(--secondary);
+}
+
+.ecomDays li {
+  position: relative;
+  padding: 0 0 1.8vw 1.8vw;
+}
+
+.ecomDays li::before {
+  content: "";
+  position: absolute;
+  left: -0.45vw;
+  top: 0.35vw;
+  width: 0.7vw;
+  height: 0.7vw;
+  border-radius: 100px;
+  background: var(--primary);
+  box-shadow: 0 0 0 0.22vw var(--secondary);
+}
+
+.ecomDays p {
+  max-width: 46rem;
+  margin-top: 0.45vw;
+}
+
+.ecomFestive {
+  background: var(--white);
+  padding: 4vw 0 4.4vw;
+}
+
+.ecomFestiveRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1vw;
+  margin-top: 2vw;
+  padding-top: 1.2vw;
+  background-image: linear-gradient(var(--secondary), var(--secondary));
+  background-repeat: no-repeat;
+  background-size: calc(100% - 8vw) 0.18vw;
+  background-position: center 0.35vw;
+}
+
+.ecomFestiveRow article {
+  padding: 1.3vw 1.1vw 1.2vw;
+  border-radius: 1.1vw;
+  background: var(--background);
+}
+
+.ecomFestiveRow span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4vw;
+  height: 2.4vw;
+  margin-bottom: 0.8vw;
+  border-radius: 100px;
+  background: var(--secondary);
+  color: var(--primary);
+  font-family: "Signate", sans-serif;
+  font-size: 1vw;
+}
+
+.ecomFestiveRow article:nth-child(2) span {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.ecomFestiveRow article:nth-child(3) span {
+  background: var(--darkpink);
+  color: var(--white);
+}
+
+.ecomFestiveRow p {
+  margin-top: 0.5vw;
+}
+
+.ecomSheet {
+  overflow: hidden;
+  border-radius: 1.4vw;
+  background: var(--white);
+  box-shadow: 0.35vw 0.35vw 0 var(--pink);
+}
+
+.ecomSheetTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 16vw);
+  gap: 1.4vw;
+  align-items: center;
+  padding: 1.8vw 1.8vw 1.4vw;
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.ecomSheetTop p {
+  max-width: 40rem;
+  margin-top: 0.7vw;
+}
+
+.ecomSheet li {
+  display: grid;
+  grid-template-columns: 4vw 1fr;
+  gap: 1vw;
+  align-items: start;
+  padding: 1.1vw 1.8vw;
+}
+
+.ecomSheet li:nth-child(even) {
+  background: #fff8ea;
+}
+
+.ecomSheet li > span {
+  font-family: "Signate", sans-serif;
+  font-size: 1.5vw;
+  color: var(--secondary);
+}
+
+.ecomBrands {
+  background: var(--white);
+  padding: 4vw 0;
+}
+
+.ecomBrandGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1vw;
+  margin-top: 1.8vw;
+}
+
+.ecomBrandGrid article {
+  padding: 1.1vw;
+  border-radius: 1.2vw;
+  background: var(--background);
+  border-left: 0;
+}
+
+.ecomBrandGrid article:nth-child(2) {
+  border-left-color: var(--primary);
+}
+
+.ecomBrandGrid article:nth-child(3) {
+  border-left-color: var(--darkpink);
+}
+
+.ecomBrandGrid article:nth-child(4) {
+  border-left-color: var(--black);
+}
+
+.ecomBrandGrid p {
+  margin-top: 0.45vw;
+}
+
+.ecomCheckList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vw;
+  margin-top: 1.8vw;
+}
+
+.ecomCheckList article {
+  display: grid;
+  grid-template-columns: 3.2vw 1fr;
+  gap: 1vw;
+  padding: 1.1vw 1.2vw;
+  border-radius: 1vw;
+  background: var(--white);
+}
+
+.ecomCheckList span {
+  font-family: "Signate", sans-serif;
+  font-size: 1.6vw;
+  color: var(--darkpink);
+}
+
+.ecomCheckList p {
+  margin-top: 0.35vw;
+}
+
+.ecomNote {
+  margin-top: 1.2vw;
+  padding: 1vw 1.2vw;
+  border-radius: 1000px;
+  background: var(--secondary);
+  color: var(--primary);
+  text-align: center;
+}
+
+.ecomAsk {
+  background: var(--primary);
+  text-align: center;
+}
+
+.ecomAskInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 18vw);
+  align-items: center;
+  gap: 2vw;
+  padding-top: 3vw;
+  padding-bottom: 3vw;
+  text-align: left;
+}
+
+.ecomAskInner .button2 {
+  margin-top: 1vw;
+}
+
+.ecomAsk p {
+  max-width: 40rem;
+}
+
+.ecomStories h2 {
+  margin-bottom: 1.4vw;
+  text-align: left;
+}
+
+.ecomStories h2::after {
+  content: "";
+  display: block;
+  width: 4vw;
+  height: 0.35vw;
+  margin-top: 0.7vw;
+  border-radius: 100px;
+  background: var(--primary);
+  box-shadow: 0.15vw 0.15vw 0 var(--pink);
+}
+
+.ecomFaq h2 {
+  margin-bottom: 1.4vw;
+}
+
+.ecomFaq article {
+  border-bottom: 1px solid rgba(45, 35, 35, 0.14);
+}
+
+.ecomFaq button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+  width: 100%;
+  padding: 1.1vw 0;
+  background: transparent;
+  color: var(--black);
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.15vw;
+  font-weight: 600;
+}
+
+.ecomFaq button i {
+  flex: 0 0 auto;
+  width: 2.2vw;
+  height: 2.2vw;
+  border-radius: 100px;
+  background: #efecfd;
+  position: relative;
+}
+
+.ecomFaq button i::before,
+.ecomFaq button i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.85vw;
+  height: 2px;
+  background: var(--darkpink);
+  transform: translate(-50%, -50%);
+}
+
+.ecomFaq button i::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.ecomFaq article.open button i {
+  background: var(--secondary);
+}
+
+.ecomFaq article.open button i::before,
+.ecomFaq article.open button i::after {
+  background: var(--white);
+}
+
+.ecomFaq article.open button i::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.ecomFaq article p {
+  max-width: 52rem;
+  padding-bottom: 1.1vw;
+}
+
+@media (max-width: 1100px) {
+  .ecomHero {
+    grid-template-columns: 1fr;
+    padding-top: 110px;
+  }
+
+  .ecomHero .ecomPhoto,
+  .ecomSplit .ecomPhoto {
+    max-width: 460px;
+    width: 100%;
+    justify-self: start;
+  }
+
+  .ecomPage h1,
+  .ecomPage h1 * {
+    font-size: 48px;
+  }
+
+  .ecomPage h2,
+  .ecomPage h2 * {
+    font-size: 36px;
+  }
+
+  .ecomPage h3,
+  .ecomPage h3 * {
+    font-size: 20px;
+  }
+
+  .ecomWhy li {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .ecomSplit,
+  .ecomMarketInner,
+  .ecomAskInner,
+  .ecomSheetTop {
+    grid-template-columns: 1fr;
+  }
+
+  .ecomWhy li > span {
+    font-size: 40px;
+  }
+
+  .ecomServicesHead {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .ecomServicesHead .ecomPhoto {
+    max-width: 520px;
+  }
+
+  .ecomServices article,
+  .ecomServices article:nth-of-type(even) {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .ecomServices article > p {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+
+  .ecomServices article > a,
+  .ecomServices article > button {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .ecomFestiveRow,
+  .ecomBrandGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecomFestiveRow {
+    background: none;
+  }
+
+  .ecomFestiveRow span {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 766px) {
+  .ecomPage p,
+  .ecomFaq button {
+    font-size: 16px;
+  }
+
+  .ecomHero {
+    gap: 22px;
+    padding-bottom: 36px;
+  }
+
+  .ecomHeroActions {
+    gap: 10px;
+  }
+
+  .ecomHero .ecomPhoto {
+    box-shadow: 6px 6px 0 var(--pink);
+    border-radius: 18px;
+  }
+
+  .ecomWhy,
+  .ecomServices,
+  .ecomFestive,
+  .ecomBrands {
+    padding: 36px 0;
+  }
+
+  .ecomStages,
+  .ecomDays,
+  .ecomReport,
+  .ecomChoose,
+  .ecomStories,
+  .ecomFaq {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .ecomIntro {
+    margin-top: 12px;
+  }
+
+  .ecomWhy ol,
+  .ecomStageGrid,
+  .ecomFestiveRow,
+  .ecomBrandGrid,
+  .ecomCheckList {
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .ecomWhy li,
+  .ecomStageGrid,
+  .ecomBrandGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecomWhy li {
+    gap: 8px 12px;
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .ecomStageGrid article {
+    grid-row: auto;
+    padding: 18px 16px;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--secondary);
+  }
+
+  .ecomStageGrid article:first-child {
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+
+  .ecomStageGrid article:nth-child(2) {
+    box-shadow: 4px 4px 0 var(--darkpink);
+  }
+
+  .ecomStageGrid article:nth-child(4) {
+    box-shadow: 4px 4px 0 var(--primary);
+  }
+
+  .ecomServices article,
+  .ecomServices article:nth-of-type(even) {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 10px 12px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .ecomServices article > p {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .ecomServices article > a,
+  .ecomServices article > button {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .ecomMarketInner,
+  .ecomAskInner {
+    gap: 16px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .ecomDays ol {
+    margin-top: 18px;
+    border-left-width: 3px;
+  }
+
+  .ecomDays li {
+    padding: 0 0 20px 16px;
+  }
+
+  .ecomDays li::before {
+    left: -7px;
+    width: 11px;
+    height: 11px;
+    box-shadow: 0 0 0 3px var(--secondary);
+  }
+
+  .ecomFestiveRow article {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .ecomSheet {
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+
+  .ecomSheetTop,
+  .ecomSheet li {
+    padding: 16px;
+  }
+
+  .ecomSheet li {
+    grid-template-columns: 36px 1fr;
+    gap: 10px;
+  }
+
+  .ecomSheet li > span,
+  .ecomCheckList span {
+    font-size: 22px;
+  }
+
+  .ecomBrandGrid article {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .ecomCheckList article {
+    grid-template-columns: 32px 1fr;
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .ecomNote {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 18px;
+  }
+
+  .ecomFaq button {
+    padding: 16px 0;
+  }
+
+  .ecomFaq button i {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ecomFaq button i::before,
+  .ecomFaq button i::after {
+    width: 12px;
+  }
+}

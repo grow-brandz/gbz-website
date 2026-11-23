@@ -500,7 +500,7 @@ body:has(.aboutPage) header .menu a.labout {
   color: var(--secondary);
 }
 
-body:has(.servicesPage, .d2cPage) header .menu button.lservices,
+body:has(.servicesPage, .d2cPage, .ecomPage) header .menu button.lservices,
 header .serviceMenu.open button.lservices {
   background: var(--primary);
   color: var(--secondary);
@@ -529,6 +529,7 @@ body:has(.contactPage) header .menu a.lcontact {
 body:has(
     .servicesPage,
     .d2cPage,
+    .ecomPage,
     .processPage,
     .contactPage,
     .extraPage,
@@ -554,7 +555,7 @@ body:has(.processPage) .book {
   background: var(--secondary);
 }
 
-body:has(.contactPage, .servicesPage, .d2cPage) .book {
+body:has(.contactPage, .servicesPage, .d2cPage, .ecomPage) .book {
   color: var(--white);
   background: var(--secondary);
 }
