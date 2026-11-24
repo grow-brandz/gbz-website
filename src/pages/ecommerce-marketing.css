@@ -635,6 +635,43 @@
   box-shadow: 0 1.2vw 2.4vw rgba(104, 66, 239, 0.12);
 }
 
+.ecomDashBoard::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: 1.5vw;
+  background: rgba(36, 22, 70, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.ecomDashCta {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -40%);
+  white-space: nowrap;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.ecomDashBoard:hover::before,
+.ecomDashBoard:focus-within::before,
+.ecomDashBoard:hover .ecomDashCta,
+.ecomDashBoard:focus-within .ecomDashCta {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ecomDashBoard:hover .ecomDashCta,
+.ecomDashBoard:focus-within .ecomDashCta {
+  transform: translate(-50%, -50%);
+}
+
 .ecomDashHead,
 .ecomDashTools,
 .ecomDashBrand,
@@ -1205,6 +1242,20 @@
   }
 
   .ecomDashBoard { grid-row: 1; }
+
+  .ecomDashBoard::before {
+    display: none;
+  }
+
+  .ecomDashCta {
+    position: static;
+    display: block;
+    width: fit-content;
+    margin: 16px auto 0;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
   .note1 { grid-row: 2; }
   .note2 { grid-row: 3; }
   .note3 { grid-row: 4; }

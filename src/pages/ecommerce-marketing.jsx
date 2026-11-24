@@ -648,9 +648,9 @@ function EcommerceMarketing() {
                 </div>
               </article>
             ))}
-            <article className="ecomDashBoard" aria-hidden="true">
-              <div className="ecomDashPlate" />
-              <div className="ecomDashCard">
+            <article className="ecomDashBoard">
+              <div className="ecomDashPlate" aria-hidden="true" />
+              <div className="ecomDashCard" aria-hidden="true">
                 <div className="ecomDashHead">
                   <div className="ecomDashBrand">
                     <svg viewBox="0 0 32 32" aria-hidden="true">
@@ -1003,6 +1003,13 @@ function EcommerceMarketing() {
                   </section>
                 </div>
               </div>
+              <button
+                type="button"
+                className="ecomDashCta button1"
+                onClick={openForm}
+              >
+                Book a call
+              </button>
             </article>
           </div>
         </section>
