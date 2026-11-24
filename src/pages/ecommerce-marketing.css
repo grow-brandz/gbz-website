@@ -45,8 +45,7 @@
 
 .ecomHero:not(:has(img)),
 .ecomSplit:not(:has(img)),
-.ecomAskInner:not(:has(img)),
-.ecomSheetTop:not(:has(img)) {
+.ecomAskInner:not(:has(img)) {
   grid-template-columns: 1fr;
 }
 
@@ -106,8 +105,8 @@
 .ecomWhy ol,
 .ecomDayTrack,
 .ecomFestiveSteps,
-.ecomSheet ol,
-.ecomCheckList {
+.ecomCheckList,
+.ecomDash ul {
   list-style: none;
 }
 
@@ -535,122 +534,459 @@
   margin-top: 0.35vw;
 }
 
-.ecomSheet {
-  overflow: hidden;
-  border-radius: 1.2vw;
-  background: var(--white);
-  color: var(--black);
-  box-shadow: 0.4vw 0.4vw 0 var(--secondary);
+.ecomReport {
+  background: #f4f1fb;
 }
 
-.ecomSheetBar {
-  display: flex;
+.ecomDash {
+  display: grid;
+  grid-template-columns: minmax(11rem, 16rem) minmax(0, 1fr) minmax(11rem, 16rem);
+  grid-template-rows: auto auto auto;
+  gap: 0.9vw 0.7vw;
   align-items: center;
-  justify-content: space-between;
-  gap: 1vw;
-  padding: 0.7vw 1.4vw;
-  background: var(--secondary);
-  color: var(--white);
+  margin-top: 1.8vw;
 }
 
-.ecomSheetBar span:first-child {
-  font-family: "Signate", sans-serif;
-  font-size: 1.25vw;
+.ecomDashNote {
+  position: relative;
+  display: flex;
+  gap: 0.6vw;
+  align-items: flex-start;
+  padding: 0.75vw 0.85vw;
+  border: 1px solid #ece6ff;
+  border-radius: 1vw;
+  background: #fff;
+  box-shadow: 0 0.6vw 1.4vw rgba(104, 66, 239, 0.08);
+}
+
+.note1,
+.note3,
+.note5 {
+  grid-column: 1;
+}
+
+.note2,
+.note4,
+.note6 {
+  grid-column: 3;
+}
+
+.note1 { grid-row: 1; }
+.note2 { grid-row: 1; }
+.note3 { grid-row: 2; }
+.note4 { grid-row: 2; }
+.note5 { grid-row: 3; }
+.note6 { grid-row: 3; }
+
+.ecomDashNote > span {
+  display: grid;
+  flex: 0 0 26px;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
   line-height: 1;
 }
 
-.ecomSheetBar span:last-child {
-  font-size: 0.75vw;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.ecomSheetTop {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(9rem, 14vw);
-  gap: 1.2vw;
-  align-items: center;
-  padding: 1.4vw 1.4vw 1.2vw;
-  background: var(--white);
-  color: var(--black);
-}
-
-.ecomSheetTop p {
-  max-width: 40rem;
-  margin-top: 0.6vw;
-}
-
-.ecomSheet .ecomPhoto {
-  width: 100%;
-  border-radius: 0.7vw;
-}
-
-.ecomSheetGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.ecomDashNote h3,
+.ecomDashNote p {
   margin: 0;
-  border-top: 1px solid #eadff5;
 }
 
-.ecomSheetGrid li {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35vw;
+.ecomPage .ecomDashNote h3 {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.ecomPage .ecomDashNote p {
+  margin-top: 4px;
+  color: #665f78;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ecomDashBoard {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / span 3;
   min-width: 0;
-  padding: 1.05vw 1.15vw 0.9vw;
-  border-right: 1px solid #eadff5;
-  border-bottom: 1px solid #eadff5;
-  background: var(--white);
 }
 
-.ecomSheetGrid li:nth-child(3n) {
-  border-right: 0;
+.ecomDashPlate {
+  position: absolute;
+  z-index: 0;
+  inset: 1.2vw -0.4vw -1vw 1vw;
+  border-radius: 1.6vw;
+  background: #e4dcff;
+  transform: rotate(2deg);
 }
 
-.ecomSheetGrid li:nth-child(n + 4) {
-  border-bottom: 0;
+.ecomDashCard {
+  position: relative;
+  z-index: 1;
+  padding: 1.1vw;
+  border: 1px solid #ece6ff;
+  border-radius: 1.5vw;
+  background: #fbfaff;
+  box-shadow: 0 1.2vw 2.4vw rgba(104, 66, 239, 0.12);
 }
 
-.ecomSheetGrid h3,
-.ecomSheetGrid p {
-  margin: 0;
-}
-
-.ecomSheetBars {
+.ecomDashHead,
+.ecomDashTools,
+.ecomDashBrand,
+.ecomWidgetHead,
+.ecomLegend,
+.ecomCostBody,
+.ecomRepeatBody,
+.ecomChannelPair,
+.ecomNextBody,
+.ecomWidgetChanged li {
   display: flex;
-  align-items: flex-end;
-  gap: 0.28vw;
-  height: 2.4vw;
-  margin-top: auto;
-  padding-top: 0.7vw;
+  align-items: center;
 }
 
-.ecomSheetBars i {
+.ecomDashHead {
+  justify-content: space-between;
+  gap: 0.8vw;
+  margin-bottom: 0.8vw;
+}
+
+.ecomDashBrand {
+  gap: 0.6vw;
+  min-width: 0;
+}
+
+.ecomDashBrand svg,
+.ecomDashTools svg,
+.ecomBubble svg {
   display: block;
-  flex: 1;
-  height: 42%;
-  border-radius: 0.2vw 0.2vw 0 0;
-  background: var(--primary);
+  flex: 0 0 auto;
 }
 
-.ecomSheetBars i:nth-child(2) {
-  height: 76%;
+.ecomDashBrand > svg {
+  width: 36px;
+  height: 36px;
+}
+
+.ecomDashBrand b,
+.ecomDashBrand strong,
+.ecomDashBrand small {
+  display: block;
+}
+
+.ecomDashBrand b {
+  color: var(--secondary);
+  font-family: "Signate", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.ecomDashBrand strong {
+  margin-top: 2px;
+  color: #241c3a;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.ecomDashBrand small,
+.ecomWidget small,
+.ecomWidget em {
+  color: #6d6780;
+  font-style: normal;
+}
+
+.ecomDashBrand small {
+  font-size: 13px;
+}
+
+.ecomDashTools {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4vw;
+}
+
+.ecomDashDownload,
+.ecomDashWhen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ecomDashDownload {
+  padding: 0.55vw 0.75vw;
   background: var(--secondary);
+  color: #fff;
 }
 
-.ecomSheetBars i:nth-child(3) {
-  height: 48%;
-  background: var(--darkpink);
+.ecomDashWhen {
+  padding: 0.5vw 0.7vw;
+  border: 1px solid #e4def6;
+  background: #fff;
+  color: #3d3654;
 }
 
-.ecomSheetBars i:nth-child(4) {
-  height: 92%;
-  background: var(--secondary);
+.ecomDashDownload svg,
+.ecomDashWhen svg {
+  width: 14px;
+  height: 14px;
 }
 
-.ecomSheetGrid li:nth-child(even) .ecomSheetBars {
-  transform: scaleX(-1);
+.ecomDashGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0.65vw;
+}
+
+.ecomWidget {
+  min-width: 0;
+  padding: 0.8vw;
+  border: 1px solid #efeafc;
+  border-radius: 0.9vw;
+  background: #fff;
+}
+
+.ecomWidgetOrders { grid-column: 1; }
+.ecomWidgetCost { grid-column: 2; }
+.ecomWidgetRepeat { grid-column: 1; }
+.ecomWidgetChannels { grid-column: 2; }
+.ecomWidgetChanged { grid-column: 1; }
+.ecomWidgetNext { grid-column: 2; }
+
+.ecomWidgetHead {
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #241c3a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ecomBubble {
+  display: grid;
+  flex: 0 0 28px;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #efeaff;
+}
+
+.ecomBubble svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ecomMetricPair,
+.ecomChannelPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6vw;
+}
+
+.ecomMetricPair strong,
+.ecomWidgetCost strong,
+.ecomRepeatBody strong,
+.ecomChannelPair strong {
+  display: block;
+  color: #241c3a;
+  font-size: 28px;
+  line-height: 1.05;
+}
+
+.ecomMetricPair em,
+.ecomChannelPair em,
+.ecomRepeatBody em {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+.ecomWidget b.up,
+.ecomWidget b.down {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ecomWidget b.up { color: #14944a; }
+.ecomWidget b.down { color: #e23b78; }
+
+.ecomDashLine {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.4vw;
+}
+
+.ecomLegend {
+  gap: 14px;
+  margin: 4px 0 0;
+  color: #6d6780;
+  font-size: 12px;
+}
+
+.ecomLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3vw;
+}
+
+.ecomLegend i,
+.ecomCostBody li i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.ecomLegend .now { background: var(--secondary); }
+.ecomLegend .then { background: #d9d3ea; }
+
+.ecomCostBody {
+  align-items: center;
+  gap: 0.55vw;
+}
+
+.ecomCostBody > svg {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+}
+
+.ecomCostBody small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.ecomCostBody ul {
+  margin: 0;
+  padding: 0;
+}
+
+.ecomCostBody li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4d4662;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.ecomCostBody li b {
+  margin-left: auto;
+  color: #241c3a;
+  font-weight: 700;
+}
+
+.ecomCostBody .meta { background: #6d5efc; }
+.ecomCostBody .google { background: #f5a524; }
+.ecomCostBody .other { background: #c9c4d8; }
+
+.ecomRepeatBody,
+.ecomNextBody {
+  justify-content: space-between;
+  gap: 0.5vw;
+}
+
+.ecomRepeatBody svg,
+.ecomNextBody > svg {
+  width: 84px;
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.ecomChannelPair b {
+  display: block;
+  margin-bottom: 4px;
+  color: #241c3a;
+  font-size: 14px;
+}
+
+.ecomChannelPair strong {
+  font-size: 26px;
+}
+
+.ecomChannelPair .good,
+.ecomChannelPair .bad,
+.ecomWidgetChanged em {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ecomChannelPair .good,
+.ecomWidgetChanged .run {
+  background: #e5f8ec;
+  color: #14944a;
+}
+
+.ecomChannelPair .bad,
+.ecomWidgetChanged .stop {
+  background: #fde7ef;
+  color: #e23b78;
+}
+
+.ecomWidgetChanged ul,
+.ecomWidgetNext ul {
+  margin: 0;
+  padding: 0;
+}
+
+.ecomWidgetChanged li,
+.ecomWidgetNext li {
+  color: #3d3654;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.ecomWidgetChanged li {
+  justify-content: space-between;
+  gap: 0.4vw;
+  padding: 0.35vw 0;
+  border-top: 1px solid #f1ecfa;
+}
+
+.ecomWidgetChanged li:first-child {
+  border-top: 0;
+}
+
+.ecomWidgetNext li {
+  position: relative;
+  padding-left: 16px;
+}
+
+.ecomWidgetNext li + li {
+  margin-top: 0.35vw;
+}
+
+.ecomWidgetNext li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25vw;
+  width: 0.55vw;
+  height: 0.35vw;
+  border-left: 2px solid var(--secondary);
+  border-bottom: 2px solid var(--secondary);
+  transform: rotate(-45deg);
 }
 
 .ecomBrands {
@@ -849,33 +1185,35 @@
 
   .ecomSplit,
   .ecomMarketInner,
-  .ecomAskInner,
-  .ecomSheetTop {
+  .ecomAskInner {
     grid-template-columns: 1fr;
   }
 
-  .ecomSheet .ecomPhoto {
-    max-width: 420px;
-    aspect-ratio: 16 / 9;
+  .ecomDash {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .ecomSheetGrid {
-    grid-template-columns: 1fr 1fr;
+  .ecomDashBoard,
+  .note1,
+  .note2,
+  .note3,
+  .note4,
+  .note5,
+  .note6 {
+    grid-column: 1;
   }
 
-  .ecomSheetGrid li,
-  .ecomSheetGrid li:nth-child(3n),
-  .ecomSheetGrid li:nth-child(n + 4) {
-    border-right: 1px solid #eadff5;
-    border-bottom: 1px solid #eadff5;
-  }
+  .ecomDashBoard { grid-row: 1; }
+  .note1 { grid-row: 2; }
+  .note2 { grid-row: 3; }
+  .note3 { grid-row: 4; }
+  .note4 { grid-row: 5; }
+  .note5 { grid-row: 6; }
+  .note6 { grid-row: 7; }
 
-  .ecomSheetGrid li:nth-child(2n) {
-    border-right: 0;
-  }
-
-  .ecomSheetGrid li:nth-child(n + 5) {
-    border-bottom: 0;
+  .ecomDashPlate {
+    inset: 10px 8px -8px 12px;
   }
 
   .ecomDayTrack {
@@ -1187,55 +1525,41 @@
     left: 32px;
   }
 
-  .ecomSheet {
-    border-radius: 16px;
-    box-shadow: 6px 6px 0 var(--secondary);
+  .ecomDashHead,
+  .ecomCostBody,
+  .ecomRepeatBody,
+  .ecomNextBody {
+    flex-wrap: wrap;
   }
 
-  .ecomSheetBar {
-    padding: 10px 16px;
-  }
-
-  .ecomSheetBar span:first-child {
-    font-size: 22px;
-  }
-
-  .ecomSheetBar span:last-child {
-    font-size: 12px;
-  }
-
-  .ecomSheetTop,
-  .ecomSheetGrid li {
-    padding: 16px;
-  }
-
-  .ecomSheetGrid {
+  .ecomDashGrid,
+  .ecomMetricPair,
+  .ecomChannelPair {
     grid-template-columns: 1fr;
   }
 
-  .ecomSheetGrid li,
-  .ecomSheetGrid li:nth-child(3n),
-  .ecomSheetGrid li:nth-child(n + 4) {
-    border-right: 0;
-    border-bottom: 1px solid #eadff5;
+  .ecomWidgetOrders,
+  .ecomWidgetCost,
+  .ecomWidgetRepeat,
+  .ecomWidgetChannels,
+  .ecomWidgetChanged,
+  .ecomWidgetNext {
+    grid-column: auto;
   }
 
-  .ecomSheetGrid li:last-child {
-    border-bottom: 0;
+  .ecomDashBrand strong {
+    font-size: 18px;
+  }
+
+  .ecomMetricPair strong,
+  .ecomWidgetCost strong,
+  .ecomRepeatBody strong,
+  .ecomChannelPair strong {
+    font-size: 26px;
   }
 
   .ecomCheckList span {
     font-size: 22px;
-  }
-
-  .ecomSheetBars {
-    height: 36px;
-    gap: 4px;
-    padding-top: 10px;
-  }
-
-  .ecomSheetBars i {
-    border-radius: 3px 3px 0 0;
   }
 
   .ecomBrandGrid article,

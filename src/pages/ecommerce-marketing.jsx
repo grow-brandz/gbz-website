@@ -20,7 +20,6 @@ import ajioLogo from "../assets/img/ajio.png";
 import nykaaLogo from "../assets/img/nykaa.png";
 import jiomartLogo from "../assets/img/jiomart.png";
 import snapdealLogo from "../assets/img/snapdeal.png";
-import ecomReport from "../assets/img/ecom-report.jpg";
 import ecomCall from "../assets/img/ecom-call.jpg";
 import "./ecommerce-marketing.css";
 
@@ -631,38 +630,380 @@ function EcommerceMarketing() {
         </section>
 
         <section className="container ecomReport">
-          <div className="ecomSheet">
-            <div className="ecomSheetBar">
-              <span>GrowBrandz</span>
-              <span>Monthly report</span>
-            </div>
-            <div className="ecomSheetTop">
-              <div>
-                <h2>What your monthly report looks like</h2>
-                <p>
-                  You get one clear report each month, built around six parts.
-                  This is the layout, with your own numbers filled in.
-                </p>
-              </div>
-              <EcomPhoto
-                src={ecomReport}
-                alt="People reviewing a printed monthly report with charts"
-              />
-            </div>
-            <ol className="ecomSheetGrid">
-              {reportParts.map((item) => (
-                <li key={item.title}>
+          <h2>What your monthly report looks like</h2>
+          <p className="ecomIntro">
+            You get one clear report each month, built around six parts. This
+            is the layout, with your own numbers filled in.
+          </p>
+          <div className="ecomDash">
+            {reportParts.map((item, index) => (
+              <article
+                key={item.title}
+                className={`ecomDashNote note${index + 1}`}
+              >
+                <span>{index + 1}</span>
+                <div>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
-                  <div className="ecomSheetBars" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
+                </div>
+              </article>
+            ))}
+            <article className="ecomDashBoard" aria-hidden="true">
+              <div className="ecomDashPlate" />
+              <div className="ecomDashCard">
+                <div className="ecomDashHead">
+                  <div className="ecomDashBrand">
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                      <rect width="32" height="32" rx="10" fill="#6842EF" />
+                      <path
+                        d="M16 7c2 4 6 6 6 11a6 6 0 1 1-12 0c0-5 4-7 6-11z"
+                        fill="#fff"
+                      />
+                    </svg>
+                    <div>
+                      <b>GrowBrandz</b>
+                      <strong>Monthly Performance Report</strong>
+                      <small>September 2025</small>
+                    </div>
                   </div>
-                </li>
-              ))}
-            </ol>
+                  <div className="ecomDashTools">
+                    <span className="ecomDashDownload">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path
+                          d="M8 2v8M5 7l3 3 3-3M3 13h10"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      Download Report
+                    </span>
+                    <span className="ecomDashWhen">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <rect
+                          x="2"
+                          y="3"
+                          width="12"
+                          height="11"
+                          rx="2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.4"
+                        />
+                        <path
+                          d="M2 6.5h12M5 2v2M11 2v2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.4"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      vs. August 2025
+                    </span>
+                  </div>
+                </div>
+
+                <div className="ecomDashGrid">
+                  <section className="ecomWidget ecomWidgetOrders">
+                    <div className="ecomMetricPair">
+                      <div>
+                        <i className="ecomBubble">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M6 7h12l-1 9H7L6 7zM9 7V6a3 3 0 0 1 6 0v1"
+                              fill="none"
+                              stroke="#6842EF"
+                              strokeWidth="1.6"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </i>
+                        <strong>8,450</strong>
+                        <em>Orders</em>
+                        <b className="up">+12%</b>
+                      </div>
+                      <div>
+                        <i className="ecomBubble">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="7"
+                              fill="none"
+                              stroke="#6842EF"
+                              strokeWidth="1.6"
+                            />
+                            <path
+                              d="M12 8v8M9.5 10.5c.6-.8 1.4-1.2 2.5-1.2 1.4 0 2.3.7 2.3 1.8S13.4 13 12 13s-2.3.6-2.3 1.7.9 1.8 2.3 1.8c1.1 0 1.9-.4 2.5-1.1"
+                              fill="none"
+                              stroke="#6842EF"
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </i>
+                        <strong>$248,920</strong>
+                        <em>Revenue</em>
+                        <b className="up">+15%</b>
+                      </div>
+                    </div>
+                    <svg
+                      className="ecomDashLine"
+                      viewBox="0 0 320 72"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M0 50 C40 48 55 36 90 40 C130 45 150 22 190 28 C230 34 260 46 320 18"
+                        fill="none"
+                        stroke="#d9d3ea"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M0 58 C35 52 60 40 95 44 C140 49 155 30 195 36 C235 42 265 24 320 12 V72 H0 Z"
+                        fill="#efeaff"
+                      />
+                      <path
+                        d="M0 58 C35 52 60 40 95 44 C140 49 155 30 195 36 C235 42 265 24 320 12"
+                        fill="none"
+                        stroke="#6842EF"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <p className="ecomLegend">
+                      <span>
+                        <i className="now" /> This month
+                      </span>
+                      <span>
+                        <i className="then" /> Last month
+                      </span>
+                    </p>
+                  </section>
+
+                  <section className="ecomWidget ecomWidgetCost">
+                    <div className="ecomWidgetHead">
+                      <i className="ecomBubble">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="7"
+                            fill="none"
+                            stroke="#6842EF"
+                            strokeWidth="1.6"
+                          />
+                          <path
+                            d="M12 8v8M9.5 10.5c.6-.8 1.4-1.2 2.5-1.2 1.4 0 2.3.7 2.3 1.8S13.4 13 12 13s-2.3.6-2.3 1.7.9 1.8 2.3 1.8c1.1 0 1.9-.4 2.5-1.1"
+                            fill="none"
+                            stroke="#6842EF"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </i>
+                      Cost per order
+                    </div>
+                    <div className="ecomCostBody">
+                      <div>
+                        <strong>$12.50</strong>
+                        <b className="down">-8%</b>
+                        <small>vs. $13.60 last month</small>
+                      </div>
+                      <svg viewBox="0 0 72 72" aria-hidden="true">
+                        <circle
+                          cx="36"
+                          cy="36"
+                          r="26"
+                          fill="none"
+                          stroke="#e7e3f2"
+                          strokeWidth="10"
+                        />
+                        <circle
+                          cx="36"
+                          cy="36"
+                          r="26"
+                          fill="none"
+                          stroke="#6d5efc"
+                          strokeWidth="10"
+                          strokeDasharray="66 163"
+                          strokeLinecap="butt"
+                          transform="rotate(-90 36 36)"
+                        />
+                        <circle
+                          cx="36"
+                          cy="36"
+                          r="26"
+                          fill="none"
+                          stroke="#f5a524"
+                          strokeWidth="10"
+                          strokeDasharray="55 163"
+                          strokeDashoffset="-66"
+                          transform="rotate(-90 36 36)"
+                        />
+                        <circle
+                          cx="36"
+                          cy="36"
+                          r="26"
+                          fill="none"
+                          stroke="#c9c4d8"
+                          strokeWidth="10"
+                          strokeDasharray="42 163"
+                          strokeDashoffset="-121"
+                          transform="rotate(-90 36 36)"
+                        />
+                      </svg>
+                      <ul>
+                        <li>
+                          <i className="meta" /> Meta Ads <b>$5.10</b>
+                        </li>
+                        <li>
+                          <i className="google" /> Google Ads <b>$4.20</b>
+                        </li>
+                        <li>
+                          <i className="other" /> Other <b>$3.20</b>
+                        </li>
+                      </ul>
+                    </div>
+                  </section>
+
+                  <section className="ecomWidget ecomWidgetRepeat">
+                    <div className="ecomWidgetHead">
+                      <i className="ecomBubble">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="9" cy="9" r="2.2" fill="#6842EF" />
+                          <circle cx="15" cy="9" r="2.2" fill="#6842EF" />
+                          <path
+                            d="M5 17c.6-2 2.2-3 4-3s3.4 1 4 3M12 17c.5-1.6 1.7-2.5 3.2-2.5 1.4 0 2.6.8 3.1 2.5"
+                            fill="none"
+                            stroke="#6842EF"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </i>
+                      Repeat buyers
+                    </div>
+                    <div className="ecomRepeatBody">
+                      <div>
+                        <strong>28%</strong>
+                        <em>of total orders</em>
+                        <b className="up">+3%</b>
+                      </div>
+                      <svg viewBox="0 0 92 48" aria-hidden="true">
+                        <circle cx="28" cy="16" r="8" fill="#d9d0ff" />
+                        <circle cx="46" cy="14" r="9" fill="#b7a6ff" />
+                        <circle cx="64" cy="16" r="8" fill="#d9d0ff" />
+                        <path
+                          d="M12 46c2-10 8-14 16-14s14 4 16 14"
+                          fill="#d9d0ff"
+                        />
+                        <path
+                          d="M30 46c2-12 8-16 16-16s14 4 16 16"
+                          fill="#b7a6ff"
+                        />
+                        <path
+                          d="M48 46c2-10 8-14 16-14s14 4 16 14"
+                          fill="#d9d0ff"
+                        />
+                      </svg>
+                    </div>
+                  </section>
+
+                  <section className="ecomWidget ecomWidgetChannels">
+                    <div className="ecomWidgetHead">
+                      <i className="ecomBubble">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path
+                            d="M12 4l1.6 4.2L18 10l-4.4 1.8L12 16l-1.6-4.2L6 10l4.4-1.8L12 4z"
+                            fill="#6842EF"
+                          />
+                        </svg>
+                      </i>
+                      Channel performance
+                    </div>
+                    <div className="ecomChannelPair">
+                      <div>
+                        <b>Meta Ads</b>
+                        <strong>42%</strong>
+                        <em>3,550 orders</em>
+                        <span className="good">Top performer</span>
+                      </div>
+                      <div>
+                        <b>Google Ads</b>
+                        <strong>34%</strong>
+                        <em>2,870 orders</em>
+                        <span className="bad">-5% Needs attention</span>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section className="ecomWidget ecomWidgetChanged">
+                    <div className="ecomWidgetHead">
+                      <i className="ecomBubble">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path
+                            d="M9 4h6M10 4v5L6 16a3 3 0 0 0 2.4 4.8h7.2A3 3 0 0 0 18 16l-4-7V4"
+                            fill="none"
+                            stroke="#6842EF"
+                            strokeWidth="1.6"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </i>
+                      What we changed
+                    </div>
+                    <ul>
+                      <li>
+                        <span>A/B test: New product page design</span>
+                        <em className="run">Running</em>
+                      </li>
+                      <li>
+                        <span>Stopped: Holiday offer banner</span>
+                        <em className="stop">Stopped</em>
+                      </li>
+                      <li>
+                        <span>Reason: Low impact on conversions</span>
+                      </li>
+                    </ul>
+                  </section>
+
+                  <section className="ecomWidget ecomWidgetNext">
+                    <div className="ecomWidgetHead">
+                      <i className="ecomBubble">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path
+                            d="M12 19c-4-3-6-5.4-6-8a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 2.6-2 5-6 8h-2z"
+                            fill="none"
+                            stroke="#6842EF"
+                            strokeWidth="1.6"
+                          />
+                        </svg>
+                      </i>
+                      What&apos;s next
+                    </div>
+                    <div className="ecomNextBody">
+                      <ul>
+                        <li>Scale winning Meta Ads campaign</li>
+                        <li>Improve product page for mobile</li>
+                        <li>Test new email flow for repeat buyers</li>
+                      </ul>
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path
+                          d="M18 46c8-2 14-10 16-20 6 2 12 8 14 16-8 2-16 1-22 0-2 6-6 8-8 4z"
+                          fill="#d9d0ff"
+                        />
+                        <path
+                          d="M32 8l6 14h8L36 32l4 16-8-8-8 8 4-16-10-10h8l6-14z"
+                          fill="#6842EF"
+                        />
+                      </svg>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </article>
           </div>
         </section>
 
