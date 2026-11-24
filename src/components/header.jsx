@@ -16,7 +16,7 @@ export const serviceMenu = [
   {
     label: "ECOMMERCE",
     items: [
-      { label: "Ecommerce Marketing" },
+      { label: "Ecommerce Marketing", to: "/ecommerce-marketing-agency" },
       { label: "Ecommerce Website Development" },
       { label: "Shopify Development" },
     ],

@@ -500,7 +500,7 @@ body:has(.aboutPage) header .menu a.labout {
   color: var(--secondary);
 }
 
-body:has(.servicesPage, .d2cPage) header .menu button.lservices,
+body:has(.servicesPage, .d2cPage, .ecomPage) header .menu button.lservices,
 header .serviceMenu.open button.lservices {
   background: var(--primary);
   color: var(--secondary);
@@ -529,6 +529,7 @@ body:has(.contactPage) header .menu a.lcontact {
 body:has(
     .servicesPage,
     .d2cPage,
+    .ecomPage,
     .processPage,
     .contactPage,
     .extraPage,
@@ -554,7 +555,7 @@ body:has(.processPage) .book {
   background: var(--secondary);
 }
 
-body:has(.contactPage, .servicesPage, .d2cPage) .book {
+body:has(.contactPage, .servicesPage, .d2cPage, .ecomPage) .book {
   color: var(--white);
   background: var(--secondary);
 }
@@ -1288,7 +1289,9 @@ h4.d2c {
 }
 
 .d2cPage .homeFAQ .faqQuestion,
-.d2cPage .homeFAQ .faqQuestion * {
+.d2cPage .homeFAQ .faqQuestion *,
+.ecomPage .homeFAQ .faqQuestion,
+.ecomPage .homeFAQ .faqQuestion * {
   font-family: "Signate", sans-serif;
   font-size: 2.014vw;
 }
@@ -5683,7 +5686,9 @@ button.d2cExploreSoon {
   }
 
   .d2cPage .homeFAQ .faqQuestion,
-  .d2cPage .homeFAQ .faqQuestion * {
+  .d2cPage .homeFAQ .faqQuestion *,
+  .ecomPage .homeFAQ .faqQuestion,
+  .ecomPage .homeFAQ .faqQuestion * {
     font-size: 22px;
   }
 
