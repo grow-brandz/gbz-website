@@ -17,8 +17,8 @@ export const serviceMenu = [
     label: "ECOMMERCE",
     items: [
       { label: "Ecommerce Marketing", to: "/ecommerce-marketing-agency" },
-      { label: "Ecommerce Website Development" },
-      { label: "Shopify Development" },
+      { label: "Ecommerce Website Development", to: "/ecommerce-website-development" },
+      { label: "Shopify Development", to: "/shopify-website-development" },
     ],
   },
   {
@@ -178,8 +178,6 @@ function Header() {
 
       <nav className="menu">
         <Link className="lhome" to="/">Home</Link>
-        <Link className="labout" to="/about">About</Link>
-        <Link className="lprocess" to="/our-process">Our Process</Link>
         <div
           className={`serviceMenu ${servicesOpen ? "open" : ""}`}
           ref={desktopServicesRef}
@@ -198,6 +196,7 @@ function Header() {
             {servicesOpen && <ServiceGroups onNavigate={closeMenus} />}
           </div>
         </div>
+        <Link className="labout" to="/about">About</Link>
         <Link className="lapproach" to="/our-approach">Our Approach</Link>
         <Link className="lblog" to="/blog">Blog</Link>
       </nav>
@@ -218,8 +217,6 @@ function Header() {
             </svg>
             <p className="small">MENU</p>
             <Link onClick={() => setMenuOpen(false)} className="lhome" to="/">Home</Link>
-            <Link onClick={() => setMenuOpen(false)} className="labout" to="/about">About</Link>
-            <Link onClick={() => setMenuOpen(false)} className="lprocess" to="/our-process">Our Process</Link>
             <div
               className={`serviceMenu ${servicesOpen ? "open" : ""}`}
               ref={mobileServicesRef}
@@ -237,6 +234,7 @@ function Header() {
                 <ServiceGroups variant="mobile" onNavigate={closeMenus} />
               )}
             </div>
+            <Link onClick={() => setMenuOpen(false)} className="labout" to="/about">About</Link>
             <Link onClick={() => setMenuOpen(false)} className="lapproach" to="/our-approach">Our Approach</Link>
             <Link onClick={() => setMenuOpen(false)} className="lblog" to="/blog">Blog</Link>
             <Link onClick={() => setMenuOpen(false)} className="lcontact" to="/contact">Contact Us</Link>

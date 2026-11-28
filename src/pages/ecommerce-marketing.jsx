@@ -196,6 +196,7 @@ const services = [
     title: "A store that is easy to buy from",
     text: "Faster pages, clearer product details and a simpler checkout, so the visitors you pay for actually place an order.",
     button: "Explore ecommerce website development",
+    to: "/ecommerce-website-development",
   },
 ];
 

@@ -12,6 +12,8 @@ import D2cPerformance from "./pages/d2c-performance-marketing.jsx";
 import D2cWhatsapp from "./pages/d2c-whatsapp-marketing.jsx";
 import D2cInfluencer from "./pages/d2c-influencer-marketing.jsx";
 import EcommerceMarketing from "./pages/ecommerce-marketing.jsx";
+import EcommerceWebsite from "./pages/ecommerce-website-development.jsx";
+import ShopifyDevelopment from "./pages/shopify-website-development.jsx";
 import Thanks from "./components/thanks.jsx";
 import NotFound from "./components/404.jsx";
 
@@ -38,6 +40,14 @@ function AppRoutes() {
       <Route
         path="/ecommerce-marketing-agency"
         element={<EcommerceMarketing />}
+      />
+      <Route
+        path="/ecommerce-website-development"
+        element={<EcommerceWebsite />}
+      />
+      <Route
+        path="/shopify-website-development"
+        element={<ShopifyDevelopment />}
       />
       <Route path="/contact" element={<Contact />} />
 
